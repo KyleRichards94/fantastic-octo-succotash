@@ -3,7 +3,7 @@
 module.exports = {
     HOST: "localhost",   // default
     USER: "root",   // default
-    PASSWORD: "example",  // your sql password
+    PASSWORD: "yourSQLPassword",  // your sql password
     DB: "testdb",  // Has to match the Schema in mysql
     dialect: "mysql",
     pool: {
