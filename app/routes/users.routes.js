@@ -13,10 +13,10 @@ module.exports = app => {
     router.post("/", Users.create);
   
     // Retrieve all Users
-    router.get("/", Users.findAllOrOne);
+    router.get("/find", Users.findAllOrOne); // works @http://localhost:8090/api/Users/find
 
     // login via Email || Username ++ password
-    router.get("/", Users.login);
+    router.get("/login", Users.login);
   
     // Retrieve a single User with id
     router.get("/:id", Users.findOneByID);
@@ -35,7 +35,7 @@ module.exports = app => {
 
 
   // If you get this heinous error, it means your router functions do not match your controller export functions. Names must match. 
-  
+
  // Error: Route.get() requires a callback function but got a [object Undefined]
  //   at Route.<computed> [as get] (C:\Vue Apps\nodevue\node_modules\express\lib\router\route.js:211:15)
  //   at proto.<computed> [as get] (C:\Vue Apps\nodevue\node_modules\express\lib\router\index.js:521:19)

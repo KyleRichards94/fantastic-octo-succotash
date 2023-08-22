@@ -38,9 +38,9 @@ exports.create = (req, res) => {
 };
 
 
-// User login function
+// User login function  works at http://localhost:8090/api/Users/login
 exports.login = async (req, res) => {
-    const { Username, Email, PasswordHash } = req.query;
+    const { Username, Email, PasswordHash } = req.body;
     
     if (!Username && !Email) {
         return res.status(400).send({
@@ -51,9 +51,9 @@ exports.login = async (req, res) => {
     try {
         let user;
         if (Username) {
-            user = await User.findAllOrOne({ where: { Username } });
+            user = await User.findOne({ where: { Username } });
         } else if (Email) {
-            user = await User.findAllOrOne({ where: { Email } });
+            user = await User.findOne({ where: { Email } });
         }
 
         if (!user) {
@@ -97,8 +97,8 @@ exports.login = async (req, res) => {
 // OR if given a request parameter condition it will find all Like the condition. 
 // Find all users with the user name like.
 exports.findAllOrOne= (req, res) => {
-    const Username = req.query.Username;
-    const Email = req.query.Email;
+    const Username = req.body.Username;
+    const Email = req.body.Email;
     var UsernameCondition = Username? { Username: { [Op.like]: `%${Username}%` } } : null;
     var EmailCondition = Email ? { Email : { [Op.like]: `%${Email}%` } } : null;
 
