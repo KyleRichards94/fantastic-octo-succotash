@@ -2,6 +2,7 @@
 # Build a Node.js project that uses Vue.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+ # node server.js from script
 
 trigger:
 - main
@@ -17,5 +18,5 @@ steps:
 
 - script: |
     npm install express sequelize mysql2 body-parser cors
-    npm run server.js
+   
   displayName: 'npm install and build'
