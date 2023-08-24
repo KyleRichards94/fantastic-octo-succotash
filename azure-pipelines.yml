@@ -17,5 +17,5 @@ steps:
 
 - script: |
     npm install express sequelize mysql2 body-parser cors
-    npm run build
+    npm run main
   displayName: 'npm install and build'
