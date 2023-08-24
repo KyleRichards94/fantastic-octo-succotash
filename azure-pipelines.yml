@@ -16,6 +16,6 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    npm install
+    npm install express sequelize mysql2 body-parser cors
     npm run build
   displayName: 'npm install and build'
