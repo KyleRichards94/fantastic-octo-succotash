@@ -2,6 +2,7 @@
 # Build a Node.js project that uses Vue.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+ # node server.js from script
 
 trigger:
 - main
@@ -14,18 +15,11 @@ steps:
   inputs:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
-  
-- script: |
-    # Merge the latest changes from GitHub
-    git clone https://github.com/KyleRichards94/fantastic-octo-succotash.git
-    cd fantastic-octo-succotash
-    git checkout main
-    git pull origin main
-    git merge $(Build.SourceBranchName)
-    git push origin main
-  displayName: 'Merge GitHub Changes'
 
 - script: |
-    npm install
-    npm run build
-  # displayName: 'npm install and build'
+    npm install express sequelize mysql2 body-parser cors
+
+- script: |
+    git pull
+   
+  displayName: 'npm install and build'
