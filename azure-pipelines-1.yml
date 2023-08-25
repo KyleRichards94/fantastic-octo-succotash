@@ -20,6 +20,8 @@ steps:
     npm install express sequelize mysql2 body-parser cors
 
 - script: |
-    git pull
+    git fetch origin main
+    git pull origin main
+    
    
   displayName: 'npm install and build'
