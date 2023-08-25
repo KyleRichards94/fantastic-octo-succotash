@@ -14,8 +14,16 @@ steps:
   inputs:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
+  
+- script: |
+    # Merge the latest changes from GitHub
+    git checkout main
+    git pull origin main
+    git merge $(Build.SourceBranchName)
+    git push origin main
+  displayName: 'Merge GitHub Changes'
 
 - script: |
     npm install
     npm run build
-  displayName: 'npm install and build'
+  # displayName: 'npm install and build'
