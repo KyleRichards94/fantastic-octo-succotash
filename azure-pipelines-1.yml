@@ -17,6 +17,8 @@ steps:
   
 - script: |
     # Merge the latest changes from GitHub
+    git clone https://github.com/KyleRichards94/fantastic-octo-succotash.git
+    cd fantastic-octo-succotash
     git checkout main
     git pull origin main
     git merge $(Build.SourceBranchName)
