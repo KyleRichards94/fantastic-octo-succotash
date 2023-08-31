@@ -1,6 +1,6 @@
 ﻿# fantastic-octo-succotash
 # Testing AzureDevopsUpdates
-## Another pipeline test1
+## Update azure-pipelines.yml for Azure Pipelines
 ## Testing Ali
 SQL test table
 Schema Name - "testDB"
