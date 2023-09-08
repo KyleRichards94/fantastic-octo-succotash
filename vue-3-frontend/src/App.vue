@@ -1,20 +1,31 @@
+//:p Html Nav bar with 4 plain options
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div id="nav">
+    <router-link to="/">Home</router-link> |
+    <router-link to="/Shop">Shop</router-link> |
+    <router-link to="/CommunityHub">Community Hub</router-link> |
+    <router-link to="/MyAccount">My Account</router-link> |
+    <router-link to="/LogoutCard">Logout</router-link>
+  </div>
+  <router-view/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
   }
 }
+
+
+
 </script>
 
 <style>
+
+
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
