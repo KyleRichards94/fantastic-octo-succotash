@@ -18,17 +18,10 @@ steps:
 
 - script: |
     npm install express sequelize mysql2 body-parser cors
-   
-  displayName: 'npm install and build'  
-- task: CopyFiles@2
-  inputs:
-    targetFolder: '$(Build.ArtifactStagingDirectory)'    
-
-- task: PublishBuildArtifacts@1    
-  displayName: 'Publish Artifact: drop'
-  inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
 
 - script: |
-    ls -R $(Build.ArtifactStagingDirectory)
-  displayName: 'List Contents of Artifact Staging Directory'
+    git fetch origin main
+    git pull origin main
+    
+   
+  displayName: 'npm install and build'
