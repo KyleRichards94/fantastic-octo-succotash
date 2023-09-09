@@ -47,13 +47,7 @@
 
 <style>
 
-    ul{
-        display: grid;
-        background-color: darkgray;
-        border-radius: 10px;
-        padding: 50px;
-        box-shadow: inset;
-    }
+    
 
     img{
         width: 600px;
