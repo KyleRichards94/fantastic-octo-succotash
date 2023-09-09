@@ -5,9 +5,8 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-        <div class="p-3 mb-2 bg-white text-dark">
-
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="wrapper">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 <div class="container-fluid">
 <RouterLink class="navbar-brand" to="/Shop">Home</RouterLink>
 
@@ -15,7 +14,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <span class="navbar-toggler-icon"></span>
 </button>
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
   <li class="nav-item">
     <RouterLink class="nav-link" to="/Shop">Shop</RouterLink>
   </li>
@@ -27,6 +26,9 @@ import { RouterLink, RouterView } from 'vue-router'
   </li>
   <li class="nav-item">
     <RouterLink class="nav-link" to="/LogoutCard">Logout</RouterLink>
+  </li>
+  <li class="nav-item">
+    <RouterLink class="nav-link" to="/ManageProducts">Manage Products</RouterLink>
   </li>
 </ul>
 </div>
