@@ -2,6 +2,9 @@
 
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import 'bootstrap/dist/js/bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
+
 </script>
 
 <template>
@@ -30,11 +33,33 @@ import { RouterLink, RouterView } from 'vue-router'
   <li class="nav-item">
     <RouterLink class="nav-link" to="/ManageProducts">Manage Products</RouterLink>
   </li>
+  <li class="nav-item">
+    <div class="dropdown">
+  <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    (Username Here)
+  </button>
+  <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" href="#">Profile</a></li>
+    <li>
+      <RouterLink class="dropdown-item" to="/favouritePosts">View Favourites</RouterLink>
+    </li>
+    <li>
+      <RouterLink class="dropdown-item" to="/ManageProducts">Manage Products</RouterLink>
+    </li>
+    <li>
+      <RouterLink class="dropdown-item" to="/LogoutCard">Logout</RouterLink>
+    </li>
+  </ul>
+</div>
+  </li>
 </ul>
 </div>
 </div>
 </nav>
 </div>
+
+
+
   <router-view/>
 </template>
 
@@ -51,7 +76,6 @@ export default {
 </script>
 
 <style>
-
 
 
 
