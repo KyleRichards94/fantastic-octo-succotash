@@ -39,15 +39,15 @@ import 'bootstrap/dist/css/bootstrap.css';
     (Username Here)
   </button>
   <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" href="#">A</a></li>
+    <li><a class="dropdown-item" href="#">Profile</a></li>
     <li>
-      <RouterLink class="dropdown-item" to="/favouritePost">View Favourites</RouterLink>
+      <RouterLink class="dropdown-item" to="/favouritePosts">View Favourites</RouterLink>
     </li>
     <li>
       <RouterLink class="dropdown-item" to="/ManageProducts">Manage Products</RouterLink>
     </li>
     <li>
-      <RouterLink class="dropdown-item" to="/Logout">Logout</RouterLink>
+      <RouterLink class="dropdown-item" to="/LogoutCard">Logout</RouterLink>
     </li>
   </ul>
 </div>
