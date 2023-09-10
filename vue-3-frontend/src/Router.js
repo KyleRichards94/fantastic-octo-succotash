@@ -35,29 +35,29 @@ const routes =  [
       {
         path: '/addProduct',
         alias: "/addPropduct",
-        name: "/addProduct",
+        name: "addProduct",
         component: () => import("./components/productManagement/addProduct")
       },
       {
         path: '/editProduct',
         alias: "/editPropduct",
-        name: "/editProduct",
+        name: "editProduct",
         component: () => import("./components/productManagement/editProduct")
       },
       {
         path: '/deleteProduct',
         alias: "/deleteProduct",
-        name: "/deleteProduct",
+        name: "deleteProduct",
         component: () => import("./components/productManagement/deleteProduct")
       }
 
     ]
   },
   {
-    path: "/addProduct",
-    alias: "/addProduct",
-    name: "addProduct",
-    component: () => import("./components/productManagement/addProduct")
+    path: "/favouritePosts",
+    alias: "/favouritePosts",
+    name: "favouritePosts",
+    component: () => import("./components/favouritePostManagement/favouritePostsPage")
   }
 ];
 
