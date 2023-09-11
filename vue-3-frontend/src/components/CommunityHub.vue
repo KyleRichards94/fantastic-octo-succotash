@@ -22,26 +22,30 @@
                 <div class="card-body">
                     <h1>PolyMesh</h1>
                     <p> print your own poly mesh with 10x structural integrity </p>
+                    <hr class="my-4">
                     <a class="btn btn-outline-primary"  href="#" role="button">Download</a>
                 </div>
             </div>
-            <div class="card" style="width: 25rem;">
-                <img class="card-img-top" style = "background-repeat: no-repeat;background-size: 100% auto;background-position: center center;" src ='https://i2.wp.com/northerngeometry.com/wp-content/uploads/2021/04/3D_Print_TREX_SKULL_Mask-1.png?w=1680' alt="Card image cap">
-                <div class="card-body">
-                    <h1>Dino Head</h1>
-                    <p> Become prehistoric </p>
-                    <a class="btn btn-outline-primary"  href="#" role="button">Download</a>
-                </div>
-            </div>
+
             <div class="card" style="width: 25rem;">
                 <img class="card-img-top" style = "background-repeat: no-repeat;background-size: 100% auto;background-position: center center;" src = 'https://th.bing.com/th/id/OIP.94Nm3qVbB3jFEu5F7G2DsAHaFj?pid=ImgDet&rs=1' alt="Card image cap">
                 <div class="card-body">
                     <h1>4th dimensional desk object</h1>
                     <p> Print in PLA white for best results </p>
+                    <hr class="my-4">
                     <a class="btn btn-outline-primary"  href="#" role="button">Download</a>
                 </div>
             </div>
-                    
+            
+            <div class="card" style="width: 25rem;">
+                <img class="card-img-top" style = "background-repeat: no-repeat;background-size: 100% auto;background-position: center center;" src ='https://i2.wp.com/northerngeometry.com/wp-content/uploads/2021/04/3D_Print_TREX_SKULL_Mask-1.png?w=1680' alt="Card image cap">
+                <div class="card-body">
+                    <h1>Dino Head</h1>
+                    <p> Become prehistoric </p>
+                    <hr class="my-4">
+                    <a class="btn btn-outline-primary"  href="#" role="button">Download</a>
+                </div>
+            </div>
                 
         </div> 
         
