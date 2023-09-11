@@ -7,8 +7,8 @@
         <hr class="my-4">
         <div  class="container" >
             <div class="d-flex justify-content-between" >
-                <a class="btn btn-primary btn-lg" style = "padding-left: 45px;padding-right: 45px;" href="#" role="button">Browse</a>
-                <a class="btn btn-primary btn-lg" style = "padding-left: 45px;padding-right: 45px;"   href="#" role="button">Share</a>
+                <RouterLink class="btn btn-primary btn-lg" style = "padding-left: 45px;padding-right: 45px;" to="/browsePosts" role="button">Browse</RouterLink>
+                <RouterLink class="btn btn-primary btn-lg" style = "padding-left: 45px;padding-right: 45px;"   to="/addPost" role="button">Share</RouterLink>
             </div>
         </div>
         

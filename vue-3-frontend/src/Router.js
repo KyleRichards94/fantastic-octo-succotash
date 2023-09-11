@@ -14,6 +14,18 @@ const routes =  [
     component: () => import("./components/CommunityHub")
   },
   {
+    path:"/addPost",
+    alias: "/addPost",
+    name: "addPost",
+    component: () => import("./components/CommunityHubFeatures/addPost")
+  },
+  {
+    path:"/browsePosts",
+    alias: "/browsePosts",
+    name: "browsePosts",
+    component: () => import("./components/CommunityHubFeatures/browsePosts")
+  },
+  {
     path: "/MyAccount",
     alias: "/MyAccount",
     name: "MyAccount",
