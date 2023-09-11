@@ -10,16 +10,6 @@
         background-color:whitesmoke;">
 
             <h1 class="display-3" style = "text-shadow:1px 2px whitesmoke;font-weight:bold;text-align: center;">Welcome to Succotash!</h1>
-            <!-- <p class="lead" style = "text-shadow:1px 1px white ;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Find your favourite 3D printable, or share your own creations!</p> -->
-            <!-- <hr class="my-4">
-            <div  class="container-fluid" style="padding: 10px;">
-                <div class="d-flex justify-content-between" >
-                    <RouterLink class="btn btn-primary btn-lg" style = "padding-left: 45px;padding-right: 45px;" to="/browsePosts" role="button">Browse</RouterLink>
-                    <RouterLink class="btn btn-primary btn-lg" style = "padding-left: 45px;padding-right: 45px;"   to="/addPost" role="button">Share</RouterLink>
-                </div>
-            </div> -->
-        
-        <!-- <hr class="my-4"> -->
         </div>
 
         <!-- <div id="homeCarousel" class="carousel slide" data-ride="carousel" style="height: 200px;">
