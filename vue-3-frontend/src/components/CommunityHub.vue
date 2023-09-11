@@ -51,7 +51,7 @@
         
     </div>
         <div class="row justify-content-md-center" style = "padding-top: 2%;">
-            <div class="card" style = "width: 40%;background-image: url('https://th.bing.com/th/id/OIP.ubjOZJzyIctjBL7AHBk77QHaEK?pid=ImgDet&rs=1');background-repeat: no-repeat;background-size: 100% auto;background-position: center center;">
+            <div class="card" style = "width: 40%;background-image: url('https://e0.pxfuel.com/wallpapers/664/353/desktop-wallpaper-acrylic-light-salmon-pink-watercolor-texture-background-by-pink-background-color-iphone-pastel-pink.jpg');background-repeat: no-repeat;background-size: 100% auto;background-position: center center;">
             <div class="card-body">
                 <h5 class="card-title">Join our community of creators</h5>
                 <p class="card-text"> If you can print it, you can share it! </p>
