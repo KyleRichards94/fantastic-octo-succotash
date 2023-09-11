@@ -3,12 +3,9 @@
 <template>
     <div>
         <h1> this is the lgout page</h1>
+        
+
     </div>
-    <li>
-        <ul>
-            
-        </ul>
-    </li>
     
 </template>
 
