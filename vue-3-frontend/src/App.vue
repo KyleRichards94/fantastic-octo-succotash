@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 <template>
   <!-- Nav bar Items  -->
-  <div class="wrapper">
+  <div class="wrapper" style="background-color: moccasin;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <RouterLink class="navbar-brand" to="/Home">Home</RouterLink>
