@@ -1,0 +1,114 @@
+CREATE DATABASE Succotash3;
+USE Succotash3;
+CREATE TABLE Users (
+    UserID INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(255),
+    Password VARCHAR(255),
+    Email VARCHAR(255),
+	address VARCHAR(255)
+);
+CREATE TABLE Staff (
+    StaffID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT UNIQUE,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    -- Other staff-specific attributes
+);
+CREATE TABLE Enquiries (
+    EnquiryID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT,
+    Subject VARCHAR(255),
+    Message TEXT,
+    Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    -- Additional columns for metadata or specific requirements
+);
+CREATE TABLE CardInfo (
+    CardID INT AUTO_INCREMENT PRIMARY KEY,
+    CardNumber VARCHAR(16),
+    ExpiryDate DATE,
+    UserID INT,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    -- Other card-related columns
+);
+CREATE TABLE Products (
+    ProductID INT AUTO_INCREMENT PRIMARY KEY,
+    ProductName VARCHAR(255),
+    Description TEXT,
+    Price INT -- Storing price in cents (or smallest currency denomination)
+    -- Other product-related columns go here
+);
+CREATE TABLE Cart (
+    CartID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT,
+    ProductID INT,
+    Quantity INT,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+CREATE TABLE Orders (
+    OrderID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT,
+    OrderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    TotalAmount DECIMAL(10, 2),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    -- Other order-related columns go here
+);
+CREATE TABLE OrderItems (
+    OrderItemID INT AUTO_INCREMENT PRIMARY KEY,
+    OrderID INT,
+    ProductID INT,
+    Quantity INT,
+    Price DECIMAL(10, 2),
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+    -- Other item-related columns go here
+);
+CREATE TABLE Posts (
+    PostID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT,
+    Title VARCHAR(255),
+    Description TEXT,
+    ImagePath VARCHAR(255), -- Path to the image file
+    ObjFilePath VARCHAR(255), -- Path to the obj file
+    PostDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+CREATE TABLE Comments (
+    CommentID INT AUTO_INCREMENT PRIMARY KEY,
+    PostID INT,
+    UserID INT,
+    CommentText TEXT,
+    CommentDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (PostID) REFERENCES Posts(PostID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+CREATE TABLE ShippingInfo (
+    ShippingInfoID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT,
+    FullName VARCHAR(255),
+    Address VARCHAR(255),
+    City VARCHAR(255),
+    State VARCHAR(255),
+    PostalCode VARCHAR(10),
+    Country VARCHAR(255),
+    -- Other shipping-related columns go here
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+CREATE TABLE CreditCardInfo (
+    CreditCardID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT,
+    CardNumber VARCHAR(16), -- Last 4 digits may be more appropriate for security
+    ExpiryDate DATE,
+    CardHolderName VARCHAR(255),
+    BillingAddress VARCHAR(255),
+    -- Other credit card-related columns go here
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+CREATE TABLE FavoritePosts (
+    FavoriteID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT,
+    PostID INT,
+    FavoriteDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (PostID) REFERENCES Posts(PostID)
+);
