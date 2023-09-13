@@ -1,4 +1,8 @@
+<script setup>
+import CommentBox from'../Comments/CommentBox.vue'
+</script>
 <template>
+    
 <div class = "container" style = "padding-top: 2%;">
   <div class="jumbotron" style = "border-radius: 6px; padding: 2%;background-image: url('https://preview.redd.it/hlqjaydevle21.jpg?auto=webp&s=cea511099ae06be780d821a423f5c4ce79f78cd7');background-repeat: no-repeat;background-size: 100% auto;background-position: center center;">
           <h1 class="display-3" style = "color: peachpuff ;text-shadow:1px 2px rgb(0, 0, 0);font-weight:bold">Browse</h1>
@@ -27,6 +31,7 @@
                     <p> print your own poly mesh with 10x structural integrity </p>
                     <hr class="my-4">
                     <a class="btn btn-outline-primary"  href="#" role="button">Download</a>
+                    <comment-box @submitComment="handleCommentSubmission"></comment-box>
                 </div>
             </div>
 
@@ -37,6 +42,7 @@
                     <p> Print in PLA white for best results </p>
                     <hr class="my-4">
                     <a class="btn btn-outline-primary"  href="#" role="button">Download</a>
+                    <comment-box @submitComment="handleCommentSubmission"></comment-box>
                 </div>
             </div>
             
@@ -47,6 +53,7 @@
                     <p> Become prehistoric </p>
                     <hr class="my-4">
                     <a class="btn btn-outline-primary"  href="#" role="button">Download</a>
+                    <comment-box @submitComment="handleCommentSubmission"></comment-box>
                 </div>
             </div>
                 
@@ -56,6 +63,8 @@
   </template>
   
   <script>
+     
+
       export default {
           name: 'browsePosts',
       
