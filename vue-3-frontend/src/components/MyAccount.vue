@@ -2,7 +2,7 @@
     <div style = "background-color: rgb(242,246,251); height : 100vh">
        <div class="w-75 m-auto bg-white border ">
             <div class="header h-50 p-3 " style="background-color: #F8F8F9">
-                <h3>Accound details</h3>
+                <h3>My Account details</h3>
             </div>
             
             <form class="mt-4 p-3">
