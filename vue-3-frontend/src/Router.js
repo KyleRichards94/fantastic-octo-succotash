@@ -76,7 +76,13 @@ const routes =  [
     alias: "/favouritePosts",
     name: "favouritePosts",
     component: () => import("./components/favouritePostManagement/favouritePostsPage")
-  }
+  },
+  {
+    path: "/BrowsePostsButStaff",
+    alias: "/BrowsePostsButStaff",
+    name: "BrowsePostsButStaff",
+    component: () => import("./components/BrowsePostsButStaff"),
+  },
 ];
 
 const router = createRouter({
