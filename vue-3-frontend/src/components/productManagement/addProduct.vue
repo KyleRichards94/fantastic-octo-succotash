@@ -15,11 +15,11 @@
   <br>
 
   <div class="form-group">
-  <label for="imageLink">Product Image Link</label>
-  <input type="text" class="form-control" placeholder="Image Link" id="imageLink">
-    </div>
+                            <label for="imageLink">Upload Image</label>
+                            <input type="file" class="form-control" placeholder="Image Link" id="imageLink">
+                        </div>
 
-  <a href ="https://imgur.com/upload">Upload here</a>
+  
   <br>
   <br>
     <div class="form-group">
