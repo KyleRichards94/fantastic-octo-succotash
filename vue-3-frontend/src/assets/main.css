@@ -1,6 +1,24 @@
 @import "bootstrap";
 
+html,
 
+body {
+
+  height: 100%;
+
+  margin: 0;
+
+  padding: 0;
+
+  background-image: url("../assets/Dezert.png"); /* Replace with the path to your image */
+
+  background-size: cover;
+
+  background-repeat: no-repeat;
+
+  background-attachment: fixed;
+
+}
 
 .container {
     border-radius: 2%;
