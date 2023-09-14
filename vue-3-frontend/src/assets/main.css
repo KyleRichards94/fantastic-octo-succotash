@@ -1,21 +1,9 @@
 @import "bootstrap";
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background-image: url("../assets/OrangeGradients.png"); /* Replace with the path to your image */
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
 
-/* main.css */
 
 .container {
     border-radius: 2%;
     box-shadow: 2px 2px 0px 0px smoke;
     /* Add any other existing properties or styles here */
   }
-  

@@ -9,10 +9,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 <template>
   <!-- Nav bar Items  -->
-  <div class="wrapper">
+  <div class="wrapper" style="background-color: moccasin;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <RouterLink class="navbar-brand" to="/Shop">Home</RouterLink>
+        <RouterLink class="navbar-brand" to="/Home">Home</RouterLink>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,8 +59,6 @@ import 'bootstrap/dist/css/bootstrap.css';
       </div>
     </nav>
   </div>
-
-
 
   <router-view />
 </template>
