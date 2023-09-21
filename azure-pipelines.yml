@@ -34,8 +34,7 @@ steps:
   displayName: 'List Contents of Artifact Staging Directory'
 
 - script: |
-    npx vue-cli-service serve
-    npm install eslint
+    npm install -g @vue/cli
     npm install
     cd vue-3-frontend
     npm run serve
