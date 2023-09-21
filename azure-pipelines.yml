@@ -33,7 +33,7 @@ steps:
     ls -R $(Build.ArtifactStagingDirectory)
   displayName: 'List Contents of Artifact Staging Directory'
 
--script: |
+- script: |
     npm install
     cd vue-3-frontend
     npm run serve
