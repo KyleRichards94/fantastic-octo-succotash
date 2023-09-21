@@ -36,6 +36,6 @@ steps:
 - script: |
     npm install -g @vue/cli
     npm install
-    cd vue-3-frontend
-    npm run serve
+    npm run build
   displayName: 'Frontend build and test'
+  workingDirectory: $(Build.SourcesDirectory)/vue-3-frontend
