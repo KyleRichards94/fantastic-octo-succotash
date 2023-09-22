@@ -34,12 +34,10 @@ steps:
   displayName: 'List Contents of Artifact Staging Directory'
 
 - script: |
-
-    curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+    curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
     sudo apt-get install -y nodejs
-    npm install
     npm install -g @vue/cli
-    npm i @vue/cli-service
+    npm install
     npm run build
   displayName: 'Frontend build and test'
   workingDirectory: $(Build.SourcesDirectory)/vue-3-frontend
