@@ -34,8 +34,6 @@ steps:
   displayName: 'List Contents of Artifact Staging Directory'
 
 - script: |
-    curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-    sudo apt-get install -y nodejs
     npm install -g @vue/cli
     npm install
     npm run build
