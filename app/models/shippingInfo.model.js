@@ -6,18 +6,10 @@ const { DataTypes } = require("sequelize");
 
 // which is exported as a json. 
 module.exports = (sequelize, Sequelize) => {
-    const user = sequelize.define('users', { // in '' is the actual table name exactly as it is in sql
-        UserID:{
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true
-        },
-        Username: DataTypes.STRING,
-        Email: DataTypes.STRING,  //, etc , etc. untill the entire backend is linked.
-        PasswordHash: DataTypes.STRING,
-    }, {
+    const shippingInfo = sequelize.define('shippingInfo', { // in '' is the actual table name exactly as it is in sql
+        }, {
         timestamps: false // This prevents Sequalize and the ORM from automatically searching for "created_at" and "updated_at". 
     });
   
-    return user;
+    return shippingInfo;
   };

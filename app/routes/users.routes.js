@@ -1,6 +1,6 @@
 
 module.exports = app => {
-    const Users = require("../controllers/users.controller.js");
+    const users = require("../controllers/users.controller.js");
     // add cart
     //add post
     // add comment
@@ -10,25 +10,25 @@ module.exports = app => {
   
 
     // Create a new User
-    router.post("/", Users.create);
+    router.post("/", users.create);
   
     // Retrieve all Users
-    router.get("/find", Users.findAllOrOne); // works @http://localhost:8090/api/Users/find
+    router.get("/find", users.findAllOrOne); // works @http://localhost:8090/api/Users/find
 
     // login via Email || Username ++ password
-    router.get("/login", Users.login);
+    router.get("/login", users.login);
   
     // Retrieve a single User with id
-    router.get("/:id", Users.findOneByID);
+    router.get("/:id", users.findOneByID);
   
     // Update a User with id
-    router.put("/:id", Users.update);
+    router.put("/:id", users.update);
   
     // Delete a Tutorial with id
-    router.delete("/:id", Users.delete);
+    router.delete("/:id", users.delete);
   
     // Delete all Tutorials
-    router.delete("/", Users.deleteAll);
+    router.delete("/", users.deleteAll);
   
     app.use('/api/Users', router);
   };

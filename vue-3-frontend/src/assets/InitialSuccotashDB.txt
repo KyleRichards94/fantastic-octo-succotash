@@ -1,114 +1,126 @@
-CREATE DATABASE Succotash3;
-USE Succotash3;
-CREATE TABLE Users (
-    UserID INT AUTO_INCREMENT PRIMARY KEY,
-    Username VARCHAR(255),
-    Password VARCHAR(255),
-    Email VARCHAR(255),
-	address VARCHAR(255)
+CREATE DATABASE succotashDB;
+USE succotashDB;
+
+CREATE TABLE `users` (
+  `userId` int NOT NULL AUTO_INCREMENT,
+  `userName` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `isStaff` enum('staff','customer') NOT NULL DEFAULT 'customer',
+  PRIMARY KEY (`UserID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `posts` (
+  `postId` int NOT NULL AUTO_INCREMENT,
+  `userId` int DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text,
+  `imagePath` varchar(255) DEFAULT NULL,
+  `objFilePath` varchar(255) DEFAULT NULL,
+  `postDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`postId`),
+  KEY `UuserId` (`userId`),
+  CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `comments` (
+  `commentId` int NOT NULL AUTO_INCREMENT,
+  `postId` int DEFAULT NULL,
+  `userId` int DEFAULT NULL,
+  `commentText` text,
+  `commentDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`commentId`),
+  KEY `postId` (`postId`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`postId`) REFERENCES `posts` (`postId`),
+  CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `creditCardInfo` (
+  `creditCardId` int NOT NULL AUTO_INCREMENT,
+  `userId` int DEFAULT NULL,
+  `cardNumber` varchar(16) DEFAULT NULL,
+  `expiryDate` date DEFAULT NULL,
+  `cardHolderName` varchar(255) DEFAULT NULL,
+  `billingAddress` varchar(255) DEFAULT NULL,
+  `CVC` int DEFAULT NULL,
+  PRIMARY KEY (`creditCardId`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `creditCardInfo_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `enquiries` (
+  `enquiryId` int NOT NULL AUTO_INCREMENT,
+  `userId` int DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `message` text,
+  `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `reply` text,
+  `unreplied` BOOLEAN,
+  PRIMARY KEY (`enquiryId`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `enquiries_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`)
 );
-CREATE TABLE Staff (
-    StaffID INT AUTO_INCREMENT PRIMARY KEY,
-    UserID INT UNIQUE,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
-    -- Other staff-specific attributes
-);
-CREATE TABLE Enquiries (
-    EnquiryID INT AUTO_INCREMENT PRIMARY KEY,
-    UserID INT,
-    Subject VARCHAR(255),
-    Message TEXT,
-    Timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
-    -- Additional columns for metadata or specific requirements
-);
-CREATE TABLE CardInfo (
-    CardID INT AUTO_INCREMENT PRIMARY KEY,
-    CardNumber VARCHAR(16),
-    ExpiryDate DATE,
-    UserID INT,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
-    -- Other card-related columns
-);
-CREATE TABLE Products (
-    ProductID INT AUTO_INCREMENT PRIMARY KEY,
-    ProductName VARCHAR(255),
-    Description TEXT,
-    Price INT -- Storing price in cents (or smallest currency denomination)
-    -- Other product-related columns go here
-);
-CREATE TABLE Cart (
-    CartID INT AUTO_INCREMENT PRIMARY KEY,
-    UserID INT,
-    ProductID INT,
-    Quantity INT,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID),
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
-);
-CREATE TABLE Orders (
-    OrderID INT AUTO_INCREMENT PRIMARY KEY,
-    UserID INT,
-    OrderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    TotalAmount DECIMAL(10, 2),
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
-    -- Other order-related columns go here
-);
-CREATE TABLE OrderItems (
-    OrderItemID INT AUTO_INCREMENT PRIMARY KEY,
-    OrderID INT,
-    ProductID INT,
-    Quantity INT,
-    Price DECIMAL(10, 2),
-    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
-    -- Other item-related columns go here
-);
-CREATE TABLE Posts (
-    PostID INT AUTO_INCREMENT PRIMARY KEY,
-    UserID INT,
-    Title VARCHAR(255),
-    Description TEXT,
-    ImagePath VARCHAR(255), -- Path to the image file
-    ObjFilePath VARCHAR(255), -- Path to the obj file
-    PostDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
-);
-CREATE TABLE Comments (
-    CommentID INT AUTO_INCREMENT PRIMARY KEY,
-    PostID INT,
-    UserID INT,
-    CommentText TEXT,
-    CommentDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (PostID) REFERENCES Posts(PostID),
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
-);
-CREATE TABLE ShippingInfo (
-    ShippingInfoID INT AUTO_INCREMENT PRIMARY KEY,
-    UserID INT,
-    FullName VARCHAR(255),
-    Address VARCHAR(255),
-    City VARCHAR(255),
-    State VARCHAR(255),
-    PostalCode VARCHAR(10),
-    Country VARCHAR(255),
-    -- Other shipping-related columns go here
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
-);
-CREATE TABLE CreditCardInfo (
-    CreditCardID INT AUTO_INCREMENT PRIMARY KEY,
-    UserID INT,
-    CardNumber VARCHAR(16), -- Last 4 digits may be more appropriate for security
-    ExpiryDate DATE,
-    CardHolderName VARCHAR(255),
-    BillingAddress VARCHAR(255),
-    -- Other credit card-related columns go here
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
-);
-CREATE TABLE FavoritePosts (
-    FavoriteID INT AUTO_INCREMENT PRIMARY KEY,
-    UserID INT,
-    PostID INT,
-    FavoriteDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID),
-    FOREIGN KEY (PostID) REFERENCES Posts(PostID)
-);
+
+
+CREATE TABLE `favoritePosts` (
+  `favoriteId` int NOT NULL AUTO_INCREMENT,
+  `userId` int DEFAULT NULL,
+  `postId` int DEFAULT NULL,
+  `favoriteDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`favoriteId`),
+  KEY `userId` (`userId`),
+  KEY `postId` (`postId`),
+  CONSTRAINT `favoritePosts_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`),
+  CONSTRAINT `favoritePosts_ibfk_2` FOREIGN KEY (`postId`) REFERENCES `posts` (`postId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `products` (
+  `productId` int NOT NULL AUTO_INCREMENT,
+  `productName` varchar(255) DEFAULT NULL,
+  `description` text,
+  `price` double DEFAULT NULL,
+  `imageLocation` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`productId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `orders` (
+  `orderId` int NOT NULL AUTO_INCREMENT,
+  `userId` int DEFAULT NULL,
+  `orderDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `totalAmount` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`orderId`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `orderItems` (
+  `orderItemId` int NOT NULL AUTO_INCREMENT,
+  `orderId` int DEFAULT NULL,
+  `productId` int DEFAULT NULL,
+  `quantity` int DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`orderItemId`),
+  KEY `orderId` (`orderId`),
+  KEY `productId` (`productId`),
+  CONSTRAINT `orderItems_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `orders` (`orderId`),
+  CONSTRAINT `orderItems_ibfk_2` FOREIGN KEY (`productId`) REFERENCES `products` (`productId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `shippingInfo` (
+  `shippingInfoId` int NOT NULL AUTO_INCREMENT,
+  `userId` int DEFAULT NULL,
+  `fullName` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `postalCode` varchar(10) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ShippingInfoId`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `shippingInfo_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+

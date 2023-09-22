@@ -3,7 +3,7 @@
 // This process is to be repeated for all database Tables for a robust backend integration.  
 
 const db = require("../models"); //DB exists in the index.js folder. 
-const User = db.Users;   // The model this controller represents.
+const user = db.users;   // The model this controller represents.
 const Op = db.Sequelize.Op; // sql operators
 
 // Create and Save a new User
@@ -103,7 +103,7 @@ exports.findAllOrOne= (req, res) => {
     var EmailCondition = Email ? { Email : { [Op.like]: `%${Email}%` } } : null;
 
     if(Username){
-        User.findAll({ where: UsernameCondition})
+        user.findAll({ where: UsernameCondition})
         .then(data => {
             res.send(data);
         })
@@ -115,7 +115,7 @@ exports.findAllOrOne= (req, res) => {
         });
 
      } else if (Email){
-        User.findAll({ where: EmailCondition })
+        user.findAll({ where: EmailCondition })
         .then(data => {
             res.send(data);
         })
@@ -127,7 +127,7 @@ exports.findAllOrOne= (req, res) => {
         });
 
      } else {
-        User.findAll()
+        user.findAll()
         .then(data => {
             res.send(data);
         })
@@ -144,7 +144,7 @@ exports.findAllOrOne= (req, res) => {
 exports.findOneByID = (req, res) => {
     const id = req.params.id;
 
-    User.findByPk(id)
+    user.findByPk(id)
       .then(data => {
         if (data) {
           res.send(data);
@@ -168,7 +168,7 @@ exports.findOneByID = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
   
-    User.update(req.body, {
+    user.update(req.body, {
       where: { id: id }
     })
       .then(num => {
@@ -192,7 +192,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
   
-    User.destroy({
+    user.destroy({
       where: { UserID: id }
     })
       .then(num => {
@@ -214,7 +214,7 @@ exports.delete = (req, res) => {
   };
 // Delete all Users from the database. DO NOT CALL THIS AT RUN TIME.
 exports.deleteAll = (req, res) => {
-    User.destroy({
+    user.destroy({
       where: {},
       truncate: false
     })

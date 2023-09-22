@@ -37,7 +37,16 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   db.Sequelize = Sequelize;
   db.sequelize = sequelize;
 
-  //add a dot accessor for each model.
-  db.Users = require("./users.model.js")(sequelize, Sequelize);
+  //add a dot accessor for each model.  Comment out all of the DB accessors except the one you are testing until we have finished them all. 
+  db.users = require("./users.model.js")(sequelize, Sequelize);
+  db.shippingInfo = require("./shippingInfo.model.js")(sequelize, Sequelize);
+  db.products = require("./products.model.js")(sequelize, Sequelize);
+  db.posts = require("./posts.model.js")(sequelize, Sequelize);
+  db.orders = require("./orders.model.js")(sequelize, Sequelize);
+  db.orderItems = require("./orderItems.model.js")(sequelize, Sequelize);
+  db.favoritePosts = require("./favoritePosts.model.js")(sequelize, Sequelize);
+  db.enquiries = require("./enquiries.model.js")(sequelize, Sequelize);
+  db.creditCardInfo = require("./creditCardInfo.model.js")(sequelize, Sequelize);
+  db.comments = require("./comments.model.js")(sequelize, Sequelize);
 
   module.exports = db;
