@@ -1,17 +1,6 @@
-﻿# fantastic-octo-succotash
-# Testing AzureDevopsUpdates
-## Continuing testing
-## Testing Ali
-### Azure integration test
-#### bump test
+Project Succotash - release 1 screen shots.
+![image](https://github.com/KyleRichards94/fantastic-octo-succotash/assets/122703065/f499a136-44b1-48aa-a27f-40986d8ba463)
+![image](https://github.com/KyleRichards94/fantastic-octo-succotash/assets/122703065/47e88fc2-a5e5-4ebf-a10b-7f0c6ede2221)
+![image](https://github.com/KyleRichards94/fantastic-octo-succotash/assets/122703065/07deddb4-fdac-4336-918e-2344854597d5)
 
-### Live run
-SQL test table
-Schema Name - "testDB"
-
-CREATE TABLE users (
-    UserID INT PRIMARY KEY auto_increment,
-    Username VARCHAR(50),
-    Email VARCHAR(100),
-    PasswordHash varchar(100)
-);
+succotash is a 3D printer ecommerce platform for printer manufacturers, and a community hub for the users who buy those printers where they can share their prints with eachother.
