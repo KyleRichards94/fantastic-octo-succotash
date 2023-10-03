@@ -1,6 +1,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('./server'); // Replace with the path to your Express app
+const { devtools } = require('vue');
 const expect = chai.expect;
 
 chai.use(chaiHttp);
@@ -14,12 +15,12 @@ describe('Posts API', () => {
         title: 'Test Post',
         description: 'This is a test post.',
         imagePath: 'test.jpg',
-        objFilePath: 'test.obj',
+        objFilePath: 'test.obj'
       };
 
       chai
         .request(server)
-        .post('http://localhost:8090/api/posts/create')
+        .post('/api/posts/create')
         .send(newPost)
         .end((err, res) => {
           expect(res).to.have.status(200);
@@ -35,7 +36,7 @@ describe('Posts API', () => {
     it('should get all posts', (done) => {
       chai
         .request(server)
-        .get('http://localhost:8090/api/posts/findAll')
+        .get('/api/posts/findAll')
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.an('array');
@@ -51,13 +52,23 @@ describe('Posts API', () => {
 
       chai
         .request(server)
-        .get(`http://localhost:8090/api/posts/${postId}`)
+        .get(`/api/posts/${postId}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.an('object');
-          expect(res.body.postId).to.equal(postId);
+          expect(res.body.id).to.equal(postId);
           done();
         });
+    });
+  });
+
+  describe('Add then Delete', () =>{
+    it('Should delete a post with id 12', (done) => {
+      const postId = 12;
+      chai.request(server).delete(`/api/posts/${postId}`).end((err,res)=> {
+        expect(res).to.have.status(200);
+        done();
+      })
     });
   });
 
