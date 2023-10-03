@@ -3,7 +3,7 @@
 // This process is to be repeated for all database Tables for a robust backend integration.  
 
 const db = require("../models"); //DB exists in the index.js folder. 
-const user = db.users;   // The model this controller represents.
+const users = db.users;   // The model this controller represents.
 const Op = db.Sequelize.Op; // sql operators
 
 // Create and Save a new User
@@ -26,7 +26,7 @@ exports.create = (req, res) => {
 
     //User is defined as a sequalize object and call the create function
     // instead of fidgeting with big sql strings.
-    User.create(user).then(data => {
+    users.create(user).then(data => {
         res.send(data);
     }).catch(err => {
         res.status(500).send({
