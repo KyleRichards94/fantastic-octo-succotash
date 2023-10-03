@@ -5,7 +5,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:8091"
 };
 
 app.use(cors(corsOptions));
@@ -24,22 +24,22 @@ db.sequelize.sync();
 //    console.log("Drop and re-sync db.");
 //  });
 // simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Kylr application!!." });
-});
-
-app.get("/", (req, res) => {
-    res.json({ message: db.Users});
-  });
-
-  require("./app/routes/users.routes.js")(app);
+//app.get("/", (req, res) => {
+//  res.json({ message: "Welcome to Kylr application!!." });
+//});
+//
+//app.get("/", (req, res) => {
+//    res.json({ message: db.posts});
+//  });
+//
+//  require("./app/routes/users.routes.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8090;  // default 8080
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-
+module.exports = app;
 // Remember to teset the functionality of the backend at 
 // https://www.postman.com/
 // input http://localhost:8080/api/-ApiRouteName- 
