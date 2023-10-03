@@ -1,3 +1,7 @@
+endpoint testing with chai 
+npx ChaiEndPointTesting.js
+to run 
+
 Project Succotash - release 1 screen shots.
 ![image](https://github.com/KyleRichards94/fantastic-octo-succotash/assets/122703065/f499a136-44b1-48aa-a27f-40986d8ba463)
 ![image](https://github.com/KyleRichards94/fantastic-octo-succotash/assets/122703065/47e88fc2-a5e5-4ebf-a10b-7f0c6ede2221)
