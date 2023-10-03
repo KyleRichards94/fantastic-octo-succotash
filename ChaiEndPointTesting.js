@@ -58,7 +58,7 @@ describe('Posts API', () => {
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.an('object');
-          expect(res.body.id).to.equal(postId);
+          expect(res.body.postId).to.equal(postId);
           done();
         });
     });
@@ -67,7 +67,7 @@ describe('Posts API', () => {
   //delete one
   describe('Add then Delete', () =>{
     it('Should delete a post with id 12', (done) => {
-      const postId = 12;
+      const postId = 6;
       chai.request(server).delete(`/api/posts/${postId}`).end((err,res)=> {
         expect(res).to.have.status(200);
         done();
