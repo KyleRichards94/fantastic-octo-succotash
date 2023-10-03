@@ -39,7 +39,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const postId = req.params.postId;
   
-    Post.findByPk(postId)
+    posts.findByPk(postId)
       .then((data) => {
         if (!data) {
           res.status(404).send({
@@ -67,7 +67,7 @@ exports.findFiltered = (req, res) => {
       return;
     }
   
-    Post.findAll({
+    posts.findAll({
       where: {
         title: {
           [Op.like]: `%${titlePattern}%`,
@@ -111,7 +111,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const postId = req.params.postId;
   
-    Post.findByPk(postId)
+    posts.findByPk(postId)
       .then((post) => {
         if (!post) {
           res.status(404).send({
