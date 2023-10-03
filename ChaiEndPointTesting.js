@@ -5,6 +5,8 @@ const { devtools } = require('vue');
 const expect = chai.expect;
 
 chai.use(chaiHttp);
+//https://www.browserstack.com/guide/unit-testing-for-nodejs-using-mocha-and-chai
+//begin POst api testing with chai
 // i HAVE added a single user into the database user id 1
 describe('Posts API', () => {
   // Test the POST /api/posts route
@@ -62,6 +64,7 @@ describe('Posts API', () => {
     });
   });
 
+  //delete one
   describe('Add then Delete', () =>{
     it('Should delete a post with id 12', (done) => {
       const postId = 12;
@@ -75,3 +78,4 @@ describe('Posts API', () => {
   // Add similar tests for the remaining routes (PUT and DELETE) here...
 
 });
+//end post testing
