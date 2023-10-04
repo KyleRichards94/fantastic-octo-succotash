@@ -8,4 +8,19 @@ module.exports = app => {
     var router = require("express").Router();
     
     // impliment your CRUD
+    router.post("/create", orderItems.create);
+
+    router.get("/findAll", orderItems.findAll);
+
+    router.get("/find/:orderId", orderItems.findByOrderId);
+
+    router.get("/findOne/:orderItemId", orderItems.findOne);
+
+    router.put("/:orderItemId", orderItems.update);
+
+    router.delete("/:orderItemId", orderItems.delete);
+
+    router.delete("/orderDestroy/:orderId", orderItems.destroyCart);
+
+    app.use('/api/orderItems', router);
   };
