@@ -12,12 +12,24 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true
         },
-        Username: DataTypes.STRING,
-        Password: DataTypes.STRING,
-        Email: DataTypes.STRING,
-        address: DataTypes.STRING  //, etc , etc. untill the entire backend is linked.
-        
+        Username:{
+            type: DataTypes.STRING(255),
+            defaultValue: null
+        },
+        Password:{
+            type: DataTypes.STRING(255),
+            defaultValue: null
+        },
+        Email:{
+            type: DataTypes.STRING(255),
+            defaultValue: null
+        },
+        address:{
+            type: DataTypes.STRING(255),
+            defaultValue: null
+        }  //, etc , etc. untill the entire backend is linked.
     }, {
+        tableName: 'users',
         timestamps: false // This prevents Sequalize and the ORM from automatically searching for "created_at" and "updated_at". 
     });
   

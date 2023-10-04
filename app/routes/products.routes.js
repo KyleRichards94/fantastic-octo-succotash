@@ -7,6 +7,7 @@ module.exports = app => {
   
     var router = require("express").Router();
     
-    router.post("/addProduct", products.addProduct)
+    router.post("/addProduct", products.create)
     // impliment your CRUD
+    app.use('/api/products', router);
   };
