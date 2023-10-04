@@ -13,8 +13,10 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true
         },
         Username: DataTypes.STRING,
-        Email: DataTypes.STRING,  //, etc , etc. untill the entire backend is linked.
-        PasswordHash: DataTypes.STRING,
+        Password: DataTypes.STRING,
+        Email: DataTypes.STRING,
+        address: DataTypes.STRING  //, etc , etc. untill the entire backend is linked.
+        
     }, {
         timestamps: false // This prevents Sequalize and the ORM from automatically searching for "created_at" and "updated_at". 
     });
