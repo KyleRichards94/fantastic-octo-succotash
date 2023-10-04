@@ -7,7 +7,7 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize, Sequelize) => {
     const posts = sequelize.define('posts', { // in '' is the actual table name exactly as it is in sql
         postId:{
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },

@@ -79,3 +79,37 @@ describe('Posts API', () => {
 
 });
 //end post testing
+
+//Begin Order api testingdescribe('Posts API', () => {
+  describe('Posts API', () => {
+    describe('POST /api/orders/create', () => {
+      it('create a new order', (done) => {
+        const newOrder = {
+          userId: 3,
+          totalAmount: 3.50
+        };
+
+        chai
+          .request(server)
+          .post('/api/orders/create')
+          .send(newOrder)
+          .end((err, res) => {
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.an('object');
+            expect(res.body.userId).to.equal(newOrder.userId);
+            expect(res.body.totalAmount).to.equal(newOrder.totalAmount);
+            done();
+          });
+      });
+    });
+
+    describe('GET /api/orders/findAll', () => {
+      it('should retrieve all orders', (done) => {
+        chai.request(server).get('/api/orders/findAll').end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an('array');
+          done();
+        }); 
+      });
+    });
+  });
