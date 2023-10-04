@@ -12,9 +12,9 @@ module.exports = app => {
 
     router.get("/findAll", orderItems.findAll);
 
-    router.get("/order/:orderId", orderItems.findByOrderId);
+    router.get("/find/:orderId", orderItems.findByOrderId);
 
-    router.get("/:orderItemId", orderItems.findOne);
+    router.get("/findOne/:orderItemId", orderItems.findOne);
 
     router.put("/:orderItemId", orderItems.update);
 

@@ -150,3 +150,97 @@ describe('Posts API', () => {
 
   });
 //end orders testing
+//begin order item testing
+describe('OrderItems API', () => {
+  describe('POST /api/orderItems/create', () => {
+    it('create a new order item', (done) => {
+      const newOrderItem = {
+        orderId: 1,
+        productId: null,
+        quantity: 3,
+        price: 10.99,
+      };
+
+      chai
+        .request(server)
+        .post('/api/orderItems/create')
+        .send(newOrderItem)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an('object');
+          expect(res.body.orderId).to.equal(newOrderItem.orderId);
+          expect(res.body.productId).to.equal(newOrderItem.productId);
+          expect(res.body.quantity).to.equal(newOrderItem.quantity);
+          expect(res.body.price).to.equal(newOrderItem.price);
+          done();
+        });
+    });
+  });
+
+  describe('GET /api/orderItems/findAll', () => {
+    it('should retrieve all order items', (done) => {
+      chai.request(server).get('/api/orderItems/findAll').end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('array');
+        done();
+      });
+    });
+  });
+  
+  
+  describe('GET /api/orderItems/find/orderitemId', () => {
+    it('should retrieve all order items with the same orderid', (done) => {
+      const orderId = 1;
+      chai.request(server).get(`/api/orderItems/find/${orderId}`).end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('array');
+        done();
+      });
+    });
+  });
+
+
+  describe('GET /api/orderItems/findOne/:orderItemId', () => {
+    it('should return one exact order item', (done) => {
+      const orderItemId = 1; // Replace with a valid orderItemId from your database
+      chai
+        .request(server)
+        .get(`/api/orderItems/findOne/${orderItemId}`)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.orderItemId).to.equal(orderItemId);
+          done();
+        });
+    });
+  });
+
+  describe('PUT /api/orderItems/:orderItemId', () => {
+    it('should update the order item quantity', (done) => {
+      const orderItemId = 1; // Replace with a valid orderItemId from your database
+      const newQuantity = {
+        quantity: 10,
+      };
+      chai
+        .request(server)
+        .put(`/api/orderItems/${orderItemId}`)
+        .send(newQuantity)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+  });
+
+  describe('DELETE /api/orderItems/:orderItemId', () => {
+    it('should delete an order item', (done) => {
+      const orderItemId = 3; // Replace with a valid orderItemId from your database
+      chai
+        .request(server)
+        .delete(`/api/orderItems/${orderItemId}`)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+  });
+});
