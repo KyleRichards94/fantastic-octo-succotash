@@ -79,3 +79,74 @@ describe('Posts API', () => {
 
 });
 //end post testing
+
+//Begin Order api testingdescribe('Posts API', () => {
+  describe('Posts API', () => {
+    describe('POST /api/orders/create', () => {
+      it('create a new order', (done) => {
+        const newOrder = {
+          userId: 3,
+          totalAmount: 3.50
+        };
+
+        chai
+          .request(server)
+          .post('/api/orders/create')
+          .send(newOrder)
+          .end((err, res) => {
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.an('object');
+            expect(res.body.userId).to.equal(newOrder.userId);
+            expect(res.body.totalAmount).to.equal(newOrder.totalAmount);
+            done();
+          });
+      });
+    });
+
+    describe('GET /api/orders/findAll', () => {
+      it('should retrieve all orders', (done) => {
+        chai.request(server).get('/api/orders/findAll').end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an('array');
+          done();
+        }); 
+      });
+    });
+
+    describe('Get /api/orders/findOne', () => {
+      it('should return 1 exact order', (done) => {
+        const orderId = 1;
+        chai.request(server).get(`/api/orders/find/${orderId}`).end((err,res) => {
+            expect(res).to.have.status(200);
+            expect(res.body.orderId).to.equal(orderId);
+            done();
+        });
+      });
+    });
+
+    describe('PUT /api/orders/:orderId', () => {
+      it('Should update the order price', (done) => {
+        const orderId = 1;
+        const newTotal = {
+          totalAmount : Math.random(),
+        };
+        chai.request(server).put(`/api/orders/${orderId}`).send(newTotal).end((err,res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+      });
+    });
+
+      //delete one
+    describe('Add then Delete', () =>{
+      it('Should delete an order', (done) => {
+        const orderId = 10; 
+        chai.request(server).delete(`/api/orders/${orderId}`).end((err,res)=> {
+          expect(res).to.have.status(200);
+          done();
+        });
+      });
+    });
+
+  });
+//end orders testing
