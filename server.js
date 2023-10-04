@@ -36,6 +36,7 @@ app.get("/", (req, res) => {
 
 require("./app/routes/posts.routes.js")(app);
 require("./app/routes/orders.routes.js")(app);
+require("./app/routes/orderItems.routes.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8090;  // default 8080
