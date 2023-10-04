@@ -5,10 +5,11 @@ const { DataTypes } = require("sequelize");
 
 // which is exported as a json. 
 module.exports = (sequelize, Sequelize) => {
-    const creditCardInfo = sequelize.define('creditCardInfo', { // in '' is the actual table name exactly as it is in sql
+    const creditCardInfo = sequelize.define('creditcardinfo', { // in '' is the actual table name exactly as it is in sql
         }, {
+        tableName: 'creditcardinfo',
         timestamps: false // This prevents Sequalize and the ORM from automatically searching for "created_at" and "updated_at". 
     });
-  
+    
     return creditCardInfo;
   };
