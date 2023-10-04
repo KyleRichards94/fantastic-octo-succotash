@@ -112,4 +112,41 @@ describe('Posts API', () => {
         }); 
       });
     });
+
+    describe('Get /api/orders/findOne', () => {
+      it('should return 1 exact order', (done) => {
+        const orderId = 1;
+        chai.request(server).get(`/api/orders/find/${orderId}`).end((err,res) => {
+            expect(res).to.have.status(200);
+            expect(res.body.orderId).to.equal(orderId);
+            done();
+        });
+      });
+    });
+
+    describe('PUT /api/orders/:orderId', () => {
+      it('Should update the order price', (done) => {
+        const orderId = 1;
+        const newTotal = {
+          totalAmount : Math.random(),
+        };
+        chai.request(server).put(`/api/orders/${orderId}`).send(newTotal).end((err,res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+      });
+    });
+
+      //delete one
+    describe('Add then Delete', () =>{
+      it('Should delete an order', (done) => {
+        const orderId = 10; 
+        chai.request(server).delete(`/api/orders/${orderId}`).end((err,res)=> {
+          expect(res).to.have.status(200);
+          done();
+        });
+      });
+    });
+
   });
+//end orders testing
