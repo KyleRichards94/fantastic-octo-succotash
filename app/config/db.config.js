@@ -6,7 +6,7 @@ module.exports = {
     HOST: "%",   // default
     USER: "asduser",   // default
     PASSWORD: "Asdproject3d",  // your sql password
-    DB: "succotash",  // Has to match the Schema in mysql
+    DB: "succotashdb",  // Has to match the Schema in mysql
     dialect: "mysql",
     pool: {
       max: 5,
