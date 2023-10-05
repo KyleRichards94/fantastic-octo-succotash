@@ -18,10 +18,11 @@ exports.create = (req, res) => {
     //}
     ////if validation was define a new user. 
     const user = {
-        //UserID: should Auto Incriment. Hopefully. 
+        UserID: req.body.UserID,
         Username: req.body.Username,
+        Password: req.body.Password,
         Email: req.body.Email,
-        PasswordHash: req.body.PasswordHash 
+        address: req.body.address
     }; 
 
     //User is defined as a sequalize object and call the create function
