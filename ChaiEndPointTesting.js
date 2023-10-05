@@ -5,6 +5,8 @@ const { devtools } = require('vue');
 const expect = chai.expect;
 
 chai.use(chaiHttp);
+
+const Iteration = 6; // Replace with the current iteration of your database
 //https://www.browserstack.com/guide/unit-testing-for-nodejs-using-mocha-and-chai
 //begin POst api testing with chai
 // i HAVE added a single user into the database user id 1
@@ -13,6 +15,7 @@ describe('Posts API', () => {
   describe('POST /api/posts/create', () => {
     it('should create a new post', (done) => {
       const newPost = {
+        postId: Iteration,
         userId: 3,
         title: 'Test Post',
         description: 'This is a test post.',
@@ -50,7 +53,7 @@ describe('Posts API', () => {
   // Test the GET /api/posts/:postId route
   describe('GET /api/posts/:postId', () => {
     it('should get a single post by postId', (done) => {
-      const postId = 1; // Replace with an existing postId in your database
+      const postId = Iteration; // Replace with an existing postId in your database
 
       chai
         .request(server)
@@ -66,8 +69,8 @@ describe('Posts API', () => {
 
   //delete one
   describe('Add then Delete', () =>{
-    it('Should delete a post with id 12', (done) => {
-      const postId = 6;
+    it('Should delete a post with id 1', (done) => {
+      const postId = Iteration;
       chai.request(server).delete(`/api/posts/${postId}`).end((err,res)=> {
         expect(res).to.have.status(200);
         done();
@@ -80,11 +83,14 @@ describe('Posts API', () => {
 });
 //end post testing
 
+
+
 //Begin Order api testingdescribe('Posts API', () => {
   describe('Posts API', () => {
     describe('POST /api/orders/create', () => {
       it('create a new order', (done) => {
         const newOrder = {
+          orderId: Iteration,
           userId: 3,
           totalAmount: 3.50
         };
@@ -115,7 +121,7 @@ describe('Posts API', () => {
 
     describe('Get /api/orders/findOne', () => {
       it('should return 1 exact order', (done) => {
-        const orderId = 1;
+        const orderId = Iteration;
         chai.request(server).get(`/api/orders/find/${orderId}`).end((err,res) => {
             expect(res).to.have.status(200);
             expect(res.body.orderId).to.equal(orderId);
@@ -126,7 +132,7 @@ describe('Posts API', () => {
 
     describe('PUT /api/orders/:orderId', () => {
       it('Should update the order price', (done) => {
-        const orderId = 1;
+        const orderId = Iteration;
         const newTotal = {
           totalAmount : Math.random(),
         };
@@ -137,25 +143,16 @@ describe('Posts API', () => {
       });
     });
 
-      //delete one
-    describe('Add then Delete', () =>{
-      it('Should delete an order', (done) => {
-        const orderId = 10; 
-        chai.request(server).delete(`/api/orders/${orderId}`).end((err,res)=> {
-          expect(res).to.have.status(200);
-          done();
-        });
-      });
-    });
+
 
   });
-//end orders testing
-//begin order item testing
+
+  //begin order item testing
 describe('OrderItems API', () => {
   describe('POST /api/orderItems/create', () => {
     it('create a new order item', (done) => {
       const newOrderItem = {
-        orderId: 1,
+        orderId: Iteration,
         productId: null,
         quantity: 3,
         price: 10.99,
@@ -190,7 +187,7 @@ describe('OrderItems API', () => {
   
   describe('GET /api/orderItems/find/orderitemId', () => {
     it('should retrieve all order items with the same orderid', (done) => {
-      const orderId = 1;
+      const orderId = Iteration;
       chai.request(server).get(`/api/orderItems/find/${orderId}`).end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an('array');
@@ -202,7 +199,7 @@ describe('OrderItems API', () => {
 
   describe('GET /api/orderItems/findOne/:orderItemId', () => {
     it('should return one exact order item', (done) => {
-      const orderItemId = 1; // Replace with a valid orderItemId from your database
+      const orderItemId = Iteration; // Replace with a valid orderItemId from your database
       chai
         .request(server)
         .get(`/api/orderItems/findOne/${orderItemId}`)
@@ -216,7 +213,7 @@ describe('OrderItems API', () => {
 
   describe('PUT /api/orderItems/:orderItemId', () => {
     it('should update the order item quantity', (done) => {
-      const orderItemId = 1; // Replace with a valid orderItemId from your database
+      const orderItemId = Iteration; // Replace with a valid orderItemId from your database
       const newQuantity = {
         quantity: 10,
       };
@@ -233,7 +230,7 @@ describe('OrderItems API', () => {
 
   describe('DELETE /api/orderItems/:orderItemId', () => {
     it('should delete an order item', (done) => {
-      const orderItemId = 3; // Replace with a valid orderItemId from your database
+      const orderItemId = Iteration; // Replace with a valid orderItemId from your database
       chai
         .request(server)
         .delete(`/api/orderItems/${orderItemId}`)
@@ -243,4 +240,16 @@ describe('OrderItems API', () => {
         });
     });
   });
+
+        //delete one
+        describe('Add then Delete the order ID = 1', () =>{
+          it('Should delete an order', (done) => {
+            const orderId = Iteration; 
+            chai.request(server).delete(`/api/orders/${orderId}`).end((err,res)=> {
+              expect(res).to.have.status(200);
+              done();
+            });
+          });
+        });
 });
+//end orders testing
