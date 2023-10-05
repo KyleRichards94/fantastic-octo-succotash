@@ -3,7 +3,7 @@
 // These values need to match your SQL database
 
 module.exports = {
-    HOST: "%",   // default
+    HOST: "localhost",   // default
     USER: "asduser",   // default
     PASSWORD: "Asdproject3d",  // your sql password
     DB: "succotashdb",  // Has to match the Schema in mysql
