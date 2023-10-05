@@ -6,40 +6,54 @@
   </div>  
 </div>
 
+
+
 <div>
-    <form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Product Title</label>
-    <input type="text" class="form-control" id="productTitle" placeholder="Enter Product Title">
+    <h1>Add Product</h1>
+    <form @submit.prevent="addProduct">
+      <label for="productName">Product Name:</label>
+      <input type="text" id="productName" v-model="productData.ProductName" required>
+      
+      <label for="description">Description:</label>
+      <input type="text" id="description" v-model="productData.Description" required>
+      
+      <label for="price">Price:</label>
+      <input type="number" id="price" v-model="productData.Price" required>
+      
+      <button type="submit">Add Product</button>
+    </form>
   </div>
-  <br>
-
-  <div class="form-group">
-                            <label for="imageLink">Upload Image</label>
-                            <input type="file" class="form-control" placeholder="Image Link" id="imageLink">
-                        </div>
-
-  
-  <br>
-  <br>
-    <div class="form-group">
-        <label for="productDescription">Product Description</label>
-        <textarea class="form-control" aria-label="With textarea" id="productDescription"></textarea>
-    </div>
-  <br>
-  <button type="submit" class="btn btn-dark">Create</button>
-</form>
-</div>
-
-<div>
-    
-</div>
 
 </template>
 
 <script>
+import axios from 'axios'; // Import Axios for making HTTP requests
+
 export default {
-    name: 'addProduct'
+    name: 'addProduct',
+    data() {
+    return {
+      productData: {
+        ProductName: '',
+        Description: '',
+        Price: 0,
+      },
+    };
+  },
+  methods: {
+    addProduct() {
+      // Send a POST request to your API endpoint with the productData
+      axios.post('http://localhost:8090/api/products/addProduct', this.productData)
+        .then(response => {
+          // Handle success - you can show a success message or redirect here
+          console.log('Product added successfully:', response.data);
+        })
+        .catch(error => {
+          // Handle error - you can display an error message here
+          console.error('Error adding product:', error);
+        });
+    },
+  },
 }
 </script>
 
