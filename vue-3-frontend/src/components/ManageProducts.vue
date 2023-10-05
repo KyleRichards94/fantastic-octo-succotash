@@ -12,7 +12,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <main>
 <br>
 <div class="container">
-  <div class="jumbotron">
+  <div class="jumbotron text-white">
     <h1>Product Management Console</h1>      
   </div>  
   <hr/>
