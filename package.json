@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha --reporter mocha-junit-reporter --reporter-options mochaFile=test-results.xml && echo 'Tests completed.'",
-    "serve": "node server.js"
+    "serve": "node server.js",
+    "start": "npm run test && npm run server"
   },
   "author": "kylr",
   "license": "ISC",
