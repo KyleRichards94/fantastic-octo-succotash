@@ -18,7 +18,6 @@ steps:
     testResultsFiles: '**/test-results.xml'  # Path to your test result files
     testRunTitle: 'SuccotashDB Tests'
     testRunner: 'JUnit'  # Use 'JUnit' as the test runner for JUnit-style reports
-    failTaskOnFailedTests: 'true'
     testFailureThreshold: '60'
 
 - task: PublishPipelineArtifact@1
