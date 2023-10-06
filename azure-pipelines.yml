@@ -10,6 +10,9 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+
+steps:
+
 - task: PublishTestResults@2
   inputs:
     testResultsFiles: '**/test-results.xml'  # Path to your test result files
@@ -27,7 +30,7 @@ pool:
     echo "Displaying Test Results:"
     cat $(Build.ArtifactStagingDirectory)/*
 
-steps:
+
 - task: NodeTool@0
   inputs:
     versionSpec: '20.x'
