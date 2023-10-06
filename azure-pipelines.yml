@@ -21,11 +21,6 @@ steps:
     testFailureThreshold: '60'
     targetPath: '$(System.DefaultWorkingDirectory)/test-results' 
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(System.DefaultWorkingDirectory)/test-results'  # Update this path to match your test results location
-    artifactName: 'TestResults'
-
 - task: NodeTool@0
   inputs:
     versionSpec: '20.x'
