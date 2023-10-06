@@ -10,6 +10,23 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: '**/test-results.xml'  # Path to your test result files
+    testRunTitle: 'SuccotashDB Tests'
+    testRunner: 'JUnit',  # Use 'JUnit' as the test runner for JUnit-style reports
+    failTaskOnFailedTests: 'true',
+
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(System.DefaultWorkingDirectory)'
+    artifactName: 'TestResults'
+
+- script: |
+    echo "Displaying Test Results:"
+    cat $(Build.ArtifactStagingDirectory)
+
 steps:
 - task: NodeTool@0
   inputs:
@@ -40,17 +57,3 @@ steps:
   displayName: 'Frontend build and test'
   workingDirectory: $(Build.SourcesDirectory)/vue-3-frontend
 
-- task: PublishTestResults@2
-  inputs:
-    testResultsFiles: '**/test-results.xml'  # Path to your test result files
-    testRunTitle: 'SuccotashDB Tests'
-    testRunner: 'JUnit'  # Use 'JUnit' as the test runner for JUnit-style reports
-
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(System.DefaultWorkingDirectory)/test-results'
-    artifactName: 'TestResults'
-
-- script: |
-    echo "Displaying Test Results:"
-    cat $(Build.ArtifactStagingDirectory)/TestResults/*

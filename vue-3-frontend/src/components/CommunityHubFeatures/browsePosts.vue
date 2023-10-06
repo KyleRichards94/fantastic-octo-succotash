@@ -96,8 +96,7 @@ import CommentBox from'../Comments/CommentBox.vue'
         };
             const postData = ref([]);
             const searchQuery = ref('');
-
-            // Fetch all posts when the component is mounted
+            
             axios.get('http://localhost:8090/api/posts/findAll').then((response) => {
             postData.value = response.data;
             });

@@ -6,7 +6,7 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-const Iteration = 6; // Replace with the current iteration of your database
+const Iteration = 10; // Replace with the current iteration of your database
 //https://www.browserstack.com/guide/unit-testing-for-nodejs-using-mocha-and-chai
 //begin POst api testing with chai
 // i HAVE added a single user into the database user id 1
