@@ -4,7 +4,7 @@
   "description": "testing node vue and mysql",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --reporter mocha-junit-reporter --reporter-options mochaFile=test-results.xml && echo 'Tests completed.'",
     "serve": "node server.js"
   },
   "author": "kylr",
@@ -22,6 +22,7 @@
     "chai": "^4.3.10",
     "chai-http": "^4.4.0",
     "mocha": "^10.2.0",
+    "mocha-junit-reporter": "^2.2.1",
     "supertest": "^6.3.3"
   }
 }

@@ -39,3 +39,9 @@ steps:
     npm run build
   displayName: 'Frontend build and test'
   workingDirectory: $(Build.SourcesDirectory)/vue-3-frontend
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: '**/test-results.xml'  # Path to your test result files
+    testRunTitle: 'Mocha Tests'
+    testRunner: 'JUnit'  # Use 'JUnit' as the test runner for JUnit-style reports
