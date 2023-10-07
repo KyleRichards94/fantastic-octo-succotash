@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-  <div class="jumbotron">
+  <div class="jumbotron text-white">
     <h3>Edit Product</h3>      
     <p>Edit details or delete product</p>
   </div>  

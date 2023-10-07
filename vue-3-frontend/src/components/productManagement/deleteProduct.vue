@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-  <div class="jumbotron">
+  <div class="jumbotron text-white">
     <h3>Delete Product</h3>      
     <p>Enter Product ID</p>
   </div>  
@@ -9,8 +9,8 @@
 <div>
     <form>
   <div class="form-group">
-    <label for="productID">Product ID</label>
-    <input type="text" class="form-control" id="productID"  placeholder="Enter Product ID">
+    <label for="productID">Product Name</label>
+    <input type="text" class="form-control" id="productID"  placeholder="Enter a product name">
   </div>
   <br>
   <button type="submit" class="btn btn-danger">Delete</button>
