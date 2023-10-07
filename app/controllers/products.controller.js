@@ -34,5 +34,32 @@ exports.create = (req, res) => {
                 err.message || "Something horrendous happened when adding a product."
         });
     });
-  
 };
+//delete a product based on its name
+exports.delete = (req, res) => {
+    //we set a variable to store the ProductID passed from the front end
+    const inputtedProductID = req.params.ProductID;
+  
+    products.destroy({
+        //where the ProductID column's row contains the inputtedProductID
+      where: { ProductID: inputtedProductID }
+    })
+    //it's going to return the number of rows deleted or affected so that's
+    //what the ".then" code deals with.
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "The product was deleted successfully!"
+          });
+        } else {
+          res.send({
+            message: `Cannot delete the product "${inputtedProductID}". The product name does not exist`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: err.message || "Could not delete product with name: " + inputtedProductID
+        });
+      });
+  };
