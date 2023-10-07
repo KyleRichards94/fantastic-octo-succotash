@@ -63,3 +63,44 @@ exports.delete = (req, res) => {
         });
       });
   };
+
+  // products.controller.js
+// ...
+
+// Update a product by ProductID
+exports.update = (req, res) => {
+    const productID = req.params.ProductID;
+  
+    // Define the updated product data based on the request body
+    const updatedProduct = {
+      ProductName: req.body.ProductName,
+      Description: req.body.Description,
+      Price: req.body.Price,
+      // Add other fields you want to update
+    };
+  
+    // Use the update method provided by Sequelize
+    products
+      .update(updatedProduct, {
+        where: { ProductID: productID },
+      })
+      .then((num) => {
+        if (num == 1) {
+          res.send({
+            message: "Product was updated successfully!",
+          });
+        } else {
+          res.send({
+            message: `Cannot update the product with ProductID ${productID}. It may not exist.`,
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message ||
+            `Could not update product with ProductID: ${productID}`,
+        });
+      });
+  };
+  

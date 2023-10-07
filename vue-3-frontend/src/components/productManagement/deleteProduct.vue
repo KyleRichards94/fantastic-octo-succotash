@@ -9,8 +9,8 @@
 <div>
     <form @submit.prevent="deleteProductByName">
   <div class="form-group">
-    <label for="productID">Product Name</label>
-    <input type="number" class="form-control" id="productID"  placeholder="Enter a product name" v-model="ProductID">
+    <label for="productID">Product ID:</label>
+    <input type="number" class="form-control" id="productID"  placeholder="Enter product ID" v-model="ProductID">
   </div>
   <br>
   <button type="submit" class="btn btn-danger">Delete</button>

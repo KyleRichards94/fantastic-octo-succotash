@@ -10,6 +10,9 @@ module.exports = app => {
     router.post("/addProduct", products.create)
 //to delete a product using name using the PMC
     router.delete("/deleteProductByName/:ProductID", products.delete);
-    // impliment your CRUD
+    //updates a product using product id
+    router.put("/updateProduct/:ProductID", products.update);
+
+    //the main products api link
     app.use('/api/products', router);
   };
