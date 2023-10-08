@@ -87,7 +87,7 @@ exports.update = (req, res) => {
       .then((num) => {
         if (num == 1) {
           res.send({
-            message: "Product was updated successfully!",
+            message: "Product updated successfully",
           });
         } else {
           res.send({

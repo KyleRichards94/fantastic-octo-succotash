@@ -7,6 +7,10 @@
   </div>
 
   <div>
+    <div class="message-container">
+    <div v-if="successMessage" class="alert alert-success">{{ successMessage }}</div>
+    <div v-if="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+  </div>
     <form @submit.prevent="updateProduct">
       <div class="form-group">
         <label for="productID">Product ID</label>
@@ -15,9 +19,7 @@
       <br>
       <div class="form-group">
         <label for="ProductName">Product Name</label>
-        <input type="text" class="form-control" id="ProductName"
-          placeholder="Enter product Name"
-          v-model="productName">
+        <input type="text" class="form-control" id="ProductName" placeholder="Enter product Name" v-model="productName">
       </div>
       <br>
 
@@ -29,24 +31,21 @@
       <br>
       <div class="form-group">
         <label for="description">Product Description</label>
-        <textarea class="form-control" aria-label="With textarea" id="description"
-        v-model="Description">
+        <textarea class="form-control" aria-label="With textarea" id="description" v-model="Description">
       </textarea>
       </div>
       <br>
       <div class="form-group">
         <label for="price">Price</label>
-        <input type="number" class="form-control" id="price" placeholder="Enter Product Name" v-model="Price"
-          required>
+        <input type="number" class="form-control" id="price" placeholder="Enter Product Name" v-model="Price">
       </div>
       <br>
       <button type="submit" class="btn btn-dark">Submit Changes</button>
     </form>
   </div>
+<br>
+  
 
-  <div>
-
-  </div>
 </template>
 
 <script>
@@ -59,7 +58,9 @@ export default {
       productID: '',
       productName: '',
       Description: '',
-      Price:'',
+      Price: '',
+      successMessage: '', // Initialize successMessage
+      errorMessage: '',   // Initialize errorMessage
       // Add data properties for Description, Price, and other properties
     };
   },
@@ -74,10 +75,28 @@ export default {
           // Include other fields to update
         })
         .then((response) => {
-          // Handle success - you can show a success message or redirect here
+        if (response.data.message === 'Product updated successfully') {
+          // Handle success when the message indicates success
+          this.successMessage = 'Product updated successfully';
+          this.errorMessage = ''; // Clear any previous error message
+          // Clear the form fields
+          this.productID = '';
+          this.productName = '';
+          this.Description = '';
+          this.Price = '';
+          // You can also redirect here if needed
           console.log('Product updated successfully:', response.data);
-        })
+        } else {
+          // Handle the case where the response does not indicate success
+          this.successMessage = '';
+          this.errorMessage = 'Product not found'; // Set an error message
+          console.error('Product not found:', response.data);
+        }
+      })
         .catch((error) => {
+          // Handle error
+          this.errorMessage = 'Error updating product: ' + error.message;
+          this.successMessage = ''; // Clear any previous success message
           // Handle error - you can display an error message here
           console.error('Error updating product:', error);
         });
@@ -87,6 +106,10 @@ export default {
 </script>
 
 <style>
+.message-container {
+  width: 500px; /* Adjust the width as needed */
+  margin: 0 auto; /* Center the messages horizontally */
+}
 form {
   width: 500px;
   margin: 0 auto;
@@ -111,4 +134,5 @@ span {
 
 button {
   float: middle;
-}</style>
+}
+</style>
