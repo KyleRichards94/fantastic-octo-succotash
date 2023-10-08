@@ -3,103 +3,63 @@
 </script>
 
 <template>
-  <div>
-    <header>
-      <!-- Header content -->
-    </header>
-    <main>
-      <br />
+<div class = "container" style = "padding-top: 2%;">
+  
+  <div class="container">
+    <div class="jumbotron text-white">
+      <h3 class="text-white">Favourite Posts</h3>
+      <p>Here you can view all your saved posts in one place!
+      </p>
+    </div>
+  </div>
 
-      <body class="favouritePostsPage">
-        <div class="container">
-          <div class="jumbotron">
-            <h1 style="color: black">Favourite Posts</h1>
-          </div>
-          <hr />
-
+  <div class="container" style="padding-top: 2%;">
+    <div class="row">
+      <!-- Loop through postData and create a card for each post -->
+      <div v-for="post in postData" :key="post.postId" class="col-md-4">
+        <div class="card" style="margin-bottom: 20px;">
           
-            <div class="d-flex justify-content-between" style="padding-top: 2%">
-              <div class="card" style="width: 18rem">
-                <img
-                  class="card-img-top"
-                  style="
-                    background-repeat: no-repeat;
-                    background-size: 100% auto;
-                    background-position: center center;
-                  "
-                  src="https://www.sciencesandtechnology.com/wp-content/uploads/2019/07/3d-printed-lattice-850x600.jpg"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <h1>PolyMesh</h1>
-                  <p>print your own poly mesh with 10x structural integrity</p>
-                  <hr class="my-4" />
-                  <a class="btn btn-outline-primary" href="#" role="button"
-                    >Download</a
-                  >
-                </div>
-              </div>
-
-              <div class="card" style="width: 18rem">
-                <img
-                  class="card-img-top"
-                  style="
-                    background-repeat: no-repeat;
-                    background-size: 100% auto;
-                    background-position: center center;
-                  "
-                  src="https://th.bing.com/th/id/OIP.94Nm3qVbB3jFEu5F7G2DsAHaFj?pid=ImgDet&rs=1"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <h1>4th dimensional desk object</h1>
-                  <p>Print in PLA white for best results</p>
-                  <hr class="my-4" />
-                  <a class="btn btn-outline-primary" href="#" role="button"
-                    >Download</a
-                  >
-                </div>
-              </div>
-
-              <div class="card" style="width: 18rem">
-                <img
-                  class="card-img-top"
-                  style="
-                    background-repeat: no-repeat;
-                    background-size: 100% auto;
-                    background-position: center center;
-                  "
-                  src="https://i2.wp.com/northerngeometry.com/wp-content/uploads/2021/04/3D_Print_TREX_SKULL_Mask-1.png?w=1680"
-                  alt="Card image cap"
-                />
-                <div class="card-body">
-                  <h1>Dino Head</h1>
-                  <p>Become prehistoric</p>
-                  <hr class="my-4" />
-                  <a class="btn btn-outline-primary" href="#" role="button"
-                    >Download</a
-                  >
-                </div>
+          <img class="card-img-top" :src="'http://localhost:8090' + post.imagePath" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.description }}</p>
+            <div class ="d-flex justify-content-between"  >
+            <a href="#" class="btn btn-primary">Download</a>
+              <div class ="favorites-icon">
+                <!-- you can add a V-if, after you axios-get all the users current favourites such that. 
+                if post.id.in(favourites) then <img src = " "../../assets/star-2768.png""> -->
+                <img id = "favourites" src ="../../assets/favourite-2765.png" onclick="addFavourites" >
               </div>
             </div>
-          
-
-          <br />
-          <br />
+            <comment-box @submitComment="handleCommentSubmission"></comment-box>
+          </div>
         </div>
-      </body>
-      <!-- <router-view></router-view>Default router view -->
-    </main>
-    <footer>
-      <!-- Footer content -->
-    </footer>
+      </div>
+    </div>
   </div>
+
+  <!-- New cards system that uses the axios pipeline to get all from the database -->
+  
+
+</div>
 </template>
 
 <script>
+import axios from 'axios';
+import { ref } from 'vue';
+
 export default {
   name: "favouritePosts",
 };
+
+const postData = ref([]);
+
+//using the posts API to get all the data in the posts table
+axios.get('http://localhost:8090/api/posts/findAll').then((response) => {
+  //then saving the response we receive in an array or list
+  postData.value = response.data;
+});
+
 </script>
 
 <style>
