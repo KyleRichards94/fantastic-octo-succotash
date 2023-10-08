@@ -3,23 +3,63 @@ const db = require("../models"); //DB exists in the index.js folder.
 const posts = db.posts;   // The model this controller represents.
 const Op = db.Sequelize.Op; // sql operators
 
-//Create and save a new Post
+const fs = require('fs');
+const path = require('path');
+
 exports.create = (req, res) => {
+
+
     const post = {
         userId: req.body.userId,
         title: req.body.title,
         description: req.body.description,
-        imagePath: req.body.imagePath,
-        objFilePath: req.body.objFilePath
-        //date will be ommited from the request. 
+        imagePath: "",
+        objFilePath: ""
     };
 
-    posts.create(post).then(data => {
-        res.send(data);
-    }).catch(err => {
-        res.status(500).send({
-            message:
-                err.message || "the post could not be created"
+    // Save the files to a specified directory
+    const uploadDir = path.join(__dirname, '../app/FileSystem');
+    const objFilePath = path.join(uploadDir, req.files.objFile.name);
+    const imageFilePath = path.join(uploadDir, req.files.imageFile.name);
+
+    
+  console.log('Request Object:', req);
+  console.log('objFile:', req.files.objFile);
+
+    fs.mkdirSync(uploadDir, { recursive: true });
+
+    req.files.objFile.mv(objFilePath, (err) => {
+        if (err) {
+            return res.status(500).send({
+                message: 'Error uploading .obj file',
+            });
+        }if (req.files.objFile.mimetype !== 'text/plain' || req.files.objFile.size === 0) {
+          return res.status(400).send({
+              message: 'Invalid .obj file format or empty file.',
+          });
+      }
+
+        req.files.imageFile.mv(imageFilePath, (err) => {
+            if (err) {
+                return res.status(500).send({
+                    message: 'Error uploading image file',
+                });
+            }
+
+            
+            post.imagePath = imageFilePath;
+            post.objFilePath = objFilePath;
+
+            // Now you can save post data to the database using Sequelize
+            posts.create(post)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message: err.message || 'The post could not be created',
+                    });
+                });
         });
     });
 };

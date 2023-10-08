@@ -30,38 +30,31 @@
                 </div>
 
                 <div class="col">
-                    <form class="container">
+                    <form>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Object Title</label>
-                            <input type="text" class="form-control" id="productTitle" placeholder="Enter Product Title">
+                            <input type="text" class="form-control" id="productTitle" placeholder="Enter Product Title" @change="onTitle">
                         </div>
                         <br>
 
                         <br>
                         <div class="form-group">
                             <label for="productDescription">Product Description</label>
-                            <textarea class="form-control" aria-label="With textarea" id="productDescription"></textarea>
+                            <textarea class="form-control" aria-label="With textarea" id="productDescription" @change="onDescription"></textarea>
                         </div>
                         <br>
 
 
                         <div class="form-group">
                             <label for="imageLink">Object File (.Obj supported)</label>
-                            <input type="file" class="form-control" placeholder="Image Link" id="imageLink">
+                            <input type="file" class="form-control" placeholder="Image Link" id="objFile" @change="onObjSelected">
                         </div>
 
                         <div class="form-group">
                             <label for="imageLink">Object display image</label>
                             <input type="file" class="form-control"
-                                placeholder="Upload a .jpg .png or .gif of your printable" id="imageLink">
+                                placeholder="Upload a .jpg .png or .gif of your printable" id="imageFile" @change="onImageSelected">
                         </div>
-
-                        <div class="form-group">
-                            <label for="imageLink">Number of Tri's</label>
-                            <input type="number" class="form-control"
-                                placeholder="How many Triangles are in the model (can be left empty)" id="imageLink">
-                        </div>
-
 
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -72,8 +65,9 @@
 
                         <br>
 
-                        <button type="submit" class="btn btn-dark">Create</button>
-                    </form>
+                        <button @click="onUpload" type="submit" class="btn btn-dark">Create</button>
+                   
+                 </form>
             </div>
 
         </div>
@@ -81,8 +75,58 @@
 </div></template>
   
 <script>
+import axios from 'axios';
 export default {
     name: 'addPost',
+
+    data() {
+        return {
+            objFile: null,
+            imageFile: null,
+            productDescription: "",
+            productTitle: ""
+        }
+    },
+
+    methods: {
+        onObjSelected(event) {
+            console.log(event);
+            this.objFile = event.target.files[0];
+        },
+        onImageSelected(event) {
+            console.log(event);
+            this.imageFile = event.target.files[0];
+        },
+        onTitle(event){
+            this.productTitle = event.target.value;
+            console.log(this.productTitle);
+        },
+        onDescription(event){
+            this.productDescription = event.target.value;
+            console.log(this.productDescription);
+        },
+        
+    onUpload() {
+        const formData = new FormData();
+        formData.append('userId', 3); // stick to 3 for now untill the persistant userid data is created
+        formData.append('title', this.productTitle);
+        formData.append('description', this.productDescription);
+        formData.append('objFile', this.objFile);
+        formData.append('imageFile', this.imageFile);
+
+        axios.post('http://localhost:8090/api/posts/create', formData)
+            .then(response => {
+                // Handle success, e.g., show a success message to the user
+                console.log("success?")
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.log("failure");
+                // Handle errors, e.g., show an error message to the user
+                console.error(error);
+            });
+    }
+}
 
 }
 </script>
