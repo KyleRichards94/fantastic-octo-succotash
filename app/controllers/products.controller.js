@@ -49,7 +49,7 @@ exports.delete = (req, res) => {
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "The product was deleted successfully!"
+            message: 'The product was deleted successfully!'
           });
         } else {
           res.send({
