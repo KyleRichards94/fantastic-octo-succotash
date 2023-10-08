@@ -27,11 +27,19 @@ import CommentBox from'../Comments/CommentBox.vue'
       <!-- Loop through postData and create a card for each post -->
       <div v-for="post in postData" :key="post.postId" class="col-md-4">
         <div class="card" style="margin-bottom: 20px;">
+          
           <img class="card-img-top" :src="'http://localhost:8090' + post.imagePath" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">{{ post.title }}</h5>
             <p class="card-text">{{ post.description }}</p>
+            <div class ="d-flex justify-content-between"  >
             <a href="#" class="btn btn-primary">Download</a>
+              <div class ="favorites-icon">
+                <!-- you can add a V-if, after you axios-get all the users current favourites such that. 
+                if post.id.in(favourites) then <img src = " "../../assets/star-2768.png""> -->
+                <img id = "favourites" src ="../../assets/favourite-2765.png" onclick="addFavourites" >
+              </div>
+            </div>
             <comment-box @submitComment="handleCommentSubmission"></comment-box>
           </div>
         </div>
@@ -88,6 +96,7 @@ import CommentBox from'../Comments/CommentBox.vue'
   </template>
   
   <script>
+
         import axios from 'axios';
         import { ref } from 'vue';
 
@@ -100,9 +109,15 @@ import CommentBox from'../Comments/CommentBox.vue'
             axios.get('http://localhost:8090/api/posts/findAll').then((response) => {
             postData.value = response.data;
             });
-    
+
+           
         
 </script>
   <style>
+
+  #favourites:hover {
+    cursor: pointer;
+    background-image: url("../../assets/star-2768.png");
+  }
   
   </style>
