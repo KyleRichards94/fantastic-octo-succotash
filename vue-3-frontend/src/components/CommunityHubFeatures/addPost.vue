@@ -9,6 +9,14 @@
                     to="/CommunityHub" role="button">return</router-link>
             </div>
         </div>
+        
+        <div class= "container">
+            <br>
+        <div class="alert alert-success" v-if="successMessage">
+                    Post created successfully! Redirecting you back to the community hub ...
+                </div>
+            </div>
+
 
         <div class="container" style=" padding-top: 2%;">
 
@@ -29,10 +37,14 @@
                     </div>
                 </div>
 
+
                 <div class="col">
+                    
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Object Title</label>
-                            <input type="text" class="form-control" id="productTitle" placeholder="Enter Product Title" @change="onTitle">
+                            <label for="productTitle">Object Title</label>
+                            <input type="text" class="form-control" id="productTitle" placeholder="Enter Product Title" @change="onTitle"
+                                required>
+                            <div class="invalid-feedback">Please enter a valid title.</div>
                         </div>
                         <br>
 
@@ -40,6 +52,7 @@
                         <div class="form-group">
                             <label for="productDescription">Product Description</label>
                             <textarea class="form-control" aria-label="With textarea" id="productDescription" @change="onDescription"></textarea>
+                            <div class="invalid-feedback">Please enter an accurate description of your printable item.</div>
                         </div>
                         <br>
 
@@ -47,16 +60,18 @@
                         <div class="form-group">
                             <label for="imageLink">Object File (.Obj supported)</label>
                             <input type="file" class="form-control" placeholder="Image Link" id="objFile" @change="onObjSelected">
+                            <div class="invalid-feedback"> Please select a file with a .Obj extention.</div>
                         </div>
 
                         <div class="form-group">
                             <label for="imageLink">Object display image</label>
                             <input type="file" class="form-control"
                                 placeholder="Upload a .jpg .png or .gif of your printable" id="imageFile" @change="onImageSelected">
+                                <div class="invalid-feedback"> Please select an image file, can be PNG JPG or GIF.</div>
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox"  id="flexCheckDefault" v-model="isAgreed">
                             <label class="form-check-label" for="flexCheckDefault">
                                 Do you agree to the end User License Agreements?
                             </label>
@@ -82,7 +97,9 @@ export default {
             objFile: null,
             imageFile: null,
             productDescription: "",
-            productTitle: ""
+            productTitle: "",
+            successMessage: false,
+            successRedirect: "/CommunityHub"
         }
     },
 
@@ -105,6 +122,11 @@ export default {
         },
         
     onUpload() {
+        const isValid = this.validateForm(); // Add a function to validate the form
+        if (!isValid) {
+            return; // Stop form submission if validation fails
+        }
+        if (this.isAgreed) {
         const formData = new FormData();
         formData.append('userId', 3); // stick to 3 for now untill the persistant userid data is created
         formData.append('title', this.productTitle);
@@ -112,17 +134,78 @@ export default {
         formData.append('objFile', this.objFile);
         formData.append('imageFile', this.imageFile);
 
-        axios.post('http://localhost:8090/api/posts/create', formData)
-            .then(response => {
-                // Handle success, e.g., show a success message to the user
-                console.log("success?")
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.log("failure");
-                // Handle errors, e.g., show an error message to the user
-                console.error(error);
-            });
+                axios.post('http://localhost:8090/api/posts/create', formData)
+                    .then(response => {
+                        // Handle success, e.g., show a success message to the user
+                        console.log("success?")
+                        console.log(response.data);
+                        this.successMessage = true;
+
+                        // Navigate to the specified route after a short delay
+                        setTimeout(() => {
+                            this.$router.push(this.successRedirect);
+                        }, 2000); // Adjust the delay as needed
+                    })
+                    .catch(error => {
+                        console.log("failure");
+                        // Handle errors, e.g., show an error message to the user
+                        console.error(error);
+                    });
+            } else {
+                alert("you must agree to the EULA to upload printable objects.");
+            }
+    }, 
+    validateForm() {
+        // Perform form validation here
+        let isValid = true;
+
+        // Example validation: Check if productTitle is empty
+        if (this.productTitle.trim() === "") {
+            isValid = false;
+            // Add the is-invalid class to display the validation error
+            document.getElementById('productTitle').classList.add('is-invalid');
+        } else {
+            // Remove the is-invalid class if the field is valid
+            document.getElementById('productTitle').classList.remove('is-invalid');
+        }
+
+        if (this.productDescription.trim() === "") {
+            isValid = false;
+            document.getElementById('productDescription').classList.add('is-invalid');
+        } else {
+            document.getElementById('productDescription').classList.remove('is-invalid');
+        }
+
+        if (this.objFile === null) {
+            isValid = false;
+            document.getElementById('objFile').classList.add('is-invalid');
+        } else {
+            // Check if the selected file has a .obj extension
+            const objFileName = this.objFile.name.toLowerCase();
+            if (!objFileName.endsWith('.obj')) {
+                isValid = false;
+                document.getElementById('objFile').classList.add('is-invalid');
+            } else {
+                document.getElementById('objFile').classList.remove('is-invalid');
+            }
+        }
+
+        if (this.imageFile === null) {
+            isValid = false;
+            document.getElementById('imageFile').classList.add('is-invalid');
+        } else {
+            const imgFileName = this.imageFile.name.toLowerCase();
+            if (imgFileName.endsWith('.png') || imgFileName.endsWith('.jpg') || imgFileName.endsWith('.gif') ) {
+                document.getElementById('imageFile').classList.remove('is-invalid');
+            } else {
+                isValid = false;
+                document.getElementById('imageFile').classList.add('is-invalid');
+            }
+        }
+
+        // Add more validation for other form fields similarly
+
+        return isValid;
     }
 }
 

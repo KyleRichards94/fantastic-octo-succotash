@@ -24,32 +24,32 @@ exports.create = (req, res) => {
     
         const objFileName = `${uuidv4()}${objFileExt}`;
         const imageFileName = `${uuidv4()}${imageFileExt}`;
-    // Save the files to a specified directory
-    const uploadDir = path.join(__dirname, 'FileSystem');
-    const objFilePath = path.join(uploadDir, objFileName);
-    const imageFilePath = path.join(uploadDir, imageFileName);
-  //console.log('Request Object:', req);
-  //console.log('objFile:', req.files.objFile);
+        // Save the files to a specified directory
+        const uploadDir = path.join(__dirname, 'FileSystem');
+        const objFilePath = path.join(uploadDir, objFileName);
+        const imageFilePath = path.join(uploadDir, imageFileName);
+      //console.log('Request Object:', req);
+      //console.log('objFile:', req.files.objFile);
 
-    fs.mkdirSync(uploadDir, { recursive: true });
-      req.files.objFile.mv(objFilePath);
+      fs.mkdirSync(uploadDir, { recursive: true });
+        req.files.objFile.mv(objFilePath);
 
-      req.files.imageFile.mv(imageFilePath);
-    
-    
-    post.imagePath = '/app/controllers/FileSystem/'+imageFileName;
-    post.objFilePath = '/app/controllers/FileSystem/'+objFileName;
-    // Now you can save post data to the database using Sequelize
-    posts.create(post)
-    .then(data => {
-        res.status(200).send(data); // Send a success response
-    })
-    .catch(err => {
-        console.error(err); // Log the error for debugging
-        res.status(500).send({
-            message: err.message || 'The post could not be created',
-        });
-    });
+        req.files.imageFile.mv(imageFilePath);
+      
+      
+      post.imagePath = '/app/controllers/FileSystem/'+imageFileName;
+      post.objFilePath = '/app/controllers/FileSystem/'+objFileName;
+      // Now you can save post data to the database using Sequelize
+      posts.create(post)
+      .then(data => {
+          res.status(200).send(data); // Send a success response
+      })
+      .catch(err => {
+          console.error(err); // Log the error for debugging
+          res.status(500).send({
+              message: err.message || 'The post could not be created',
+          });
+      });
 };
 
 //return all posts 
