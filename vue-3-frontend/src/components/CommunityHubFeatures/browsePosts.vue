@@ -108,6 +108,10 @@ import CommentBox from'../Comments/CommentBox.vue'
             
             axios.get('http://localhost:8090/api/posts/findAll').then((response) => {
             postData.value = response.data;
+            })
+            .catch((error) => {
+              // Handle the error here, e.g., log it or show an error message to the user
+              console.error('An error occurred:', error);
             });
 
            

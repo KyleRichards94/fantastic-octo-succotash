@@ -40,6 +40,7 @@ app.get("/", (req, res) => {
 
 require("./app/routes/posts.routes.js")(app);
 require("./app/routes/orders.routes.js")(app);
+require("./app/routes/comments.routes.js")(app);
 require("./app/routes/orderItems.routes.js")(app);
 require("./app/routes/users.routes.js")(app);
 require("./app/routes/products.routes.js")(app);
