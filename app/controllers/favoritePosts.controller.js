@@ -25,7 +25,8 @@ exports.create = (req, res) => {
     };
 
     favoritePosts.create(post).then(data => {
-        res.send(data);
+        const messages = "Data received good";
+        res.send({data,messages});
     }).catch(err => {
         res.status(500).send({
             message:
