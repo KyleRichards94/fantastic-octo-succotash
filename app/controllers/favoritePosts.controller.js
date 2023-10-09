@@ -6,7 +6,8 @@ const Op = db.Sequelize.Op; // sql operators
 //return all posts 
 exports.findAll = (req, res) => {
     favoritePosts.findAll().then((data) => {
-        res.send(data);
+        const messages = "Data retreived good";
+        res.send({messages, data});
     }).catch(err => {
         res.status(500).send({
             message:
@@ -19,8 +20,7 @@ exports.findAll = (req, res) => {
 exports.create = (req, res) => {
     const post = {
         userId: req.body.userId,
-        postId: req.body.postId,
-        favouriteDate: req.body.favouriteDate
+        postId: req.body.postId
         //date will be ommited from the request. 
     };
 

@@ -79,7 +79,7 @@ export default {
     // Create the favoritePost object
     const favoritePost = {
       userId: userId,
-      postId: postId,
+      postId: postId
     };
 
     console.log('Request URL:', 'http://localhost:8090/api/favoritePosts/addPosts');
@@ -88,9 +88,10 @@ export default {
     console.log('favorites post ID: ' + favoritePost.postId);
     console.log('Favorites User ID: ' + favoritePost.userId);
     // Make an Axios POST request to add the favorite post
-    axios.get('http://localhost:8090/api/favorites/findAll', favoritePost)
+    axios.post('http://localhost:8090/api/favoritePosts/addPost', favoritePost)
       .then((response) => {
-        console.log('Favorite post added:', response.data);
+        console.log('Favorite post added:', response.data.data);
+        console.log('message is ' + response.data.messages);
         // You can add additional logic here, such as updating the UI to reflect the favorite status.
       })
       .catch((error) => {
