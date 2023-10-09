@@ -20,6 +20,12 @@ const routes =  [
     component: () => import("./components/CommunityHub")
   },
   {
+    path: "/signUp",
+    alias: "/signUp",
+    name: "signUp",
+    component: () => import("./components/signUp")
+  },
+  {
     path:"/addPost",
     alias: "/addPost",
     name: "addPost",

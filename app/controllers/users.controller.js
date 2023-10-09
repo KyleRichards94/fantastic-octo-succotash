@@ -8,20 +8,20 @@ const Op = db.Sequelize.Op; // sql operators
 
 // Create and Save a new User
 exports.create = (req, res) => {
-    //Validation// basic validation call for now. 
-    // req = request, ie the string we will pull from the html form later.
-    //if(!req.body.Username && !req.body.PasswordHash){ // the req body, defines EXACTLY what the json file should be typed as, which should exactly match the database.
-    //    res.status(400).send({
-    //        message: "Name or Password Cannot be empty!"
-    //    });
-    //    return;
-    //}
-    ////if validation was define a new user. 
+//Validation// basic validation call for now. 
+// req = request, ie the string we will pull from the html form later.
+//if(!req.body.Username && !req.body.PasswordHash){ // the req body, defines EXACTLY what the json file should be typed as, which should exactly match the database.
+//    res.status(400).send({
+//        message: "Name or Password Cannot be empty!"
+//    });
+//    return;
+//}
+////if validation was define a new user. 
     const user = {
         UserID: req.body.UserID,
-        Username: req.body.Username,
-        Password: req.body.Password,
-        Email: req.body.Email,
+        userName: req.body.userName,
+        password: req.body.password,
+        email: req.body.email,
         address: req.body.address
     }; 
 
