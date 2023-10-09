@@ -7,6 +7,7 @@
   </template>
   
   <script>
+  import axios from 'axios';
   export default {
     data() {
       return {
@@ -14,15 +15,25 @@
       };
     },
     methods: {
-      submitComment() {
+    async submitComment() {
+      try {
+        const response = await axios.post('http://localhost:8090/api/comment/create', {
+          comment: this.comment,
+        });
 
-        this.$emit('submitComment', this.comment);
-     
+        // Assuming your server responds with a success message
+        console.log('Comment posted successfully', response.data);
+
+        // Reset the comment input field
         this.comment = '';
-      },
+      } catch (error) {
+        // Handle errors (e.g., display an error message to the user)
+        console.error('Error posting comment testtest', error);
+      }
     },
-  };
-  </script>
+  },
+};
+</script>
   
   <style scoped>
   .comment-box {

@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
+const fileUpload = require('express-fileupload'); // Add this line
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/app', express.static(path.join(__dirname, 'app')));
+
+app.use(fileUpload());
 
 //db is now linked to the models folder.
 const db = require("./app/models/index.js");
@@ -40,9 +43,14 @@ app.get("/", (req, res) => {
 
 require("./app/routes/posts.routes.js")(app);
 require("./app/routes/orders.routes.js")(app);
+require("./app/routes/comments.routes.js")(app);
 require("./app/routes/orderItems.routes.js")(app);
 require("./app/routes/users.routes.js")(app);
 require("./app/routes/products.routes.js")(app);
+
+// routes for enquiry
+
+require("./app/routes/enquiries.routes.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8090;  // default 8080

@@ -6,33 +6,41 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-const Iteration = 6; // Replace with the current iteration of your database
+const Iteration = 14; // Replace with the current iteration of your database
 //https://www.browserstack.com/guide/unit-testing-for-nodejs-using-mocha-and-chai
 //begin POst api testing with chai
 // i HAVE added a single user into the database user id 1
 describe('Posts API', () => {
   // Test the POST /api/posts route
+  const fs = require('fs');
+
+  // Test the POST /api/posts route
   describe('POST /api/posts/create', () => {
     it('should create a new post', (done) => {
       const newPost = {
-        postId: Iteration,
         userId: 3,
         title: 'Test Post',
         description: 'This is a test post.',
-        imagePath: 'test.jpg',
-        objFilePath: 'test.obj'
       };
 
-      chai
-        .request(server)
-        .post('/api/posts/create')
-        .send(newPost)
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.an('object');
-          expect(res.body.title).to.equal(newPost.title);
-          done();
-        });
+      // Read the image file and .obj file as buffers
+      const imageFile = fs.readFileSync('./app/controllers/FileSystem/cube.png');
+      const objFile = fs.readFileSync('./app/controllers/FileSystem/cube.obj');
+
+      // Append the files to the request
+      const req = chai.request(server).post('/api/posts/create');
+      req.field('title', newPost.title);
+      req.field('description', newPost.description);
+      req.field('userId', newPost.userId);
+      req.attach('imageFile', imageFile, 'image.jpg');
+      req.attach('objFile', objFile, 'test.obj');
+
+      req.end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.title).to.equal(newPost.title);
+        done();
+      });
     });
   });
 

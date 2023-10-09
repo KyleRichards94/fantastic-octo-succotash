@@ -1,3 +1,6 @@
+<script setup>
+import CommentBox from'./Comments/CommentBox.vue'
+</script>
 <template>
     <div class ="container" style = "padding-top: 2%;">
         
@@ -24,6 +27,7 @@
                     <p> print your own poly mesh with 10x structural integrity </p>
                     <hr class="my-4">
                     <a class="btn btn-outline-primary"  href="#" role="button">Download</a>
+                    <comment-box @submitComment="handleCommentSubmission"></comment-box>
                 </div>
             </div>
 
