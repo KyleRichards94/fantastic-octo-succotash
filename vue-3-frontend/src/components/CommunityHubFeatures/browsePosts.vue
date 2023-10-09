@@ -42,8 +42,9 @@ import CommentBox from '../Comments/CommentBox.vue'
                 <div class="favorites-icon">
                   <!-- you can add a V-if, after you axios-get all the users current favourites such that. 
                 if post.id.in(favourites) then <img src = " "../../assets/star-2768.png""> -->
-                <!--Mohammed has edited the below image tag to call the addToFavorits method for his feature-->
-                  <img id="favourites" src="../../assets/favourite-2765.png" @click="addToFavorites(post.postId, post.userId)">
+                  <!--Mohammed has edited the below image tag to call the addToFavorits method for his feature-->
+                  <img id="favourites" src="../../assets/favourite-2765.png"
+                    @click="addToFavorites(post.postId, post.userId)">
                 </div>
               </div>
               <comment-box @submitComment="handleCommentSubmission"></comment-box>
@@ -65,41 +66,48 @@ export default {
   // ...
   data() {
     return {
-      
+
       // ... other data properties ...
     };
   },
 
   methods: {
-  addToFavorites(postId, userId) {
-    // Log the postId and userId when the favorites icon is clicked
-    console.log('Post Id:', postId);
-    console.log('User ID:', userId);
+    addToFavorites(postId, userId) {
+      // Log the postId and userId when the favorites icon is clicked
+      console.log('Post Id:', postId);
+      console.log('User ID:', userId);
 
-    // Create the favoritePost object
-    const favoritePost = {
-      userId: userId,
-      postId: postId
-    };
+      // Create the favoritePost object
+      const favoritePost = {
+        userId: userId,
+        postId: postId
+      };
 
-    console.log('Request URL:', 'http://localhost:8090/api/favoritePosts/addPosts');
-    console.log('Request Data:', favoritePost);
 
-    console.log('favorites post ID: ' + favoritePost.postId);
-    console.log('Favorites User ID: ' + favoritePost.userId);
-    // Make an Axios POST request to add the favorite post
-    axios.post('http://localhost:8090/api/favoritePosts/addPost', favoritePost)
-      .then((response) => {
-        console.log('Favorite post added:', response.data.data);
-        console.log('message is ' + response.data.messages);
-        // You can add additional logic here, such as updating the UI to reflect the favorite status.
-      })
-      .catch((error) => {
-        console.error('Error adding favorite post:', error);
+      /* printFaveList */
+      axios.post('http://localhost:8090/api/favoritePosts/printFaveList').then((response) => {
+        console.log("Post ID List: " + response.data.FavePostsList)
       });
+
+
+      console.log('Request URL:', 'http://localhost:8090/api/favoritePosts/addPosts');
+      console.log('Request Data:', favoritePost);
+
+      console.log('favorites post ID: ' + favoritePost.postId);
+      console.log('Favorites User ID: ' + favoritePost.userId);
+      // Make an Axios POST request to add the favorite post
+      axios.post('http://localhost:8090/api/favoritePosts/addPost', favoritePost)
+        .then((response) => {
+          console.log('Favorite post added:', response.data.data);
+          console.log('message is ' + response.data.messages);
+          // You can add additional logic here, such as updating the UI to reflect the favorite status.
+        })
+        .catch((error) => {
+          console.error('Error adding favorite post:', error);
+        });
+    },
+    // ... other methods ...
   },
-  // ... other methods ...
-},
 
 };
 

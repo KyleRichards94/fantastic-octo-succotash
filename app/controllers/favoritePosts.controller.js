@@ -34,3 +34,35 @@ exports.create = (req, res) => {
         });
     });
 };
+
+//to 
+exports.retrievePostIdsForUser = (req, res) => {
+    //the user id that we're searching for
+    const userIdToSearch = 3;
+
+    //get only the data where user id is 3
+    favoritePosts.findAll({
+        attributes: ['postId'],
+        where: {
+            userId: userIdToSearch
+        }
+    })
+    .then(data => {
+        // Extract postIds from the retrieved data
+        //iterate through each item and input it's postId
+        const FavePostsList = data.map(item => item.postId);
+
+        // Log each item in the array
+        FavePostsList.forEach(postId => {
+            console.log(postId);
+        });
+
+        // Send the FavePostsList array as a response
+        res.send({ FavePostsList });
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Could not retrieve postIds."
+        });
+    });
+};
