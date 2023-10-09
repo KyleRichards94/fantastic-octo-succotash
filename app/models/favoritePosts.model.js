@@ -26,9 +26,9 @@ module.exports = (sequelize, Sequelize) => {
         timestamps: false
     });
     // Define the foreign keys for the associations with the 'users' and 'posts' tables
-    favoritePosts.associate = (models) => {
+    /* favoritePosts.associate = (models) => {
         favoritePosts.belongsTo(models.users, { foreignKey: 'userId', onDelete: 'CASCADE' });
         favoritePosts.belongsTo(models.posts, { foreignKey: 'postId', onDelete: 'CASCADE' });
-    };
+    }; */
     return favoritePosts;
 };

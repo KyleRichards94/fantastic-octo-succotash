@@ -80,7 +80,6 @@ export default {
     const favoritePost = {
       userId: userId,
       postId: postId,
-      favoriteDate: new Date(), // Set the favoriteDate to the current date
     };
 
     console.log('Request URL:', 'http://localhost:8090/api/favoritePosts/addPosts');
@@ -88,7 +87,6 @@ export default {
 
     console.log('favorites post ID: ' + favoritePost.postId);
     console.log('Favorites User ID: ' + favoritePost.userId);
-    console.log('Fave date is ' + favoritePost.favoriteDate);
     // Make an Axios POST request to add the favorite post
     axios.get('http://localhost:8090/api/favorites/findAll', favoritePost)
       .then((response) => {
