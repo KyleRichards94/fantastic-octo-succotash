@@ -6,9 +6,10 @@ const Op = db.Sequelize.Op; // sql operators
 const fs = require('fs');
 const path = require('path');
 
+const { v4: uuidv4 } = require('uuid'); // Import the uuid package for generating unique IDs
+
+
 exports.create = (req, res) => {
-
-
     const post = {
         userId: req.body.userId,
         title: req.body.title,
@@ -17,55 +18,42 @@ exports.create = (req, res) => {
         objFilePath: ""
     };
 
-    // Save the files to a specified directory
-    const uploadDir = path.join(__dirname, '../app/FileSystem');
-    const objFilePath = path.join(uploadDir, req.files.objFile.name);
-    const imageFilePath = path.join(uploadDir, req.files.imageFile.name);
-
+        // Generate unique filenames for objFile and imageFile
+        const objFileExt = path.extname(req.files.objFile.name); // Get the file extension
+        const imageFileExt = path.extname(req.files.imageFile.name);
     
-  console.log('Request Object:', req);
-  console.log('objFile:', req.files.objFile);
+        const objFileName = `${uuidv4()}${objFileExt}`;
+        const imageFileName = `${uuidv4()}${imageFileExt}`;
+    // Save the files to a specified directory
+    const uploadDir = path.join(__dirname, 'FileSystem');
+    const objFilePath = path.join(uploadDir, objFileName);
+    const imageFilePath = path.join(uploadDir, imageFileName);
+  //console.log('Request Object:', req);
+  //console.log('objFile:', req.files.objFile);
 
     fs.mkdirSync(uploadDir, { recursive: true });
+      req.files.objFile.mv(objFilePath);
 
-    req.files.objFile.mv(objFilePath, (err) => {
-        if (err) {
-            return res.status(500).send({
-                message: 'Error uploading .obj file',
-            });
-        }if (req.files.objFile.mimetype !== 'text/plain' || req.files.objFile.size === 0) {
-          return res.status(400).send({
-              message: 'Invalid .obj file format or empty file.',
-          });
-      }
-
-        req.files.imageFile.mv(imageFilePath, (err) => {
-            if (err) {
-                return res.status(500).send({
-                    message: 'Error uploading image file',
-                });
-            }
-
-            
-            post.imagePath = imageFilePath;
-            post.objFilePath = objFilePath;
-
-            // Now you can save post data to the database using Sequelize
-            posts.create(post)
-                .then(data => {
-                    res.send(data);
-                })
-                .catch(err => {
-                    res.status(500).send({
-                        message: err.message || 'The post could not be created',
-                    });
-                });
+      req.files.imageFile.mv(imageFilePath);
+    
+    
+    post.imagePath = '/app/controllers/FileSystem/'+imageFileName;
+    post.objFilePath = '/app/controllers/FileSystem/'+objFileName;
+    // Now you can save post data to the database using Sequelize
+    posts.create(post)
+    .then(data => {
+        res.status(200).send(data); // Send a success response
+    })
+    .catch(err => {
+        console.error(err); // Log the error for debugging
+        res.status(500).send({
+            message: err.message || 'The post could not be created',
         });
     });
 };
 
 //return all posts 
-exports.findAll = (req, res) => {
+exports.findAll = (req,res) => {
     posts.findAll().then((data) => {
         res.send(data);
     }).catch(err => {

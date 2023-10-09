@@ -30,7 +30,6 @@
                 </div>
 
                 <div class="col">
-                    <form>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Object Title</label>
                             <input type="text" class="form-control" id="productTitle" placeholder="Enter Product Title" @change="onTitle">
@@ -67,7 +66,6 @@
 
                         <button @click="onUpload" type="submit" class="btn btn-dark">Create</button>
                    
-                 </form>
             </div>
 
         </div>
