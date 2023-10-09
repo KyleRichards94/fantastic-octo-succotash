@@ -28,7 +28,8 @@ import CommentBox from'../Comments/CommentBox.vue'
       <div v-for="post in postData" :key="post.postId" class="col-md-4">
         <div class="card" style="margin-bottom: 20px;">
           
-          <img class="card-img-top" :src="'http://localhost:8090' + post.imagePath" alt="Card image cap">
+          <img class="card-img-top" :src="'http://localhost:8090' + post.imagePath" alt="Card image cap" >
+          <router-link :to="{ name: '3DviewPort', params: { objFilePath: post.objFilePath, postId : post.postId} }">View 3D Model</router-link>
           <div class="card-body">
             <h5 class="card-title">{{ post.title }}</h5>
             <p class="card-text">{{ post.description }}</p>
@@ -99,9 +100,10 @@ import CommentBox from'../Comments/CommentBox.vue'
 
         import axios from 'axios';
         import { ref } from 'vue';
-
         export default {
         name: 'browsePosts',
+
+      
         };
             const postData = ref([]);
             const searchQuery = ref('');
@@ -114,7 +116,6 @@ import CommentBox from'../Comments/CommentBox.vue'
               console.error('An error occurred:', error);
             });
 
-           
         
 </script>
   <style>
