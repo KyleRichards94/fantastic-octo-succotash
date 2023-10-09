@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <testsuites name="Mocha Tests" time="2.132" tests="15" failures="6">
   <testsuite name="Root Suite" timestamp="2023-10-09T04:22:29" tests="0" time="0.000" failures="0">
   </testsuite>
@@ -82,8 +83,9 @@
   </testsuite>
   <testsuite name="GET /api/orderItems/findOne/:orderItemId" timestamp="2023-10-09T04:22:29" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="0.003" failures="1">
     <testcase name="OrderItems API GET /api/orderItems/findOne/:orderItemId should return one exact order item" time="0.002" classname="should return one exact order item">
+
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
-    at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:215:31
+    at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:207:31
     at Request.callback (node_modules\superagent\lib\node\index.js:857:12)
     at C:\Users\User\Desktop\fantastic-octo-succotash\node_modules\superagent\lib\node\index.js:1070:18
     at IncomingMessage.<anonymous> (node_modules\superagent\lib\node\parsers\json.js:21:7)
@@ -99,9 +101,10 @@
     </testcase>
   </testsuite>
   <testsuite name="PUT /api/orderItems/:orderItemId" timestamp="2023-10-09T04:22:29" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="0.004" failures="1">
+
     <testcase name="OrderItems API PUT /api/orderItems/:orderItemId should update the order item quantity" time="0.004" classname="should update the order item quantity">
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
-    at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:233:31
+    at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:225:31
     at Request.callback (node_modules\superagent\lib\node\index.js:857:12)
     at C:\Users\User\Desktop\fantastic-octo-succotash\node_modules\superagent\lib\node\index.js:1070:18
     at IncomingMessage.<anonymous> (node_modules\superagent\lib\node\parsers\json.js:21:7)
@@ -118,10 +121,11 @@
   </testsuite>
   <testsuite name="DELETE /api/orderItems/:orderItemId" timestamp="2023-10-09T04:22:29" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="0.004" failures="1">
     <testcase name="OrderItems API DELETE /api/orderItems/:orderItemId should delete an order item" time="0.003" classname="should delete an order item">
+
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
-    at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:246:31
+    at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:238:31
     at Request.callback (node_modules\superagent\lib\node\index.js:857:12)
-    at C:\Users\User\Desktop\fantastic-octo-succotash\node_modules\superagent\lib\node\index.js:1070:18
+    at C:\Users\Mushini\Documents\GitHub\fantastic-octo-succotash\node_modules\superagent\lib\node\index.js:1070:18
     at IncomingMessage.<anonymous> (node_modules\superagent\lib\node\parsers\json.js:21:7)
     at IncomingMessage.emit (node:events:526:35)
     at endReadableNT (node:internal/streams/readable:1359:12)
@@ -136,6 +140,7 @@
   </testsuite>
   <testsuite name="Add then Delete the order ID = 1" timestamp="2023-10-09T04:22:29" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="2.008" failures="1">
     <testcase name="OrderItems API Add then Delete the order ID = 1 Should delete an order" time="2.008" classname="Should delete an order">
+
       <failure message="Timeout of 2000ms exceeded. For async tests and hooks, ensure &quot;done()&quot; is called; if returning a Promise, ensure it resolves. (C:\Users\User\Desktop\fantastic-octo-succotash\test.js)" type="Error"><![CDATA[Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (C:\Users\User\Desktop\fantastic-octo-succotash\test.js)
     at listOnTimeout (node:internal/timers:569:17)
     at process.processTimers (node:internal/timers:512:7)]]></failure>
