@@ -19,6 +19,7 @@
     "mysql2": "^3.6.0",
     "sequelize": "^6.32.1",
     "three": "^0.157.0",
+    "three-orbitcontrols": "^2.110.3",
     "vue-router": "^4.2.4",
     "vue-three": "^0.1.20"
   },

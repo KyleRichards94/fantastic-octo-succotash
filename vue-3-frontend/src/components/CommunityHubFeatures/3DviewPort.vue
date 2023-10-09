@@ -25,88 +25,114 @@
 </template>
   
   <script>
-  import { ref, onMounted } from "vue";
-  import * as THREE from "three";
-  import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-    import axios from "axios";
-    //import CommentBox from'../Comments/CommentBox.vue'
+ import { ref, onMounted, onBeforeUnmount } from "vue";
+import * as THREE from "three";
+import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { DirectionalLight } from "three";
+import axios from "axios";
 
+export default {
+  name: "3DviewPort",
+  props: {
+    objFilePath: String,
+    postId: String,
+  },
+  setup(props) {
+    const post = ref({});
+    const container = ref(null);
+    let scene, camera, renderer, objModel, controls;
 
-  
-  export default {
-    name: "3DviewPort",
+    const init = () => {
+      scene = new THREE.Scene();
+
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
+
+    //renderer
+    renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth/2, window.innerHeight/2);
+    renderer.setClearColor(0x00000, 0.2); // Set the background color to purple
     
-    props: {
-      objFilePath: String, // The path to the .obj file for the selected object
-      postId: String
-
+    //Dom element
+    container.value.appendChild(renderer.domElement)
     
-    },
-    setup(props) {
-        const post = ref({});
+    //Camera
+      controls = new OrbitControls(camera, renderer.domElement);
+      controls.addEventListener("change", render);
 
-        console.log(props.postId);
-    console.log(props.objFilePath);
-      const container = ref(null);
-      let scene, camera, renderer, objModel;
-  
-      const init = () => {
-        scene = new THREE.Scene();
-        // Add a directional light
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight.position.set(1, 1, 1);
-        scene.add(directionalLight);
 
-        // Add ambient light
-        const ambientLight = new THREE.AmbientLight(0x404040);
+      //Lighting
+      const ambientLight = new THREE.AmbientLight(0x404040);
         scene.add(ambientLight);
-  
-        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 5;
-  
-        renderer = new THREE.WebGLRenderer();
-        renderer.setSize(800, 500);
-        container.value.appendChild(renderer.domElement);
-  
-        const loader = new OBJLoader();
-        loader.load('http://localhost:8090'+ props.objFilePath, (object) => {
-          objModel = object;
-          objModel.position.set(0, 0, 0);
-          scene.add(objModel);
-  
-          animate();
-        });
-      };
-  
-      const animate = () => {
-        objModel.rotation.x += 0.01; // Rotate slowly on the X-axis
-        objModel.rotation.y += 0.01; // Rotate slowly on the Y-axis
-  
-        renderer.render(scene, camera);
-        requestAnimationFrame(animate);
-      };
-  
-      onMounted(() => {
-        init();
+      //Lighting
+      const ambientLight1 = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight1);
+      //Lighting
+      const ambientLight2 = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight2);
+
+        const directionalLight = new DirectionalLight(0xffffff, 1);
+  directionalLight.position.set(1, 1, 1); // Set the light's position
+  scene.add(directionalLight);
+
+       
+
+      const loader = new OBJLoader();
+      loader.load("http://localhost:8090" + props.objFilePath, (object) => {
+        objModel = object;
+        objModel.position.set(0, 0, 0);
+        scene.add(objModel);
+
+        animate();
       });
 
-      axios
-        .get("http://localhost:8090/api/posts/" + props.postId)
-        .then((response) => {
-          post.value = response.data;
-          console.log(post.value)
-        })
-        .catch((error) => {
-          console.error("An error occurred:", error);
-        });
+      window.addEventListener("resize", handleWindowResize);
+    };
 
-      return { container, post };
-    },
+    const animate = () => {
+      objModel.rotation.y += 0.001;
 
-  
-        
-  };
+      render();
+      requestAnimationFrame(animate);
+    };
 
+    const render = () => {
+      renderer.render(scene, camera);
+    };
+
+    const handleWindowResize = () => {
+      const width = window.innerWidth/3;
+      const height = window.innerHeight/3;
+
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(width, height);
+      render();
+    };
+
+    onMounted(() => {
+      init();
+    });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener("resize", handleWindowResize);
+    });
+
+    axios
+      .get("http://localhost:8090/api/posts/" + props.postId)
+      .then((response) => {
+        post.value = response.data;
+        console.log(post.value);
+      })
+      .catch((error) => {
+        console.error("An error occurred:", error);
+      });
+
+    return { container, post };
+  },
+};
   
   </script>
   
