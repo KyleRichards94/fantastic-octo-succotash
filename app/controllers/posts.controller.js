@@ -3,29 +3,57 @@ const db = require("../models"); //DB exists in the index.js folder.
 const posts = db.posts;   // The model this controller represents.
 const Op = db.Sequelize.Op; // sql operators
 
-//Create and save a new Post
+const fs = require('fs');
+const path = require('path');
+
+const { v4: uuidv4 } = require('uuid'); // Import the uuid package for generating unique IDs
+
+
 exports.create = (req, res) => {
     const post = {
         userId: req.body.userId,
         title: req.body.title,
         description: req.body.description,
-        imagePath: req.body.imagePath,
-        objFilePath: req.body.objFilePath
-        //date will be ommited from the request. 
+        imagePath: "",
+        objFilePath: ""
     };
 
-    posts.create(post).then(data => {
-        res.send(data);
-    }).catch(err => {
-        res.status(500).send({
-            message:
-                err.message || "the post could not be created"
-        });
-    });
+        // Generate unique filenames for objFile and imageFile
+        const objFileExt = path.extname(req.files.objFile.name); // Get the file extension
+        const imageFileExt = path.extname(req.files.imageFile.name);
+    
+        const objFileName = `${uuidv4()}${objFileExt}`;
+        const imageFileName = `${uuidv4()}${imageFileExt}`;
+        // Save the files to a specified directory
+        const uploadDir = path.join(__dirname, 'FileSystem');
+        const objFilePath = path.join(uploadDir, objFileName);
+        const imageFilePath = path.join(uploadDir, imageFileName);
+      //console.log('Request Object:', req);
+      //console.log('objFile:', req.files.objFile);
+
+      fs.mkdirSync(uploadDir, { recursive: true });
+        req.files.objFile.mv(objFilePath);
+
+        req.files.imageFile.mv(imageFilePath);
+      
+      
+      post.imagePath = '/app/controllers/FileSystem/'+imageFileName;
+      post.objFilePath = '/app/controllers/FileSystem/'+objFileName;
+      // Now you can save post data to the database using Sequelize
+      posts.create(post)
+      .then(data => {
+          res.status(200).send(data); // Send a success response
+      })
+      .catch(err => {
+          console.error(err); // Log the error for debugging
+          res.status(500).send({
+              message: err.message || 'The post could not be created',
+          });
+      });
 };
 
 //return all posts 
-exports.findAll = (req, res) => {
+exports.findAll = (req,res) => {
     posts.findAll().then((data) => {
         res.send(data);
     }).catch(err => {
