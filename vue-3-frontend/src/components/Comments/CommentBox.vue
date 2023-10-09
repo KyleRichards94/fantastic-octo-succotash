@@ -17,7 +17,7 @@
     methods: {
     async submitComment() {
       try {
-        const response = await axios.post('http://localhost:8080/api/comments/createComment', {
+        const response = await axios.post('http://localhost:8090/api/comment/create', {
           comment: this.comment,
         });
 
@@ -28,7 +28,7 @@
         this.comment = '';
       } catch (error) {
         // Handle errors (e.g., display an error message to the user)
-        console.error('Error posting comment', error);
+        console.error('Error posting comment testtest', error);
       }
     },
   },
