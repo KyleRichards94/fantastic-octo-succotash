@@ -17,5 +17,6 @@ module.exports = app => {
   /* retrievePostIdsForUser */
   router.post("/printFaveList", favoritePosts.retrievePostIdsForUser);
   router.get("/findAll", favoritePosts.findAll);
+  router.get("/findAllFavorites", favoritePosts.findAllFavorites);
   app.use('/api/favoritePosts', router);
 };

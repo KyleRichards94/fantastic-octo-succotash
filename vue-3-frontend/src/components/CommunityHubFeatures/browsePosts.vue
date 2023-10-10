@@ -82,24 +82,21 @@ export default {
         userId: userId,
         postId: postId
       };
-
-
       /* printFaveList */
       axios.post('http://localhost:8090/api/favoritePosts/printFaveList').then((response) => {
         console.log("Post ID List: " + response.data.FavePostsList)
       });
-
-
       console.log('Request URL:', 'http://localhost:8090/api/favoritePosts/addPosts');
       console.log('Request Data:', favoritePost);
-
       console.log('favorites post ID: ' + favoritePost.postId);
       console.log('Favorites User ID: ' + favoritePost.userId);
       // Make an Axios POST request to add the favorite post
       axios.post('http://localhost:8090/api/favoritePosts/addPost', favoritePost)
         .then((response) => {
           console.log('Favorite post added:', response.data.data);
-          console.log('message is ' + response.data.messages);
+          console.log('message received: ' + response.data.messages);
+          //reloading the data
+          this.fetchData();
           // You can add additional logic here, such as updating the UI to reflect the favorite status.
         })
         .catch((error) => {
@@ -107,6 +104,16 @@ export default {
         });
     },
     // ... other methods ...
+    fetchData() {
+    // Fetch data again from the server and update the 'postData' ref
+    axios.get('http://localhost:8090/api/posts/findAll')
+      .then((response) => {
+        postData.value = response.data;
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  },
   },
 
 };
