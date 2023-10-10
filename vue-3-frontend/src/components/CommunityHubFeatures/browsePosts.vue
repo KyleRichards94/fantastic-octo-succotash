@@ -26,21 +26,22 @@ import CommentBox from '../Comments/CommentBox.vue'
       </div>
     </form>
 
-    <div class="container" style="padding-top: 2%;">
-      <div class="row">
-        <!-- Loop through postData and create a card for each post -->
-        <div v-for="post in postData" :key="post.postId" class="col-md-4">
-          <div class="card" style="margin-bottom: 20px;">
+  <div class="container" style="padding-top: 2%;">
+    <div class="row">
+      <!-- Loop through postData and create a card for each post -->
+      <div v-for="post in postData" :key="post.postId" class="col-md-4">
+        <div class="card" style="margin-bottom: 20px;">
+          
+          <img class="card-img-top" :src="'http://localhost:8090' + post.imagePath" alt="Card image cap" >
+          <router-link :to="{ name: '3DviewPort', params: { objFilePath: post.objFilePath, postId : post.postId} }">View 3D Model</router-link>
+          <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.description }}</p>
+            <div class ="d-flex justify-content-between"  >
+            <a href="#" class="btn btn-primary">Download</a>
+              <div class ="favorites-icon">
+                <!-- you can add a V-if, after you axios-get all the users current favourites such that. 
 
-            <img class="card-img-top" :src="'http://localhost:8090' + post.imagePath" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">{{ post.title }}</h5>
-              <p>User ID: {{ post.userId }}</p>
-              <p class="card-text">{{ post.description }}</p>
-              <div class="d-flex justify-content-between">
-                <a href="#" class="btn btn-primary">Download</a>
-                <div class="favorites-icon">
-                  <!-- you can add a V-if, after you axios-get all the users current favourites such that. 
                 if post.id.in(favourites) then <img src = " "../../assets/star-2768.png""> -->
                 <!--Mohammed has edited the below image tag to call the addToFavorits method for his feature-->
                   <img id="favourites" src="../../assets/favourite-2765.png" @click="addToFavorites(post.postId, post.userId)">
@@ -75,6 +76,26 @@ export default {
     // Log the postId and userId when the favorites icon is clicked
     console.log('Post Id:', postId);
     console.log('User ID:', userId);
+
+
+        import axios from 'axios';
+        import { ref } from 'vue';
+        export default {
+        name: 'browsePosts',
+
+      
+        };
+            const postData = ref([]);
+            const searchQuery = ref('');
+            
+            axios.get('http://localhost:8090/api/posts/findAll').then((response) => {
+               postData.value = response.data;
+            })
+            .catch((error) => {
+              // Handle the error here, e.g., log it or show an error message to the user
+              console.error('An error occurred:', error);
+            });
+
 
     // Create the favoritePost object
     const favoritePost = {
