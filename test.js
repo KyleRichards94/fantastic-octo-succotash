@@ -22,11 +22,9 @@ describe('Posts API', () => {
         title: 'Test Post',
         description: 'This is a test post.',
       };
-
       // Read the image file and .obj file as buffers
       const imageFile = fs.readFileSync('./app/controllers/FileSystem/cube.png');
       const objFile = fs.readFileSync('./app/controllers/FileSystem/cube.obj');
-
       // Append the files to the request
       const req = chai.request(server).post('/api/posts/create');
       req.field('title', newPost.title);

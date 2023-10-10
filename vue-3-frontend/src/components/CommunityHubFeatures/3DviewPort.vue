@@ -1,10 +1,27 @@
 
 <template>
-    <div  class="container" style="padding-top: 2%;"> 
-
+  <div class = "container" style ="padding: 2%;">
+      <div  class="d-flex " style="padding-top: 2%;"> 
         
-          
-          <div ref="container" class ="d-flex justify-content-between" >
+          <div class = "card" style="width: 35%;">
+            <div class = "card-body">
+              <h5 class ="card-title"> Details </h5>
+              <br>
+              <p class ="card-text">posted by: {{ user.userName }}</p>
+              <br>
+              <p class ="card-text"> On the: {{ formatDate(post.postDate) }}</p>
+              <br>
+              <p class = "card-text">contact: {{ user.email }}</p>  
+              <br>
+              <p>powered by Three.js</p>
+              <a href ="https://threejs.org/" alt ="three.js website"><img class = "card-img-bottom" src = "../../assets/bringing-svgs-threejs-svgloader.webp" ></a>
+            </div> 
+          </div>
+          <div ref="container" class ="d-flex justify-content-between" ></div>
+
+      </div>
+
+
         <div class="card" style="margin-bottom: 60px;">
           <div class="card-body">
             <h5 class="card-title"> {{ post.title }}</h5>
@@ -20,8 +37,8 @@
             <comment-box @submitComment="handleCommentSubmission"></comment-box>
           </div>
         </div>
-    </div>
-    </div>
+
+      </div>
 </template>
   
   <script>
@@ -40,6 +57,7 @@ export default {
   },
   setup(props) {
     const post = ref({});
+    const user = ref ({});
     const container = ref(null);
     let scene, camera, renderer, objModel, controls;
 
@@ -102,8 +120,8 @@ export default {
     };
 
     const handleWindowResize = () => {
-      const width = window.innerWidth/3;
-      const height = window.innerHeight/3;
+      const width = window.innerWidth/2;
+      const height = window.innerHeight/2;
 
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
@@ -130,7 +148,23 @@ export default {
         console.error("An error occurred:", error);
       });
 
-    return { container, post };
+    axios.get("http://localhost:8090/api/users/" + post.value.userId)
+    .then((response) => {
+      user.value = response.value;
+      console.log(user.value);
+    })
+    .catch((error) => {
+      console.error("no user can be found >:(" + user.value + error);
+    })
+
+    const formatDate = (dateString) => {
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      return new Date(dateString).toLocaleDateString(undefined, options);
+    };
+
+
+
+    return { container, post, user, formatDate };
   },
 };
   
