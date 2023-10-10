@@ -14,6 +14,9 @@ const mutations = {
   clearUser(state) {
     state.userId = null;
   },
+  setIsStaff(state,value){
+    state.isStaff = value;
+  }
 };
 
 const actions = {
@@ -21,6 +24,7 @@ const actions = {
   logout({ commit }) {
     commit('setUserId', null);
     commit('setIsLoggedIn', false);
+    commit('setIsStaff', false);
   },
 };
 

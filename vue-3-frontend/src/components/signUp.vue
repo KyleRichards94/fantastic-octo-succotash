@@ -66,6 +66,10 @@ export default {
   methods: {
     signUp() {
       // Send a POST request to your API endpoint with the userData
+      //MAYBE ADD HERE 
+        //const uName = this.userData.userName.trim();
+        //const password = this.userData.password.trim();
+        //etc and then pass these through to avoid having to muck around with incorrect spaces in names and stuff like that, or find another spot to do this somewhere else in the code
       axios.post('http://localhost:8090/api/users/add', this.userData)
         .then(response => {
           // Handle success - you can show a success message or redirect here
@@ -81,6 +85,28 @@ export default {
           // Handle error - you can display an error message here
           console.error('Error adding user:', error);
         });
+
+        // --------------- this is trying to do sign up and login in one go but didnt work -----------------------------------
+                      // axios.post('http://localhost:8090/api/users/login', this.userData)
+                      // .then(response => {
+                      //   // Handle success
+                      //   //console.log('User logged in', response.data);
+                      //   //this.userData.userName = '';
+                      //   //this.userData.password = '';
+                      //   console.log(response.data.userID);
+                      //   this.$store.commit('user/setUserId', response.data.userID); // Use the correct mutation path
+                      //   this.$store.commit('user/setIsLoggedIn', true); // Use the correct mutation path
+                      //   console.log('User ID:', this.$store.getters['user/userId']);
+                      //   console.log('Is Logged In:', this.$store.getters['user/isLoggedIn']);
+                      //   // Rest of your code
+                      //   console.log("no error");
+                      //   window.location.reload();
+                      // })
+                      // .catch(error => {
+                      //   // Handle error
+                      //   console.error('Error adding user:', error);
+                      // });
+          // --------------- this is trying to do sign up and login in one go but didnt work -----------------------------------
     },
   },
 }

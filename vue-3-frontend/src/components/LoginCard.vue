@@ -33,8 +33,6 @@
 
 <script>
 import axios from 'axios'; // Import Axios for making HTTP requests
-//import { useStore } from 'vuex';
-//const store = useStore(); // Access the store within the login method
 
 
 export default {
@@ -50,8 +48,7 @@ export default {
     };
   },
   methods: {
-    login() {
-
+    login() { //maybe try changing this and/or method in the controller to make it not spit an error to console for incorrect login data
       axios.post('http://localhost:8090/api/users/login', this.userData)
         .then(response => {
           // Handle success
@@ -65,11 +62,14 @@ export default {
           console.log('Is Logged In:', this.$store.getters['user/isLoggedIn']);
           // Rest of your code
           console.log("no error");
-          window.location.reload();
+          window.location.reload();          
+          window.onload = () => {
+            this.$router.push('/'); // navigate to home page after reload so it looks cleaner THIS DOESNT WORK YET
+          }
         })
         .catch(error => {
           // Handle error
-          console.error('Error adding user:', error);
+          console.error('Error logging in:', error);
         });
     },
   },

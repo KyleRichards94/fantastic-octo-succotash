@@ -6,17 +6,8 @@ const db = require("../models"); //DB exists in the index.js folder.
 const users = db.users;   // The model this controller represents.
 const Op = db.Sequelize.Op; // sql operators
 
-// Create and Save a new User
+// Create and Save a new User to the DB
 exports.create = (req, res) => {
-//Validation// basic validation call for now. 
-// req = request, ie the string we will pull from the html form later.
-//if(!req.body.Username && !req.body.PasswordHash){ // the req body, defines EXACTLY what the json file should be typed as, which should exactly match the database.
-//    res.status(400).send({
-//        message: "Name or Password Cannot be empty!"
-//    });
-//    return;
-//}
-////if validation was define a new user. 
     const user = {
         UserID: req.body.UserID,
         userName: req.body.userName,
@@ -37,6 +28,7 @@ exports.create = (req, res) => {
     });
 };
 
+//Login using username and password
 exports.login = (req, res) => {
   const userName = req.body.userName;
   const password  = req.body.password;
@@ -59,56 +51,6 @@ exports.login = (req, res) => {
       });
     });
 };
-// User login function  works at http://localhost:8090/api/Users/login
-// exports.login = async (req, res) => {
-    
-//     const userName =  req.body.userName;
-//     const password = req.body.password;
-//     const user = null  
-
-//     try {
-//         if (Username) {
-//             user = await User.findOne({ where: { Username } });
-//         } else if (Email) {
-//             user = await User.findOne({ where: { Email } });
-//         }
-
-//         if (!user) {
-//             return res.status(404).send({
-//                 message: "User not found."
-//             });
-//         }
-
-//         if (user.PasswordHash !== PasswordHash) {
-//             return res.status(401).send({
-//                 message: "Incorrect password."
-//             });
-//         }
-
-//         // Successful login
-//         res.send({
-//             message: "Login successful.",
-//             user
-//         });
-//     } catch (err) {
-//         res.status(500).send({
-//             message: err.message || "An error occurred during login."
-//         });
-//     }
-// };
-// Front end call of the login function 
-//      axios.get("http://localhost:8080/login", {
-//        params: {
-//          Username: "example_username", // Provide the username here
-//          password: "example_password" // Provide the password here
-//        }
-//      })
-//        .then(response => {
-//          console.log(response.data);
-//        })
-//        .catch(error => {
-//          console.error(error);
-//        });
 
 // Retrieve all Users from the data base 
 // OR if given a request parameter condition it will find all Like the condition. 
@@ -179,14 +121,13 @@ exports.findOneByID = (req, res) => {
   };
   
 
-
 // Update a User by the id in the request
 // The request will be a Json object that directly matches the structure of the User model template.
 exports.update = (req, res) => {
-    const id = req.params.id;
+    const id = req.body.userId;
   
     users.update(req.body, {
-      where: { id: id }
+      where: { userId: id }
     })
       .then(num => {
         if (num == 1) {
@@ -206,13 +147,15 @@ exports.update = (req, res) => {
       });
   };
 
+
+
   
-// Delete a Tutorial with the specified id in the request
+// Delete a user with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.params.id;
+    const id = req.body.userId;
   
     users.destroy({
-      where: { UserID: id }
+      where: { userId: id }
     })
       .then(num => {
         if (num == 1) {
@@ -247,9 +190,3 @@ exports.deleteAll = (req, res) => {
         });
       });
   };
-// Add more export functions as needed, give chat gpt the code above as context, and ask for a specific output. 
-// Or do it the hard way idk. 
-
-
-//example call
-//db.User.findAll();

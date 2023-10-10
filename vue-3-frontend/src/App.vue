@@ -16,10 +16,21 @@ export default {
   methods: {
     logout() {
       
-      this.$store.dispatch('user/logout');
+      this.$store.dispatch('user/logout'); 
       window.location.reload();
     },
   },
+
+//   this.$store.dispatch('user/logout');
+//           this.$router.push('/');
+
+// when this code runs it logs the user out and sends them back to the home page, however the page must be refereshed before the users view is changed to reflect the fact that they are not logged in anymore but if i write this
+
+// this.$store.dispatch('user/logout');
+//           this.$router.push('/');
+// window.location.reload();
+
+// it reloads the page it was called from instead of the homepage, how can I send the user to the homepage and have the homepage reload itself
   
 }
 
@@ -59,19 +70,16 @@ export default {
               <div class="dropdown">
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
                   data-bs-toggle="dropdown" aria-expanded="false">
-                  (Username Here)
+                  (Username Here) <!--  most likley need to change user store to actually storing whole user for this and everything else -->
                 </button>
                 <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton1">
-                  <li>
-                    <RouterLink class="dropdown-item" to="/LoginCard">Login</RouterLink>
-                  </li>
                   <li >
                     <RouterLink class="dropdown-item" to="/MyAccount">Profile</RouterLink>
                   </li>
                   <li>
                     <RouterLink class="dropdown-item" to="/favouritePosts">View Favourites</RouterLink>
                   </li>
-                  <li>
+                  <li v-if="this.$store.getters['user/isStaff'] == true">
                     <RouterLink class="dropdown-item" to="/ManageProducts">Manage Products</RouterLink>
                   </li>
                   <li> 
