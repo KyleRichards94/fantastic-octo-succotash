@@ -14,3 +14,21 @@ exports.createComment = async (req, res) => {
       return res.status(500).json({ error: 'Internal server error' });
     }
   };
+
+  exports.getCommentsByPostId = async (req, res) => {
+    try {
+      console.log("Time for the comments");
+      console.log(req.query.postId);
+      const { postId } = req.query;
+
+      const commentsList = await comments.findAll({
+        where: { postId: postId },
+        attributes: ['commentText'], 
+      });
+
+      return res.status(200).json(commentsList);
+    } catch (error) {
+      console.error('Error fetching comments:', error);
+      return res.status(500).json({ error: 'Internal server error my good friend' });
+    }
+  };

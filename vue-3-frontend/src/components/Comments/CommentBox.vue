@@ -20,7 +20,7 @@
 
         const postData = {
       postId: 1,
-      userId: null, //I will change this once user scomes online in the database 
+      userId: 3, //I will change this once user scomes online in the database 
       commentText: this.comment,
     };
 

@@ -48,6 +48,8 @@ import CommentBox from '../Comments/CommentBox.vue'
                 </div>
               </div>
               <comment-box @submitComment="handleCommentSubmission"></comment-box>
+              <h5>Comments</h5>
+              
             </div>
           </div>
         </div>

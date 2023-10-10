@@ -7,5 +7,6 @@ module.exports = app => {
   
     var router = require("express").Router();
     router.post("/create", comments.createComment);
+    router.get("/getByPost", comments.getCommentsByPostId);
     app.use('/api/comment', router);
   };
