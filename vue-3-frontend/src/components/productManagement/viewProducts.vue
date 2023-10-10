@@ -25,7 +25,7 @@
               <p class="card-text">{{ post.Description }}</p>
               <p class="card-text">Product ID: {{ post.ProductID }}</p>
               <div class="d-flex justify-content-between">
-                <a href="#" class="btn btn-primary">Download</a>
+                <a href="#" class="btn btn-primary">Download it</a>
                 <div class="favorites-icon">
                   <!-- you can add a V-if, after you axios-get all the users current favourites such that. 
 
