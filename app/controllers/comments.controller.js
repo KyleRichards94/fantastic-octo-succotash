@@ -7,7 +7,7 @@ exports.createComment = async (req, res) => {
     
     try {
       const { postId, userId, commentText } = req.body;
-      const newComment = await Comment.create({ postId, userId, commentText });
+      const newComment = await comments.create({ postId, userId, commentText });
       return res.status(201).json(newComment);
     } catch (error) {
       console.error('Error creating comment:', error);

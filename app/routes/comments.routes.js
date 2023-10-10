@@ -6,8 +6,6 @@ module.exports = app => {
     // etc. when the model is finished. Simular to the big XML file in javabeans. 
   
     var router = require("express").Router();
-    router.post('/create', (req, res) => {
-      res.status(200).send('Hi Proof of concept');
-    });
+    router.post("/create", comments.createComment);
     app.use('/api/comment', router);
   };
