@@ -12,7 +12,7 @@ module.exports = app => {
     router.delete("/deleteProductByName/:ProductID", products.delete);
     //updates a product using product id
     router.put("/updateProduct/:ProductID", products.update);
-
+    router.get("/findAll", products.findAll);
     //the main products api link
     app.use('/api/products', router);
   };

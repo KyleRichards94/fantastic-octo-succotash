@@ -26,6 +26,10 @@ module.exports = (sequelize, Sequelize) => {
           Price: {
             type: Number,
             required: true
+          },
+          imageLocation: {
+            type: String,
+            required: false
           }
         },
         {
