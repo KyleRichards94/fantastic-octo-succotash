@@ -78,15 +78,9 @@ export default {
     console.log('User ID:', userId);
 
 
-        import axios from 'axios';
-        import { ref } from 'vue';
-        export default {
-        name: 'browsePosts',
 
-      
-        };
             const postData = ref([]);
-            const searchQuery = ref('');
+            //const searchQuery = ref('');
             
             axios.get('http://localhost:8090/api/posts/findAll').then((response) => {
                postData.value = response.data;
@@ -124,12 +118,6 @@ export default {
 
 };
 
-const postData = ref([]);
-const searchQuery = ref('');
-
-axios.get('http://localhost:8090/api/posts/findAll').then((response) => {
-  postData.value = response.data;
-});
 
 
 
