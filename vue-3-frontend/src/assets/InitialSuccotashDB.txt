@@ -123,4 +123,6 @@ CREATE TABLE `shippingInfo` (
   CONSTRAINT `shippingInfo_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+INSERT INTO users (userId, userName, password, email, address, isStaff)
+VALUES (3, 'YourUserName', 'YourPassword', 'user3@example.com', '123 Main St', 'customer');
 
