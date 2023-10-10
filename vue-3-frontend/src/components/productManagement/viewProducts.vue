@@ -21,8 +21,9 @@
                 <img class="card-img-top" :src="'http://localhost:8090' + post.imageLocation" alt="Card image cap">
               <br>
               <br>
-                <h5 class="card-title">{{ post.ProductName }}</h5>
-              <p class="card-text">{{ post.Description }}</p>
+                <h5 class="card-title">Title: {{ post.ProductName }}</h5>
+              <p class="card-text"> Description: {{ post.Description }}</p>
+              <p class="card-text">Price: {{ post.Price }}</p>
               <p class="card-text">Product ID: {{ post.ProductID }}</p>
               <div class="d-flex justify-content-between">
                 <a href="#" class="btn btn-primary">Download it</a>
