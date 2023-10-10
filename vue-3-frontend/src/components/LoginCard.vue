@@ -9,8 +9,8 @@
   <div>
     <!-- <div class="message-container">
       <div v-if="userAdded" class="alert alert-success">{{ userAddedMessage }}</div>
-    </div> -->
-    <br>
+    </div> 
+    <br> -->
     <!-- <form @submit="login"> -->
       <div class="form-group">
         <label for="userName">Username</label>
