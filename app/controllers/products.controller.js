@@ -18,10 +18,10 @@ exports.create = (req, res) => {
        /*  Username: req.body.Username,
         Email: req.body.Email,
         PasswordHash: req.body.PasswordHash, */
-        ProductID: req.body.ProductID,
-        ProductName: req.body.ProductName,
-        Description: req.body.Description,
-        Price: req.body.Price
+        productId: req.body.productId,
+        productName: req.body.productName,
+        description: req.body.description,
+        price: req.body.price
     }; 
 
     //User is defined as a sequalize object and call the create function
@@ -38,11 +38,11 @@ exports.create = (req, res) => {
 //delete a product based on its name
 exports.delete = (req, res) => {
     //we set a variable to store the ProductID passed from the front end
-    const inputtedProductID = req.params.ProductID;
+    const inputtedProductId = req.params.productId;
   
     products.destroy({
         //where the ProductID column's row contains the inputtedProductID
-      where: { ProductID: inputtedProductID }
+      where: { productId: inputtedProductId }
     })
     //it's going to return the number of rows deleted or affected so that's
     //what the ".then" code deals with.
@@ -53,13 +53,13 @@ exports.delete = (req, res) => {
           });
         } else {
           res.send({
-            message: `Cannot delete the product "${inputtedProductID}". The product name does not exist`
+            message: `Cannot delete the product "${inputtedProductId}". The product name does not exist`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: err.message || "Could not delete product with name: " + inputtedProductID
+          message: err.message || "Could not delete product with name: " + inputtedProductId
         });
       });
   };
@@ -69,20 +69,20 @@ exports.delete = (req, res) => {
 
 // Update a product by ProductID
 exports.update = (req, res) => {
-    const productID = req.params.ProductID;
+    const productId = req.params.productId;
   
     // Define the updated product data based on the request body
     const updatedProduct = {
-      ProductName: req.body.ProductName,
-      Description: req.body.Description,
-      Price: req.body.Price,
+      productName: req.body.productName,
+      description: req.body.description,
+      price: req.body.price,
       // Add other fields you want to update
     };
   
     // Use the update method provided by Sequelize
     products
       .update(updatedProduct, {
-        where: { ProductID: productID },
+        where: { productId: productId },
       })
       .then((num) => {
         if (num == 1) {
@@ -91,7 +91,7 @@ exports.update = (req, res) => {
           });
         } else {
           res.send({
-            message: `Cannot update the product with ProductID ${productID}. It may not exist.`,
+            message: `Cannot update the product with ProductID ${productId}. It may not exist.`,
           });
         }
       })
@@ -99,7 +99,7 @@ exports.update = (req, res) => {
         res.status(500).send({
           message:
             err.message ||
-            `Could not update product with ProductID: ${productID}`,
+            `Could not update product with ProductID: ${productId}`,
         });
       });
   };
@@ -116,3 +116,22 @@ exports.findAll = (req,res) => {
       });
   });
 };
+
+  //find a product by ID.
+  exports.findById =(req, res) => {
+    const productId = req.body.productId;
+    products.findByPk(productId).then((data) => {
+      if(!data){
+        res.status(404).send({
+          message: `no such product by ${productId} exists`
+        })
+      } else {
+        res.send(data);
+      }
+    }).catch(err => {
+      res.status(500).send({
+        message:
+          err.message + "Big yikes!"
+      });
+    });
+  };

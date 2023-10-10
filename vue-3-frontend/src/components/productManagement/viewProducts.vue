@@ -21,10 +21,10 @@
                 <img class="card-img-top" :src="'http://localhost:8090' + post.imageLocation" alt="Card image cap">
               <br>
               <br>
-                <h5 class="card-title">Title: {{ post.ProductName }}</h5>
-              <p class="card-text"> Description: {{ post.Description }}</p>
-              <p class="card-text">Price: {{ post.Price }}</p>
-              <p class="card-text">Product ID: {{ post.ProductID }}</p>
+                <h5 class="card-title">Title: {{ post.productName }}</h5>
+              <p class="card-text"> Description: {{ post.description }}</p>
+              <p class="card-text">Price: {{ post.price }}</p>
+              <p class="card-text">Product ID: {{ post.productId }}</p>
               <div class="d-flex justify-content-between">
                 <a href="#" class="btn btn-primary">Download it</a>
                 <div class="favorites-icon">

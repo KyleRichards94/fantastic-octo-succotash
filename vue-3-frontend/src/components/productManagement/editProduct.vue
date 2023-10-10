@@ -13,8 +13,8 @@
   </div>
     <form @submit.prevent="updateProduct">
       <div class="form-group">
-        <label for="productID">Product ID</label>
-        <input type="text" class="form-control" id="productID" placeholder="Enter Product ID" v-model="productID">
+        <label for="productId">Product ID</label>
+        <input type="text" class="form-control" id="productId" placeholder="Enter Product ID" v-model="productId">
       </div>
       <br>
       <div class="form-group">
@@ -31,13 +31,13 @@
       <br>
       <div class="form-group">
         <label for="description">Product Description</label>
-        <textarea class="form-control" aria-label="With textarea" id="description" v-model="Description">
+        <textarea class="form-control" aria-label="With textarea" id="description" v-model="description">
       </textarea>
       </div>
       <br>
       <div class="form-group">
         <label for="price">Price</label>
-        <input type="number" class="form-control" id="price" placeholder="Enter Product Name" v-model="Price">
+        <input type="number" class="form-control" id="price" placeholder="Enter Product Name" v-model="price">
       </div>
       <br>
       <button type="submit" class="btn btn-dark">Submit Changes</button>
@@ -55,10 +55,10 @@ export default {
   name: 'editProduct',
   data() {
     return {
-      productID: '',
+      productId: '',
       productName: '',
-      Description: '',
-      Price: '',
+      description: '',
+      price: '',
       successMessage: '', // Initialize successMessage
       errorMessage: '',   // Initialize errorMessage
       // Add data properties for Description, Price, and other properties
@@ -68,10 +68,10 @@ export default {
     updateProduct() {
       // Send a PUT request to update the product
       axios
-        .put(`http://localhost:8090/api/products/updateProduct/${this.productID}`, {
-          ProductName: this.productName,
-          Description: this.Description,
-          Price: this.Price
+        .put(`http://localhost:8090/api/products/updateProduct/${this.productId}`, {
+          productName: this.productName,
+          description: this.description,
+          price: this.price
           // Include other fields to update
         })
         .then((response) => {
@@ -80,10 +80,10 @@ export default {
           this.successMessage = 'Product updated successfully';
           this.errorMessage = ''; // Clear any previous error message
           // Clear the form fields
-          this.productID = '';
+          this.productId = '';
           this.productName = '';
-          this.Description = '';
-          this.Price = '';
+          this.description = '';
+          this.price = '';
           // You can also redirect here if needed
           console.log('Product updated successfully:', response.data);
         } else {

@@ -53,9 +53,9 @@ export default {
   data() {
     return {
       productData: {
-        ProductName: '',
-        Description: '',
-        Price: 0,
+        productName: '',
+        description: '',
+        price: 0,
       },
       productAdded: false, // Flag to track if the product is added
       productAddedMessage: '', // Message to display when the product is added
@@ -71,9 +71,9 @@ export default {
           this.productAddedMessage = 'Product added successfully'; // Set the success message
           console.log('Product added successfully:', response.data);
           //clear the form fields after submission hehe
-          this.productData.ProductName = '';
-          this.productData.Description = '';
-          this.productData.Price = 0;
+          this.productData.productName = '';
+          this.productData.description = '';
+          this.productData.price = 0;
        
         })
         .catch(error => {

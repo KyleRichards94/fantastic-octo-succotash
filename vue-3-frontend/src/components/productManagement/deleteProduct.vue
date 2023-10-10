@@ -8,14 +8,14 @@
 
 
   <div class="message-container">
-    <div v-if="ProductDeletedSuccessMessage" class="alert alert-success">{{ ProductDeletedSuccessMessage }}</div>
-    <div v-if="ProductDeletedFailMessage" class="alert alert-danger">{{ ProductDeletedFailMessage }}</div>
+    <div v-if="productDeletedSuccessMessage" class="alert alert-success">{{ productDeletedSuccessMessage }}</div>
+    <div v-if="productDeletedFailMessage" class="alert alert-danger">{{ productDeletedFailMessage }}</div>
   </div>
   <div>
     <form @submit.prevent="deleteProductByName">
       <div class="form-group">
-        <label for="productID">Product ID:</label>
-        <input type="number" class="form-control" id="productID" placeholder="Enter product ID" v-model="ProductID">
+        <label for="productId">Product ID:</label>
+        <input type="number" class="form-control" id="productId" placeholder="Enter product ID" v-model="productId">
       </div>
       <br>
       <button type="submit" class="btn btn-danger">Delete</button>
@@ -34,16 +34,16 @@ export default {
   name: 'deleteProduct',
   data() {
     return {
-      ProductID: '',
-      ProductDeletedSuccessMessage: '',// Store the entered product name
-      ProductDeletedFailMessage: '',
+      productId: '',
+      productDeletedSuccessMessage: '',// Store the entered product name
+      productDeletedFailMessage: '',
     };
   },
   methods: {
     deleteProductByName() {
       // Send a DELETE request to your API endpoint with the product name
-      console.log("product id is " + this.ProductID)
-      axios.delete(`http://localhost:8090/api/products/deleteProductByName/${this.ProductID}`)
+      console.log("product id is " + this.productId)
+      axios.delete(`http://localhost:8090/api/products/deleteProductByName/${this.productId}`)
         .then((response) => {
           if (response.data.message === 'The product was deleted successfully!') {
               this.ProductDeletedSuccessMessage = 'Product deleted successfully';
