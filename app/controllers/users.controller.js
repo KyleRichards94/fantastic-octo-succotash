@@ -35,51 +35,64 @@ exports.create = (req, res) => {
                 err.message || "Something horrible happened when adding a user."
         });
     });
-  
 };
 
-
+exports.login = (req, res) => {
+  const { userName, password } = req.body;
+  console.log("userName:", userName);
+  console.log("password:", password);
+    const user = users.findOne({ where: {userName,password,},}).then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `User called ${userName} not found or the username and password don't match`,
+        });
+      } else {
+        res.send(data);
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "An error occurred while retrieving the post",
+      });
+    });
+};
 // User login function  works at http://localhost:8090/api/Users/login
-exports.login = async (req, res) => {
-    const { Username, Email, PasswordHash } = req.body;
+// exports.login = async (req, res) => {
     
-    if (!Username && !Email) {
-        return res.status(400).send({
-            message: "Username or email is required for login."
-        });
-    }
+//     const userName =  req.body.userName;
+//     const password = req.body.password;
+//     const user = null  
 
-    try {
-        let user;
-        if (Username) {
-            user = await User.findOne({ where: { Username } });
-        } else if (Email) {
-            user = await User.findOne({ where: { Email } });
-        }
+//     try {
+//         if (Username) {
+//             user = await User.findOne({ where: { Username } });
+//         } else if (Email) {
+//             user = await User.findOne({ where: { Email } });
+//         }
 
-        if (!user) {
-            return res.status(404).send({
-                message: "User not found."
-            });
-        }
+//         if (!user) {
+//             return res.status(404).send({
+//                 message: "User not found."
+//             });
+//         }
 
-        if (user.PasswordHash !== PasswordHash) {
-            return res.status(401).send({
-                message: "Incorrect password."
-            });
-        }
+//         if (user.PasswordHash !== PasswordHash) {
+//             return res.status(401).send({
+//                 message: "Incorrect password."
+//             });
+//         }
 
-        // Successful login
-        res.send({
-            message: "Login successful.",
-            user
-        });
-    } catch (err) {
-        res.status(500).send({
-            message: err.message || "An error occurred during login."
-        });
-    }
-};
+//         // Successful login
+//         res.send({
+//             message: "Login successful.",
+//             user
+//         });
+//     } catch (err) {
+//         res.status(500).send({
+//             message: err.message || "An error occurred during login."
+//         });
+//     }
+// };
 // Front end call of the login function 
 //      axios.get("http://localhost:8080/login", {
 //        params: {

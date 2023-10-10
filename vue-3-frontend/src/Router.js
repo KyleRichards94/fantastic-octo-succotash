@@ -43,7 +43,12 @@ const routes =  [
     name: "MyAccount",
     component: () => import("./components/MyAccount")
   },
-  
+  {
+    path: "/LoginCard",
+    alias: "/LoginCard",
+    name: "LoginCard",
+    component: () => import("./components/LoginCard")
+  },
   {
     path: "/LogoutCard",
     alias: "/LogoutCard",

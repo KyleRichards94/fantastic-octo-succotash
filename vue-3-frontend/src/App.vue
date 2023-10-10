@@ -7,6 +7,26 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 </script>
 
+<script>
+import { useStore } from 'vuex';
+import { onMounted, ref } from 'vue';
+const store = useStore();
+
+const user = ref(null);
+
+onMounted(() => {
+  user.value = store.getters['user/user'];
+});
+
+export default {
+  name: 'App',
+  components: {
+  }
+}
+console.log(user);
+
+</script>
+
 <template>
   <!-- Nav bar Items  -->
   <div class="wrapper" style="background-color: moccasin;">
@@ -26,9 +46,17 @@ import 'bootstrap/dist/css/bootstrap.css';
             <li class="nav-item">
               <RouterLink class="nav-link" to="/CommunityHub">Community Hub</RouterLink>
             </li>
+            <li class="nav-item" v-if="!user">
+              <RouterLink class="nav-link" to="/LoginCard">Login</RouterLink>
+            </li>
+            <li class="nav-item" v-if="!user">
+              <RouterLink class="nav-link" to="/signUp">Signup</RouterLink>
+            </li>
+
 
 
             <!-- Drop down Menu  -->
+           <div class="userLogged" v-if="user">
             <li class="nav-item">
               <div class="dropdown">
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -36,30 +64,26 @@ import 'bootstrap/dist/css/bootstrap.css';
                   (Username Here)
                 </button>
                 <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton1">
-                  
                   <li>
+                    <RouterLink class="dropdown-item" to="/LoginCard">Login</RouterLink>
+                  </li>
+                  <li >
                     <RouterLink class="dropdown-item" to="/MyAccount">Profile</RouterLink>
                   </li>
                   <li>
                     <RouterLink class="dropdown-item" to="/favouritePosts">View Favourites</RouterLink>
                   </li>
-
                   <li>
                     <RouterLink class="dropdown-item" to="/ManageProducts">Manage Products</RouterLink>
                   </li>
-                  <li>
+                  <li> 
                     <RouterLink class="dropdown-item" to="/LogoutCard">Logout</RouterLink>
-                  </li>
-                  <li>
-                    <RouterLink class="dropdown-item" to="/BrowsePostsButStaff">Staff Login</RouterLink>
-                  </li>
-                  <li>
-                    <RouterLink class="dropdown-item" to="/signUp">Sign Up</RouterLink>
                   </li>
                 </ul>
               </div>
             </li>
-            
+           </div> 
+           
           </ul>
         </div>
       </div>
@@ -68,17 +92,5 @@ import 'bootstrap/dist/css/bootstrap.css';
 
   <router-view />
 </template>
-
-<script>
-
-export default {
-  name: 'App',
-  components: {
-  }
-}
-
-
-
-</script>
 
 <style></style>

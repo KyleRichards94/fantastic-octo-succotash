@@ -18,7 +18,8 @@
     "express-fileupload": "^1.4.1",
     "mysql2": "^3.6.0",
     "sequelize": "^6.32.1",
-    "vue-router": "^4.2.4"
+    "vue-router": "^4.2.4",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "chai": "^4.3.10",
