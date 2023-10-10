@@ -18,8 +18,12 @@
           <div class="card" style="margin-bottom: 20px;">
             
             <div class="card-body">
-              <h5 class="card-title">{{ post.ProductName }}</h5>
+                <img class="card-img-top" :src="'http://localhost:8090' + post.imageLocation" alt="Card image cap">
+              <br>
+              <br>
+                <h5 class="card-title">{{ post.ProductName }}</h5>
               <p class="card-text">{{ post.Description }}</p>
+              <p class="card-text">Product ID: {{ post.ProductID }}</p>
               <div class="d-flex justify-content-between">
                 <a href="#" class="btn btn-primary">Download</a>
                 <div class="favorites-icon">
@@ -45,7 +49,7 @@ import axios from 'axios';
 import { ref } from 'vue';
 
 export default {
-  name: 'browsePosts',
+  name: 'viewProducts',
   data() {
     return {
      postComments: {},
@@ -165,6 +169,7 @@ const postData = ref([]);
 
 axios.get('http://localhost:8090/api/products/findAll').then((response) => {
   postData.value = response.data;
+  console.log(postData.value.productId);
 });
 
 
