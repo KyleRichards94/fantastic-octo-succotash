@@ -38,6 +38,12 @@ const routes =  [
     component: () => import("./components/CommunityHubFeatures/browsePosts")
   },
   {
+    path: "/browsePosts/viewer/:objFilePath/:postId", // Add a dynamic route parameter for the objFilePath
+    name: "3DviewPort",
+    component: () => import("./components/CommunityHubFeatures/3DviewPort"), // The ModelViewer component
+    props: true, // Pass route params as props
+  },
+  {
     path: "/MyAccount",
     alias: "/MyAccount",
     name: "MyAccount",
