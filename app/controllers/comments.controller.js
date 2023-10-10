@@ -32,3 +32,15 @@ exports.createComment = async (req, res) => {
       return res.status(500).json({ error: 'Internal server error my good friend' });
     }
   };
+
+  exports.getAllComments = async (req, res) => {
+    try {
+      const commentsList = await comments.findAll(); // Call the findAll method to execute the query
+  
+      return res.status(200).commentsList;
+    } catch (error) {
+      console.error('Error fetching comments:', error);
+      return res.status(500).json({ error: 'Internal server error my good friend' });
+    }
+  };
+  
