@@ -14,29 +14,32 @@
   </div>
 
   <div class="container" style="padding-top: 2%;">
-    <div class="row">
-      <!-- Loop through postData and create a card for each post -->
-      <div v-for="post in postData" :key="post.postId" class="col-md-4">
-        <div class="card" style="margin-bottom: 20px;">
-          
-          <img class="card-img-top" :src="'http://localhost:8090' + post.imagePath" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.description }}</p>
-            <div class ="d-flex justify-content-between"  >
-            <a href="#" class="btn btn-primary">Download</a>
-              <div class ="favorites-icon">
-                <!-- you can add a V-if, after you axios-get all the users current favourites such that. 
+      <div class="row">
+        <!-- Loop through postData and create a card for each post -->
+        <div v-for="post in postData" :key="post.postId" class="col-md-4">
+          <div class="card" style="margin-bottom: 20px;">
+
+            <img class="card-img-top" :src="'http://localhost:8090' + post.imagePath" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{ post.title }}</h5>
+              <p>User ID: {{ post.userId }}</p>
+              <p class="card-text">{{ post.description }}</p>
+              <div class="d-flex justify-content-between">
+                <a href="#" class="btn btn-primary">Download</a>
+                <div class="favorites-icon">
+                  <!-- you can add a V-if, after you axios-get all the users current favourites such that. 
                 if post.id.in(favourites) then <img src = " "../../assets/star-2768.png""> -->
-                <img id = "favourites" src ="../../assets/favourite-2765.png" onclick="addFavourites" >
+                  <!--Mohammed has edited the below image tag to call the addToFavorits method for his feature-->
+                  <img id="favourites" src="../../assets/favourite-2765.png"
+                    @click="addToFavorites(post.postId, post.userId)">
+                </div>
               </div>
+              <comment-box @submitComment="handleCommentSubmission"></comment-box>
             </div>
-            <comment-box @submitComment="handleCommentSubmission"></comment-box>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
   <!-- New cards system that uses the axios pipeline to get all from the database -->
   
@@ -49,14 +52,67 @@ import axios from 'axios';
 import { ref } from 'vue';
 
 export default {
-  name: "favouritePosts",
+  name: 'browsePosts',
+  // ...
+  data() {
+    return {
+
+      // ... other data properties ...
+    };
+  },
+
+  methods: {
+    addToFavorites(postId, userId) {
+      // Log the postId and userId when the favorites icon is clicked
+      console.log('Post Id:', postId);
+      console.log('User ID:', userId);
+
+      // Create the favoritePost object
+      const favoritePost = {
+        userId: userId,
+        postId: postId
+      };
+      /* printFaveList */
+      axios.post('http://localhost:8090/api/favoritePosts/printFaveList').then((response) => {
+        console.log("Post ID List: " + response.data.FavePostsList)
+      });
+      console.log('Request URL:', 'http://localhost:8090/api/favoritePosts/addPosts');
+      console.log('Request Data:', favoritePost);
+      console.log('favorites post ID: ' + favoritePost.postId);
+      console.log('Favorites User ID: ' + favoritePost.userId);
+      // Make an Axios POST request to add the favorite post
+      axios.post('http://localhost:8090/api/favoritePosts/addPost', favoritePost)
+        .then((response) => {
+          console.log('Favorite post added:', response.data.data);
+          console.log('message received: ' + response.data.messages);
+          //reloading the data
+          this.fetchData();
+          // You can add additional logic here, such as updating the UI to reflect the favorite status.
+        })
+        .catch((error) => {
+          console.error('Error adding favorite post:', error);
+        });
+    },
+    // ... other methods ...
+    fetchData() {
+    // Fetch data again from the server and update the 'postData' ref
+    axios.get('http://localhost:8090/api/favoritePosts/findAllFavorites')
+      .then((response) => {
+        postData.value = response.data;
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  },
+  },
+
 };
 
 const postData = ref([]);
 
 //using the posts API to get all the data in the posts table
-axios.get('http://localhost:8090/api/posts/findAll').then((response) => {
-  //then saving the response we receive in an array or list
+axios.get('http://localhost:8090/api/favoritePosts/findAllFavorites').then((response) => {
+  console.log("this ran");
   postData.value = response.data;
 });
 
