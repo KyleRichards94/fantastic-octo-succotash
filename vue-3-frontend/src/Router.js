@@ -73,6 +73,12 @@ const routes =  [
         alias: "/deleteProduct",
         name: "deleteProduct",
         component: () => import("./components/productManagement/deleteProduct")
+      },
+      {
+        path: '/viewProducts',
+        alias: "/viewProducts",
+        name: "viewProducts",
+        component: () => import("./components/productManagement/viewProducts")
       }
 
     ]

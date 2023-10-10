@@ -104,3 +104,15 @@ exports.update = (req, res) => {
       });
   };
   
+
+  //return all products
+exports.findAll = (req,res) => {
+  products.findAll().then((data) => {
+      res.send(data);
+  }).catch(err => {
+      res.status(500).send({
+          message:
+          err.message || "Could not retrieve posts."
+      });
+  });
+};
