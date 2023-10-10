@@ -13,7 +13,7 @@ module.exports = app => {
     router.get("/find", users.findAllOrOne); // works @http://localhost:8090/api/Users/find
 
     // login via Email || Username ++ password
-    router.get("/login", users.login);
+    router.post("/login", users.login);
   
     // Retrieve a single User with id
     router.get("/:id", users.findOneByID);

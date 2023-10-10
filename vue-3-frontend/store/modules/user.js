@@ -1,15 +1,18 @@
     const state = () => ({
             isLoggedIn: false,
-            user: null,
+            userId: null,
             isStaff: false
         })
     
     const mutations = {
-        setUser(state, user) {
-            state.user = user;
+        setUserId(state, userId) {
+            state.userId = userId;
           },
+        setIsLoggedIn(state, value) {
+            state.isLoggedIn = value;
+        },
           clearUser(state) {
-            state.user = null;
+            state.userId = null;
           },
     }
     
@@ -19,7 +22,7 @@
 
     const getters = {
         isLoggedIn: state => state.isLoggedIn,
-        user: state => state.user,
+        userId: state => state.userId,
         isStaff: state => state.isStaff
     }
 

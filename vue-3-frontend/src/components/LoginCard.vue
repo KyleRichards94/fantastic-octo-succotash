@@ -7,11 +7,11 @@
   </div>
 
   <div>
-    <div class="message-container">
+    <!-- <div class="message-container">
       <div v-if="userAdded" class="alert alert-success">{{ userAddedMessage }}</div>
-    </div>
+    </div> -->
     <br>
-    <form @submit.prevent="login">
+    <!-- <form @submit="login"> -->
       <div class="form-group">
         <label for="userName">Username</label>
         <input type="text" class="form-control" id="userName" placeholder="Enter Username"
@@ -27,7 +27,7 @@
       </div>
       <br>
       <button type="submit" class="btn btn-dark" @click="login">Login</button>
-    </form>
+    <!-- </form> -->
   </div>
 </template>
 
@@ -49,18 +49,34 @@ export default {
       loggedInMessage: '', // Message to display when the product is added
     };
   },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters['user/isLoggedIn'];
+    },
+    userId() {
+      return this.$store.getters['user/userId'];
+    },
+    isStaff() {
+      return this.$store.getters['user/isStaff'];
+    },
+  },
   methods: {
     login() {
       // Send a POST request to your API endpoint with the userData
-      axios.get('http://localhost:8090/api/users/login', this.userData)
+      axios.post('http://localhost:8090/api/users/login', this.userData)
         .then(response => {
           // Handle success - you can show a success message or redirect here
-          this.userAdded = true; // Set the flag to true
-          this.userAddedMessage = 'Logged in as' + this.userData.userName; // Set the success message
+          // this.userAdded = true; // Set the flag to true
+          // this.userAddedMessage = 'Logged in as' + this.userData.userName; // Set the success message
           console.log('User logged in', response.data);
           this.userData.userName = '';
           this.userData.password = '';
-          store.commit('setUser',response.data);
+          store.commit('setUserId', response.data);
+          store.commit('setIsLoggedIn', true);
+          const currentUserId = this.userId;
+          console.log('Current User ID:', currentUserId);
+          const currentisLogged = this.isLoggedIn;
+          console.log('Is user logged in:', currentisLogged);
         })
         .catch(error => {
           // Handle error - you can display an error message here
@@ -69,6 +85,7 @@ export default {
     },
   },
 }
+
 </script>
 
 <style>

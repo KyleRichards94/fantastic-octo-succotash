@@ -38,16 +38,19 @@ exports.create = (req, res) => {
 };
 
 exports.login = (req, res) => {
-  const { userName, password } = req.body;
-  console.log("userName:", userName);
-  console.log("password:", password);
+  const userName = req.body.userName;
+  const password  = req.body.password;
+
+  console.log("Received request with userName:", userName);
+  console.log("Received request with password:", password);
+  
     const user = users.findOne({ where: {userName,password,},}).then((data) => {
       if (!data) {
         res.status(404).send({
           message: `User called ${userName} not found or the username and password don't match`,
         });
       } else {
-        res.send(data);
+        res.send(data.UserID);
       }
     })
     .catch((err) => {
