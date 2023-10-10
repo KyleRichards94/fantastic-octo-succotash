@@ -1,9 +1,38 @@
 //:p Html Nav bar with 4 plain options
 
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router';
 import 'bootstrap/dist/js/bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
+
+</script>
+
+<script>
+
+export default {
+  name: 'App',
+  components: {
+  },
+  methods: {
+    logout() {
+      
+      this.$store.dispatch('user/logout'); 
+      window.location.reload();
+    },
+  },
+
+//   this.$store.dispatch('user/logout');
+//           this.$router.push('/');
+
+// when this code runs it logs the user out and sends them back to the home page, however the page must be refereshed before the users view is changed to reflect the fact that they are not logged in anymore but if i write this
+
+// this.$store.dispatch('user/logout');
+//           this.$router.push('/');
+// window.location.reload();
+
+// it reloads the page it was called from instead of the homepage, how can I send the user to the homepage and have the homepage reload itself
+  
+}
 
 </script>
 
@@ -26,37 +55,41 @@ import 'bootstrap/dist/css/bootstrap.css';
             <li class="nav-item">
               <RouterLink class="nav-link" to="/CommunityHub">Community Hub</RouterLink>
             </li>
+            <li class="nav-item" v-if="this.$store.getters['user/userId'] == null">
+              <RouterLink class="nav-link" to="/LoginCard">Login</RouterLink>
+            </li>
+            <li class="nav-item" v-if="this.$store.getters['user/userId'] == null">
+              <RouterLink class="nav-link" to="/signUp">Signup</RouterLink>
+            </li>
+
 
 
             <!-- Drop down Menu  -->
+           <div class="userLogged" v-if="this.$store.getters['user/userId'] != null">
             <li class="nav-item">
               <div class="dropdown">
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
                   data-bs-toggle="dropdown" aria-expanded="false">
-                  (Username Here)
+                  (Username Here) <!--  most likley need to change user store to actually storing whole user for this and everything else -->
                 </button>
                 <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton1">
-                  
-                  <li>
+                  <li >
                     <RouterLink class="dropdown-item" to="/MyAccount">Profile</RouterLink>
                   </li>
                   <li>
                     <RouterLink class="dropdown-item" to="/favouritePosts">View Favourites</RouterLink>
                   </li>
-
-                  <li>
+                  <li v-if="this.$store.getters['user/isStaff'] == true">
                     <RouterLink class="dropdown-item" to="/ManageProducts">Manage Products</RouterLink>
                   </li>
-                  <li>
-                    <RouterLink class="dropdown-item" to="/LogoutCard">Logout</RouterLink>
-                  </li>
-                  <li>
-                    <RouterLink class="dropdown-item" to="/BrowsePostsButStaff">Staff Login</RouterLink>
+                  <li> 
+                    <RouterLink @click="logout" class="dropdown-item" to="/LogoutCard">Logout</RouterLink>
                   </li>
                 </ul>
               </div>
             </li>
-            
+           </div> 
+           
           </ul>
         </div>
       </div>
@@ -65,17 +98,5 @@ import 'bootstrap/dist/css/bootstrap.css';
 
   <router-view />
 </template>
-
-<script>
-
-export default {
-  name: 'App',
-  components: {
-  }
-}
-
-
-
-</script>
 
 <style></style>
