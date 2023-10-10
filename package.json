@@ -20,7 +20,7 @@
     "sequelize": "^6.32.1",
     "vue-router": "^4.2.4",
     "vuex": "^4.1.0",
-    "vuex-persistedstate": "^4.1.0"
+    "vuex-persistedstate": "^4.1.0",
     "three": "^0.157.0",
     "three-orbitcontrols": "^2.110.3",
     "vue-router": "^4.2.4",
