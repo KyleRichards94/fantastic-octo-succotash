@@ -15,7 +15,8 @@
       };
     },
     methods: {
-    async submitComment() {
+    async submitComment(idOfPost) {
+     console.log("A vision" , idOfPost);
       try {
 
         const postData = {
@@ -23,7 +24,7 @@
       userId: 3, //I will change this once user scomes online in the database 
       commentText: this.comment,
     };
-
+    console.log(postData)
     const response = await axios.post('http://localhost:8090/api/comment/create', postData);
         // Assuming your server responds with a success message
         console.log('Comment posted successfully', response.data);
