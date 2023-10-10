@@ -20,21 +20,31 @@
           <div class="card" style="margin-bottom: 20px;">
 
             <img class="card-img-top" :src="'http://localhost:8090' + post.imagePath" alt="Card image cap">
+            <router-link :to="{ name: '3DviewPort', params: { objFilePath: post.objFilePath, postId: post.postId } }">View
+              3D Model</router-link>
             <div class="card-body">
               <h5 class="card-title">{{ post.title }}</h5>
-              <p>User ID: {{ post.userId }}</p>
               <p class="card-text">{{ post.description }}</p>
               <div class="d-flex justify-content-between">
                 <a href="#" class="btn btn-primary">Download</a>
                 <div class="favorites-icon">
                   <!-- you can add a V-if, after you axios-get all the users current favourites such that. 
+
                 if post.id.in(favourites) then <img src = " "../../assets/star-2768.png""> -->
                   <!--Mohammed has edited the below image tag to call the addToFavorits method for his feature-->
                   <img id="favourites" src="../../assets/favourite-2765.png"
                     @click="addToFavorites(post.postId, post.userId)">
                 </div>
               </div>
-              <comment-box @submitComment="handleCommentSubmission"></comment-box>
+              <input v-model="comment" type="text" class="form-control" placeholder="Add a comment">
+              <button @click="handleCommentSubmission(post.postId, comment)" class="btn btn-primary">Submit</button>
+              <h5>Comments</h5>
+              <button @click="getCommentsForPost(post.postId)" class="btn btn-primary">Load all comments</button>
+              <div v-if="postComments[post.postId]">
+                <div v-for="comment in postComments[post.postId]" :key="comment.commentId">
+                <p>  {{ comment.commentText }}</p>
+                </div>
+                </div>
             </div>
           </div>
         </div>
@@ -53,15 +63,72 @@ import { ref } from 'vue';
 
 export default {
   name: 'browsePosts',
-  // ...
   data() {
     return {
-
+     postComments: {},
+     favoritePost: { // Define favoritePost here
+        userId: 0, // You can set default values if needed
+        postId: 0
+      },
       // ... other data properties ...
     };
   },
 
   methods: {
+    getCommentsForPost(postId) {
+      axios.get(`http://localhost:8090/api/comment/getByPost?postId=${postId}`)
+        .then((response) => {
+          const postComments = response.data;
+          console.log(postComments)
+          this.postComments[postId] = response.data;
+        })
+        .catch((error) => {
+          // Handle any errors that may occur during the request
+          console.error(error);
+        });
+      },
+    getAllComments(){
+      axios.get('http://localhost:8090/api/comment/getAllComments')
+  .then((response) => {
+    const commentsList = response.data;
+    this.postComments = response.data;
+
+    // Iterate through the comments and print them
+    commentsList.forEach((comment) => {
+      console.log("That me ", comment.commentText); // This will print each comment object to the console
+    });
+  })
+  .catch((error) => {
+    // Handle any errors that may occur during the request
+    console.error(error);
+  });
+
+    },
+    handleCommentSubmission(int, commentText) {
+      try {
+        const postData = {
+      postId: int,
+      userId: 3, //I will change this once user scomes online in the database 
+      commentText: commentText,
+    };
+    console.log(postData)
+    const response = axios.post('http://localhost:8090/api/comment/create', postData);
+        // Assuming your server responds with a success message
+        console.log('Comment posted successfully', response.data);
+
+        // Reset the comment input field
+        this.comment = '';
+      } catch (error) {
+        // Handle errors (e.g., display an error message to the user)
+        console.error('Error posting comment testtest', error);
+      }
+    },
+
+
+    addCommentToPost(commentText, postId) {
+      console.log(commentText)
+      console.log(postId)
+    },
     addToFavorites(postId, userId) {
       // Log the postId and userId when the favorites icon is clicked
       console.log('Post Id:', postId);
@@ -103,16 +170,16 @@ export default {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
+    },
+    // ... other methods ...
   },
-  },
+  
 
 };
 
 const postData = ref([]);
 
-//using the posts API to get all the data in the posts table
 axios.get('http://localhost:8090/api/favoritePosts/findAllFavorites').then((response) => {
-  console.log("this ran");
   postData.value = response.data;
 });
 
