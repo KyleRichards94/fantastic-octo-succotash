@@ -17,10 +17,14 @@
     methods: {
     async submitComment() {
       try {
-        const response = await axios.post('http://localhost:8090/api/comment/create', {
-          comment: this.comment,
-        });
 
+        const postData = {
+      postId: 1,
+      userId: null, //I will change this once user scomes online in the database 
+      commentText: this.comment,
+    };
+
+    const response = await axios.post('http://localhost:8090/api/comment/create', postData);
         // Assuming your server responds with a success message
         console.log('Comment posted successfully', response.data);
 
