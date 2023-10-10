@@ -20,6 +20,7 @@ import { RouterLink, RouterView } from 'vue-router'
   <RouterLink class="btn btn-dark" to="/addProduct">Add Product</RouterLink>
   <RouterLink class="btn btn-dark" to="/editProduct">Edit Product</RouterLink>
   <RouterLink class="btn btn-dark" to="/deleteProduct">Delete Product</RouterLink>
+  <RouterLink class="btn btn-dark" to="/viewProducts">View Products</RouterLink>
 </div>
 <br>
 <br>
