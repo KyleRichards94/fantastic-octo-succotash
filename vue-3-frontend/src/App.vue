@@ -1,29 +1,27 @@
 //:p Html Nav bar with 4 plain options
 
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router';
 import 'bootstrap/dist/js/bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
 </script>
 
 <script>
-import { useStore } from 'vuex';
-import { onMounted, ref } from 'vue';
-const store = useStore();
-
-const user = ref(null);
-
-onMounted(() => {
-  user.value = store.getters['user/user'];
-});
 
 export default {
   name: 'App',
   components: {
-  }
+  },
+  methods: {
+    logout() {
+      
+      this.$store.dispatch('user/logout');
+      window.location.reload();
+    },
+  },
+  
 }
-console.log(user);
 
 </script>
 
@@ -46,17 +44,17 @@ console.log(user);
             <li class="nav-item">
               <RouterLink class="nav-link" to="/CommunityHub">Community Hub</RouterLink>
             </li>
-            <li class="nav-item" v-if="!user">
+            <li class="nav-item" v-if="this.$store.getters['user/userId'] == null">
               <RouterLink class="nav-link" to="/LoginCard">Login</RouterLink>
             </li>
-            <li class="nav-item" v-if="!user">
+            <li class="nav-item" v-if="this.$store.getters['user/userId'] == null">
               <RouterLink class="nav-link" to="/signUp">Signup</RouterLink>
             </li>
 
 
 
             <!-- Drop down Menu  -->
-           <div class="userLogged" v-if="user">
+           <div class="userLogged" v-if="this.$store.getters['user/userId'] != null">
             <li class="nav-item">
               <div class="dropdown">
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -77,7 +75,7 @@ console.log(user);
                     <RouterLink class="dropdown-item" to="/ManageProducts">Manage Products</RouterLink>
                   </li>
                   <li> 
-                    <RouterLink class="dropdown-item" to="/LogoutCard">Logout</RouterLink>
+                    <RouterLink @click="logout" class="dropdown-item" to="/LogoutCard">Logout</RouterLink>
                   </li>
                 </ul>
               </div>

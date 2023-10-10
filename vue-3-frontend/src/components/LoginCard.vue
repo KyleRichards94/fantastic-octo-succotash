@@ -33,9 +33,9 @@
 
 <script>
 import axios from 'axios'; // Import Axios for making HTTP requests
-import { useStore } from 'vuex';
+//import { useStore } from 'vuex';
+//const store = useStore(); // Access the store within the login method
 
-const store = useStore();
 
 export default {
   name: 'logIn',
@@ -49,42 +49,31 @@ export default {
       loggedInMessage: '', // Message to display when the product is added
     };
   },
-  computed: {
-    isLoggedIn() {
-      return this.$store.getters['user/isLoggedIn'];
-    },
-    userId() {
-      return this.$store.getters['user/userId'];
-    },
-    isStaff() {
-      return this.$store.getters['user/isStaff'];
-    },
-  },
   methods: {
     login() {
-      // Send a POST request to your API endpoint with the userData
+
       axios.post('http://localhost:8090/api/users/login', this.userData)
         .then(response => {
-          // Handle success - you can show a success message or redirect here
-          // this.userAdded = true; // Set the flag to true
-          // this.userAddedMessage = 'Logged in as' + this.userData.userName; // Set the success message
-          console.log('User logged in', response.data);
-          this.userData.userName = '';
-          this.userData.password = '';
-          store.commit('setUserId', response.data);
-          store.commit('setIsLoggedIn', true);
-          const currentUserId = this.userId;
-          console.log('Current User ID:', currentUserId);
-          const currentisLogged = this.isLoggedIn;
-          console.log('Is user logged in:', currentisLogged);
+          // Handle success
+          //console.log('User logged in', response.data);
+          //this.userData.userName = '';
+          //this.userData.password = '';
+          console.log(response.data.userID);
+          this.$store.commit('user/setUserId', response.data.userID); // Use the correct mutation path
+          this.$store.commit('user/setIsLoggedIn', true); // Use the correct mutation path
+          console.log('User ID:', this.$store.getters['user/userId']);
+          console.log('Is Logged In:', this.$store.getters['user/isLoggedIn']);
+          // Rest of your code
+          console.log("no error");
+          window.location.reload();
         })
         .catch(error => {
-          // Handle error - you can display an error message here
+          // Handle error
           console.error('Error adding user:', error);
         });
     },
   },
-}
+};
 
 </script>
 

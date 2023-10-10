@@ -44,13 +44,13 @@ exports.login = (req, res) => {
   console.log("Received request with userName:", userName);
   console.log("Received request with password:", password);
   
-    const user = users.findOne({ where: {userName,password,},}).then((data) => {
+  users.findOne({ where: {userName, password}}).then((data) => {
       if (!data) {
         res.status(404).send({
           message: `User called ${userName} not found or the username and password don't match`,
         });
       } else {
-        res.send(data.UserID);
+        res.send(data);
       }
     })
     .catch((err) => {
@@ -120,7 +120,7 @@ exports.findAllOrOne= (req, res) => {
     var EmailCondition = Email ? { Email : { [Op.like]: `%${Email}%` } } : null;
 
     if(Username){
-        user.findAll({ where: UsernameCondition})
+        users.findAll({ where: UsernameCondition})
         .then(data => {
             res.send(data);
         })
@@ -132,7 +132,7 @@ exports.findAllOrOne= (req, res) => {
         });
 
      } else if (Email){
-        user.findAll({ where: EmailCondition })
+        users.findAll({ where: EmailCondition })
         .then(data => {
             res.send(data);
         })
@@ -144,7 +144,7 @@ exports.findAllOrOne= (req, res) => {
         });
 
      } else {
-        user.findAll()
+        users.findAll()
         .then(data => {
             res.send(data);
         })
@@ -161,7 +161,7 @@ exports.findAllOrOne= (req, res) => {
 exports.findOneByID = (req, res) => {
     const id = req.params.id;
 
-    user.findByPk(id)
+    users.findByPk(id)
       .then(data => {
         if (data) {
           res.send(data);
@@ -185,7 +185,7 @@ exports.findOneByID = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
   
-    user.update(req.body, {
+    users.update(req.body, {
       where: { id: id }
     })
       .then(num => {
@@ -211,7 +211,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
   
-    user.destroy({
+    users.destroy({
       where: { UserID: id }
     })
       .then(num => {
@@ -233,7 +233,7 @@ exports.delete = (req, res) => {
   };
 // Delete all Users from the database. DO NOT CALL THIS AT RUN TIME.
 exports.deleteAll = (req, res) => {
-    user.destroy({
+    users.destroy({
       where: {},
       truncate: false
     })
