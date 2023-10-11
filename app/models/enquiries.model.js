@@ -6,36 +6,40 @@ const { DataTypes } = require("sequelize");
 // which is exported as a json. 
 module.exports = (sequelize, Sequelize) => {
     const enquiries = sequelize.define('enquiries', { // in '' is the actual table name exactly as it is in sql
-        EnquiryID: {
+
+        enquiryID: {
             type: DataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
           },
-          UserID: {
+
+          userID: {
             type: DataTypes.INTEGER,
-            defaultValue: null,
-            references: {
-              model: 'users', // Replace with your actual users table name
-              key: 'UserID',
-            },
+            // defaultValue: null,
+            // references: {
+            //   model: 'users', // Replace with your actual users table name
+            //   key: 'UserID',
+            // },
           },
-          Subject: {
+          subject: {
             type: DataTypes.STRING(255),
             defaultValue: null,
           },
-          Message: {
+          message: {
             type: DataTypes.TEXT,
           },
-          Timestamp: {
+          timestamp: {
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW,
           },
-          Reply: {
+          reply: {
             type: DataTypes.TEXT,
           },
-          Unreplied: {
+          unreplied: {
             type: DataTypes.BOOLEAN,
+            defaultValue: true,
+
           },
 
         }, {

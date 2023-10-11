@@ -1,7 +1,25 @@
+const db = require("../models");
+const enquiries = db.enquiries;
+const Op = db.Sequelize.Op;
 
-const db = require("../models"); //DB exists in the index.js folder. 
-const enquiries = db.enquiries;   // The model this controller represents.
-const Op = db.Sequelize.Op; // sql operators
+// create an enquiry
+exports.create = (req, res) => {
+    const enquiry = {
+        subject: req.body.subject,
+        message: req.body.message,
+        //date will be ommited from the request. 
+    };
+
+
+    enquiries.create(enquiry).then((data) => {
+        res.send(data);
+    }).catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Couldn't create an enquiry"
+        });
+    });
+};
 
 const { Enquiry } = require('../models');
 
@@ -26,6 +44,7 @@ exports.create = (req, res) => {
             });
         });
 };
+
 
 // Return all enquiries
 exports.findAll = (req, res) => {
@@ -61,6 +80,18 @@ exports.findOne = (req, res) => {
         });
 };
 
+
+// Update the reply field and set unreplied to false by EnquiryID
+exports.update = (req, res) => {
+    const enquiryId = req.params.enquiryId;
+    const { reply } = req.body;
+
+    enquiries.update({ reply, unreplied: false }, {
+        where: { enquiryID: enquiryId }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({ message: "Reply submitted successfully" });
 // Update an Enquiry by EnquiryID
 exports.update = (req, res) => {
     const enquiryId = req.params.enquiryId;

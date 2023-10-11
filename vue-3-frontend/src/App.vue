@@ -152,6 +152,12 @@ export default {
                   <li> 
                     <RouterLink @click="logout" class="dropdown-item" to="/LogoutCard">Logout</RouterLink>
                   </li>
+                  <li>
+                    <RouterLink class="dropdown-item" to="/enquiry">Enquiry List</RouterLink>
+                  </li>
+                  <li>
+                    <RouterLink class="dropdown-item" to="/sendEnquiry">Send Enquiry</RouterLink>
+                  </li>
                 </ul>
               </div>
             </li>

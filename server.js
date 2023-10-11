@@ -54,6 +54,10 @@ require("./app/routes/shippingInfo.routes.js")(app);
 
 require("./app/routes/enquiries.routes.js")(app);
 
+// routes for enquiry
+
+require("./app/routes/enquiries.routes.js")(app);
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8090;  // default 8080
 app.listen(PORT, () => {

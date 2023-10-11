@@ -8,6 +8,24 @@ const routes =  [
     component: () => import("./components/Homepage")
   },
   {
+    path: "/enquiry",
+    alias: "/enquiry",
+    name: "enquiryPage",
+    component: () => import("./components/Enquiry/EnquiryList")
+  },
+  {
+    path: "/reply/:enquiryId",
+    alias: "/enquiryReply",
+    name: "enquiryReply",
+    component: () => import("./components/Enquiry/EnquiryReply")
+  },
+  {
+    path: "/sendEnquiry",
+    alias: "/sendEnquiry",
+    name: "sendEnquiry",
+    component: () => import("./components/Enquiry/SendEnquiry")
+  },
+  {
     path: "/Shop",
     alias: "/Shop",
     name: "Shop",
