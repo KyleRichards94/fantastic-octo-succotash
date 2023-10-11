@@ -142,7 +142,7 @@ export default {
         }
         if (this.isAgreed) {
         const formData = new FormData();
-        formData.append('userId', 3); // stick to 3 for now untill the persistant userid data is created
+        formData.append('userId', this.$store.getters['user/userId']); // stick to 3 for now untill the persistant userid data is created
         formData.append('title', this.productTitle);
         formData.append('description', this.productDescription);
         formData.append('objFile', this.objFile);
@@ -216,8 +216,6 @@ export default {
                 document.getElementById('imageFile').classList.add('is-invalid');
             }
         }
-
-        // Add more validation for other form fields similarly
 
         return isValid;
     }
