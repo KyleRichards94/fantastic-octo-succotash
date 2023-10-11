@@ -81,7 +81,7 @@ export default {
                   data-bs-toggle="dropdown" aria-expanded="false">
                   cart <!-- most likely need to change user store to actually storing the whole user for this and everything else -->
                 </button>
-                <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton2">
+                <ul class="dropdown-menu dropdown-menu-start" style = "width: 100%; align-self: auto;" aria-labelledby="dropdownMenuButton2">
 
                   <!-- cart items -->
                       <li class="list-group-item" v-for="product in cartItems" :key="product.id">
@@ -106,15 +106,17 @@ export default {
                   <!-- Price -->
                     <li class="list-group-item">
                       <div class="row">
-                        <div class="col-md-6">Total:</div>
-                        <div class="col-md-6 text-end">$ {{ totalCartPrice }}</div>
+                        <div class="col" style = "text-align: center;">Total:</div>
+                        <div class="col" style = "text-align: center;">$ {{ totalCartPrice }}</div>
+                        <hr>
                       </div>
                     </li>
 
                     <li class="list-group-item">
-                      <hr>
                       <div class="row">
-                        <RouterLink class="btn btn-dark" to="/signUp">Checkout / edit</RouterLink>
+                        <div class="col-md-6" >
+                          <RouterLink class="btn btn-dark" to="/signUp">Checkout / edit</RouterLink>
+                        </div>
                       </div>
                       <hr>
                     </li>
