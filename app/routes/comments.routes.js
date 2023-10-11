@@ -6,6 +6,8 @@ module.exports = app => {
     // etc. when the model is finished. Simular to the big XML file in javabeans. 
   
     var router = require("express").Router();
-    
-    // impliment your CRUD
+    router.post("/create", comments.createComment);
+    router.get("/getByPost", comments.getCommentsByPostId);
+    router.get("/getAllComments", comments.getAllComments);
+    app.use('/api/comment', router);
   };

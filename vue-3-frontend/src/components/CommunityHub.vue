@@ -1,3 +1,6 @@
+<script setup>
+    import CommentBox from'./Comments/CommentBox.vue'
+</script>
 <template>
     <div class ="container" style = "padding-top: 2%;">
         
@@ -24,6 +27,7 @@
                     <p> print your own poly mesh with 10x structural integrity </p>
                     <hr class="my-4">
                     <a class="btn btn-outline-primary"  href="#" role="button">Download</a>
+                    <comment-box @submitComment="handleCommentSubmission"></comment-box>
                 </div>
             </div>
 
@@ -50,12 +54,24 @@
         </div> 
         
     </div>
-        <div class="row justify-content-md-center" style = "padding-top: 2%;">
+
+    <!-- no user -->
+        <div v-if="this.$store.getters['user/userId'] == null" class="row justify-content-md-center" style = "padding-top: 2%;">
             <div class="card" style = "width: 40%;background-image: url('https://e0.pxfuel.com/wallpapers/664/353/desktop-wallpaper-acrylic-light-salmon-pink-watercolor-texture-background-by-pink-background-color-iphone-pastel-pink.jpg');background-repeat: no-repeat;background-size: 100% auto;background-position: center center;">
             <div class="card-body">
                 <h5 class="card-title">Join our community of creators</h5>
                 <p class="card-text"> If you can print it, you can share it! </p>
-                <a href="#" class="btn btn-primary">Sign me up!</a>
+                <RouterLink class="btn btn-primary" to="/signUp"> Sign me Up! </RouterLink>
+            </div>
+            </div>
+        </div>
+           <!--  user -->
+        <div v-if="this.$store.getters['user/userId'] != null" class="row justify-content-md-center" style = "padding-top: 2%;">
+            <div class="card" style = "width: 40%;background-image: url('https://e0.pxfuel.com/wallpapers/664/353/desktop-wallpaper-acrylic-light-salmon-pink-watercolor-texture-background-by-pink-background-color-iphone-pastel-pink.jpg');background-repeat: no-repeat;background-size: 100% auto;background-position: center center;">
+            <div class="card-body">
+                <h5 class="card-title"> With a 3D printer anything is possible! </h5>
+                <p class="card-text"> If you can print it, you can share it! </p>
+                <RouterLink class="btn btn-primary" to="/Shop"> Buy a printer! </RouterLink>
             </div>
             </div>
         </div>
@@ -63,12 +79,6 @@
 
 <script>
 
-    export default{
-        name: 'CommunityHub',
-            setup() {
-                
-            },
-        }
 
 </script>
 
@@ -89,4 +99,3 @@
     }
 
 </style>
-```

@@ -6,12 +6,17 @@
     </div>
   </div>
 
+
   <div>
+    <div class="message-container">
+      <div v-if="productAdded" class="alert alert-success">{{ productAddedMessage }}</div>
+    </div>
+    <br>
     <form @submit.prevent="addProduct">
       <div class="form-group">
         <label for="productName">Product Name</label>
         <input type="text" class="form-control" id="productName" placeholder="Enter Product Name"
-          v-model="productData.ProductName" required>
+          v-model="productData.productName" required>
       </div>
       <br>
 
@@ -24,13 +29,13 @@
       <br>
       <div class="form-group">
         <label for="description">Product Description</label>
-        <textarea class="form-control" aria-label="With textarea" id="description" v-model="productData.Description"
+        <textarea class="form-control" aria-label="With textarea" id="description" v-model="productData.description"
           required></textarea>
       </div>
       <br>
       <div class="form-group">
         <label for="price">Price</label>
-        <input type="number" class="form-control" id="price" placeholder="Enter Product Name" v-model="productData.Price"
+        <input type="number" class="form-control" id="price" placeholder="Enter Product Name" v-model="productData.price"
           required>
       </div>
 
@@ -48,10 +53,12 @@ export default {
   data() {
     return {
       productData: {
-        ProductName: '',
-        Description: '',
-        Price: 0,
+        productName: '',
+        description: '',
+        price: 0,
       },
+      productAdded: false, // Flag to track if the product is added
+      productAddedMessage: '', // Message to display when the product is added
     };
   },
   methods: {
@@ -60,7 +67,14 @@ export default {
       axios.post('http://localhost:8090/api/products/addProduct', this.productData)
         .then(response => {
           // Handle success - you can show a success message or redirect here
+          this.productAdded = true; // Set the flag to true
+          this.productAddedMessage = 'Product added successfully'; // Set the success message
           console.log('Product added successfully:', response.data);
+          //clear the form fields after submission hehe
+          this.productData.productName = '';
+          this.productData.description = '';
+          this.productData.price = 0;
+       
         })
         .catch(error => {
           // Handle error - you can display an error message here
@@ -96,4 +110,5 @@ span {
 
 button {
   float: middle;
-}</style>
+}
+</style>

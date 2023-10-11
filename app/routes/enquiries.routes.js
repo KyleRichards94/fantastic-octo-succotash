@@ -6,6 +6,7 @@ module.exports = app => {
     
     // impliment your CRUD
     // Create a new enquiry
+
     router.post('/', enquiries.create);
 
     // Get all enquiries
@@ -19,6 +20,7 @@ module.exports = app => {
 
     // Delete an enquiry by ID
     router.delete('/:enquiryId', enquiries.delete);
+
 
     app.use('/api/enquiries', router);
   };

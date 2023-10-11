@@ -9,26 +9,31 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize, Sequelize) => {
     const products = sequelize.define('products', { // in '' is the actual table name exactly as it is in sql
         //here enter your data stuff
-        ProductID: {
+        productId: {
             type: Number,
             required: true,
             autoIncrement: true,
             primaryKey: true
           },
-          ProductName: {
+          productName: {
             type: String,
             required: true
           },
-          Description: {
+          description: {
             type: String,
             required: true
           },
-          Price: {
+          price: {
             type: Number,
             required: true
+          },
+          imageLocation: {
+            type: String,
+            required: false
           }
         },
         {
+        tableName: 'products',
         timestamps: false
     });
   

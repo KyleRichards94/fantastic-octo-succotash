@@ -6,12 +6,14 @@ const { DataTypes } = require("sequelize");
 // which is exported as a json. 
 module.exports = (sequelize, Sequelize) => {
     const enquiries = sequelize.define('enquiries', { // in '' is the actual table name exactly as it is in sql
+
         enquiryID: {
             type: DataTypes.INTEGER,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
           },
+
           userID: {
             type: DataTypes.INTEGER,
             // defaultValue: null,
@@ -37,6 +39,7 @@ module.exports = (sequelize, Sequelize) => {
           unreplied: {
             type: DataTypes.BOOLEAN,
             defaultValue: true,
+
           },
 
         }, {

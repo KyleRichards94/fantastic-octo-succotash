@@ -10,7 +10,17 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+
 steps:
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: '**/test-results.xml'  # Path to your test result files
+    testRunTitle: 'SuccotashDB Tests'
+    testRunner: 'JUnit'  # Use 'JUnit' as the test runner for JUnit-style reports
+    testFailureThreshold: '20'
+    targetPath: '$(System.DefaultWorkingDirectory)/test-results' 
+
 - task: NodeTool@0
   inputs:
     versionSpec: '20.x'
@@ -39,3 +49,4 @@ steps:
     npm run build
   displayName: 'Frontend build and test'
   workingDirectory: $(Build.SourcesDirectory)/vue-3-frontend
+

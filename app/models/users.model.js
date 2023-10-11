@@ -7,25 +7,25 @@ const { DataTypes } = require("sequelize");
 // which is exported as a json. 
 module.exports = (sequelize, Sequelize) => {
     const user = sequelize.define('users', { // in '' is the actual table name exactly as it is in sql
-        UserID:{
+        userID:{
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
-        Username:{
-            type: DataTypes.STRING(255),
+        userName:{
+            type: String,
+            defaultValue: 'c'
+        },
+        password:{
+            type: String,
             defaultValue: null
         },
-        Password:{
-            type: DataTypes.STRING(255),
-            defaultValue: null
-        },
-        Email:{
-            type: DataTypes.STRING(255),
+        email:{
+            type: String,
             defaultValue: null
         },
         address:{
-            type: DataTypes.STRING(255),
+            type: String,
             defaultValue: null
         }  //, etc , etc. untill the entire backend is linked.
     }, {

@@ -1,10 +1,7 @@
 
 module.exports = app => {
     const users = require("../controllers/users.controller.js");
-    // add cart
-    //add post
-    // add comment
-    // etc. when the model is finished. Simular to the big XML file in javabeans. 
+    
   
     var router = require("express").Router();
   
@@ -16,16 +13,16 @@ module.exports = app => {
     router.get("/find", users.findAllOrOne); // works @http://localhost:8090/api/Users/find
 
     // login via Email || Username ++ password
-    router.get("/login", users.login);
+    router.post("/login", users.login);
   
     // Retrieve a single User with id
     router.get("/:id", users.findOneByID);
   
     // Update a User with id
-    router.put("/:id", users.update);
+    router.post("/update", users.update);
   
     // Delete a Tutorial with id
-    router.delete("/:id", users.delete);
+    router.post("/delete", users.delete);
   
     // Delete all Tutorials
     router.delete("/delete", users.deleteAll);

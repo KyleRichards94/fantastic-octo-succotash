@@ -32,10 +32,22 @@ const routes =  [
     component: () => import("./components/ShopFront")
   },
   {
+    path: "/shoppingCart",
+    alias: "/shoppingCart",
+    name: "shoppingCart",
+    component: () => import("./components/shoppingManagement/shoppingCart")
+  },
+  {
     path: "/CommunityHub",
     alias: "/CommunityHub",
     name: "CommunityHub",
     component: () => import("./components/CommunityHub")
+  },
+  {
+    path: "/signUp",
+    alias: "/signUp",
+    name: "signUp",
+    component: () => import("./components/signUp")
   },
   {
     path:"/addPost",
@@ -50,12 +62,23 @@ const routes =  [
     component: () => import("./components/CommunityHubFeatures/browsePosts")
   },
   {
+    path: "/browsePosts/viewer/:objFilePath/:postId", // Add a dynamic route parameter for the objFilePath
+    name: "3DviewPort",
+    component: () => import("./components/CommunityHubFeatures/3DviewPort"), // The ModelViewer component
+    props: true, // Pass route params as props
+  },
+  {
     path: "/MyAccount",
     alias: "/MyAccount",
     name: "MyAccount",
     component: () => import("./components/MyAccount")
   },
-  
+  {
+    path: "/LoginCard",
+    alias: "/LoginCard",
+    name: "LoginCard",
+    component: () => import("./components/LoginCard")
+  },
   {
     path: "/LogoutCard",
     alias: "/LogoutCard",
@@ -85,6 +108,12 @@ const routes =  [
         alias: "/deleteProduct",
         name: "deleteProduct",
         component: () => import("./components/productManagement/deleteProduct")
+      },
+      {
+        path: '/viewProducts',
+        alias: "/viewProducts",
+        name: "viewProducts",
+        component: () => import("./components/productManagement/viewProducts")
       }
 
     ]

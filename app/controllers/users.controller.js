@@ -6,22 +6,13 @@ const db = require("../models"); //DB exists in the index.js folder.
 const users = db.users;   // The model this controller represents.
 const Op = db.Sequelize.Op; // sql operators
 
-// Create and Save a new User
+// Create and Save a new User to the DB
 exports.create = (req, res) => {
-    //Validation// basic validation call for now. 
-    // req = request, ie the string we will pull from the html form later.
-    //if(!req.body.Username && !req.body.PasswordHash){ // the req body, defines EXACTLY what the json file should be typed as, which should exactly match the database.
-    //    res.status(400).send({
-    //        message: "Name or Password Cannot be empty!"
-    //    });
-    //    return;
-    //}
-    ////if validation was define a new user. 
     const user = {
         UserID: req.body.UserID,
-        Username: req.body.Username,
-        Password: req.body.Password,
-        Email: req.body.Email,
+        userName: req.body.userName,
+        password: req.body.password,
+        email: req.body.email,
         address: req.body.address
     }; 
 
@@ -35,64 +26,31 @@ exports.create = (req, res) => {
                 err.message || "Something horrible happened when adding a user."
         });
     });
+};
+
+//Login using username and password
+exports.login = (req, res) => {
+  const userName = req.body.userName;
+  const password  = req.body.password;
+
+  console.log("Received request with userName:", userName);
+  console.log("Received request with password:", password);
   
+  users.findOne({ where: {userName, password}}).then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `User called ${userName} not found or the username and password don't match`,
+        });
+      } else {
+        res.send(data);
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "An error occurred while retrieving the post",
+      });
+    });
 };
-
-
-// User login function  works at http://localhost:8090/api/Users/login
-exports.login = async (req, res) => {
-    const { Username, Email, PasswordHash } = req.body;
-    
-    if (!Username && !Email) {
-        return res.status(400).send({
-            message: "Username or email is required for login."
-        });
-    }
-
-    try {
-        let user;
-        if (Username) {
-            user = await User.findOne({ where: { Username } });
-        } else if (Email) {
-            user = await User.findOne({ where: { Email } });
-        }
-
-        if (!user) {
-            return res.status(404).send({
-                message: "User not found."
-            });
-        }
-
-        if (user.PasswordHash !== PasswordHash) {
-            return res.status(401).send({
-                message: "Incorrect password."
-            });
-        }
-
-        // Successful login
-        res.send({
-            message: "Login successful.",
-            user
-        });
-    } catch (err) {
-        res.status(500).send({
-            message: err.message || "An error occurred during login."
-        });
-    }
-};
-// Front end call of the login function 
-//      axios.get("http://localhost:8080/login", {
-//        params: {
-//          Username: "example_username", // Provide the username here
-//          password: "example_password" // Provide the password here
-//        }
-//      })
-//        .then(response => {
-//          console.log(response.data);
-//        })
-//        .catch(error => {
-//          console.error(error);
-//        });
 
 // Retrieve all Users from the data base 
 // OR if given a request parameter condition it will find all Like the condition. 
@@ -104,7 +62,7 @@ exports.findAllOrOne= (req, res) => {
     var EmailCondition = Email ? { Email : { [Op.like]: `%${Email}%` } } : null;
 
     if(Username){
-        user.findAll({ where: UsernameCondition})
+        users.findAll({ where: UsernameCondition})
         .then(data => {
             res.send(data);
         })
@@ -116,7 +74,7 @@ exports.findAllOrOne= (req, res) => {
         });
 
      } else if (Email){
-        user.findAll({ where: EmailCondition })
+        users.findAll({ where: EmailCondition })
         .then(data => {
             res.send(data);
         })
@@ -128,7 +86,7 @@ exports.findAllOrOne= (req, res) => {
         });
 
      } else {
-        user.findAll()
+        users.findAll()
         .then(data => {
             res.send(data);
         })
@@ -145,7 +103,7 @@ exports.findAllOrOne= (req, res) => {
 exports.findOneByID = (req, res) => {
     const id = req.params.id;
 
-    user.findByPk(id)
+    users.findByPk(id)
       .then(data => {
         if (data) {
           res.send(data);
@@ -163,14 +121,13 @@ exports.findOneByID = (req, res) => {
   };
   
 
-
 // Update a User by the id in the request
 // The request will be a Json object that directly matches the structure of the User model template.
 exports.update = (req, res) => {
-    const id = req.params.id;
+    const id = req.body.userId;
   
-    user.update(req.body, {
-      where: { id: id }
+    users.update(req.body, {
+      where: { userId: id }
     })
       .then(num => {
         if (num == 1) {
@@ -189,12 +146,16 @@ exports.update = (req, res) => {
         });
       });
   };
-// Delete a Tutorial with the specified id in the request
-exports.delete = (req, res) => {
-    const id = req.params.id;
+
+
+
   
-    user.destroy({
-      where: { UserID: id }
+// Delete a user with the specified id in the request
+exports.delete = (req, res) => {
+    const id = req.body.userId;
+  
+    users.destroy({
+      where: { userId: id }
     })
       .then(num => {
         if (num == 1) {
@@ -215,7 +176,7 @@ exports.delete = (req, res) => {
   };
 // Delete all Users from the database. DO NOT CALL THIS AT RUN TIME.
 exports.deleteAll = (req, res) => {
-    user.destroy({
+    users.destroy({
       where: {},
       truncate: false
     })
@@ -229,9 +190,3 @@ exports.deleteAll = (req, res) => {
         });
       });
   };
-// Add more export functions as needed, give chat gpt the code above as context, and ask for a specific output. 
-// Or do it the hard way idk. 
-
-
-//example call
-//db.User.findAll();
