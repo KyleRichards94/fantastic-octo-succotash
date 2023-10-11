@@ -31,7 +31,7 @@
               <div class ="favorites-icon">
                 <!-- you can add a V-if, after you axios-get all the users current favourites such that. 
                 if post.id.in(favourites) then <img src = " "../../assets/star-2768.png""> -->
-                <img id = "favourites" src ="../../assets/favourite-2765.png" onclick="addFavourites" >
+                <img id = "favourites" src ="../../assets/favourite-2765.png" onclick="addFavourites" style = "width: 24px;">
               </div>
             </div>
             <comment-box @submitComment="handleCommentSubmission"></comment-box>
