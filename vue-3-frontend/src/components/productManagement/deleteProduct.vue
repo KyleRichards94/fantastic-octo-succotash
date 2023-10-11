@@ -46,13 +46,13 @@ export default {
       axios.delete(`http://localhost:8090/api/products/deleteProductByName/${this.productId}`)
         .then((response) => {
           if (response.data.message === 'The product was deleted successfully!') {
-              this.ProductDeletedSuccessMessage = 'Product deleted successfully';
-              this.ProductDeletedFailMessage = '';
+              this.productDeletedSuccessMessage = 'Product deleted successfully';
+              this.productDeletedFailMessage = '';
             // Handle success - you can show a success message or redirect here
             console.log('Product deleted successfully:', response.data);
           }else{
-            this.ProductDeletedFailMessage = 'Product does not exist';
-            this.ProductDeletedSuccessMessage = '';
+            this.productDeletedFailMessage = 'Product does not exist';
+            this.productDeletedSuccessMessage = '';
             console.log('Product not deleted')
           }
         })

@@ -16,7 +16,7 @@
       <div class="form-group">
         <label for="productName">Product Name</label>
         <input type="text" class="form-control" id="productName" placeholder="Enter Product Name"
-          v-model="productData.ProductName" required>
+          v-model="productData.productName" required>
       </div>
       <br>
 
@@ -29,13 +29,13 @@
       <br>
       <div class="form-group">
         <label for="description">Product Description</label>
-        <textarea class="form-control" aria-label="With textarea" id="description" v-model="productData.Description"
+        <textarea class="form-control" aria-label="With textarea" id="description" v-model="productData.description"
           required></textarea>
       </div>
       <br>
       <div class="form-group">
         <label for="price">Price</label>
-        <input type="number" class="form-control" id="price" placeholder="Enter Product Name" v-model="productData.Price"
+        <input type="number" class="form-control" id="price" placeholder="Enter Product Name" v-model="productData.price"
           required>
       </div>
 
