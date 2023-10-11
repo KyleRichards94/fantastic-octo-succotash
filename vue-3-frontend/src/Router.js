@@ -14,6 +14,12 @@ const routes =  [
     component: () => import("./components/ShopFront")
   },
   {
+    path: "/shoppingCart",
+    alias: "/shoppingCart",
+    name: "shoppingCart",
+    component: () => import("./components/shoppingManagement/shoppingCart")
+  },
+  {
     path: "/CommunityHub",
     alias: "/CommunityHub",
     name: "CommunityHub",
