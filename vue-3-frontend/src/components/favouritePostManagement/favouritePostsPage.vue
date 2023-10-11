@@ -33,7 +33,7 @@
                 if post.id.in(favourites) then <img src = " "../../assets/star-2768.png""> -->
                   <!--Mohammed has edited the below image tag to call the addToFavorits method for his feature-->
                   <img id="favourites" src="../../assets/favourite-2765.png"
-                    @click="addToFavorites(post.postId, post.userId)">
+                    @click="addToFavorites(post.postId, post.userId)" style = "width: 24px;">
                 </div>
               </div>
               <input v-model="comment" type="text" class="form-control" placeholder="Add a comment">
