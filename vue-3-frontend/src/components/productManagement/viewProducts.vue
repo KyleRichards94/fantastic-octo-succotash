@@ -21,19 +21,18 @@
                 <img class="card-img-top" :src="'http://localhost:8090' + post.imageLocation" alt="Card image cap">
               <br>
               <br>
-                <h5 class="card-title">Title: {{ post.productName }}</h5>
+                <h5 class="card-title">Product Name: {{ post.productName }}</h5>
               <p class="card-text"> Description: {{ post.description }}</p>
-              <p class="card-text">Price: {{ post.price }}</p>
+              <p class="card-text">Price: ${{ post.price }}</p>
               <p class="card-text">Product ID: {{ post.productId }}</p>
               <div class="d-flex justify-content-between">
-                <a href="#" class="btn btn-primary">Download it</a>
+              
                 <div class="favorites-icon">
                   <!-- you can add a V-if, after you axios-get all the users current favourites such that. 
 
                 if post.id.in(favourites) then <img src = " "../../assets/star-2768.png""> -->
                   <!--Mohammed has edited the below image tag to call the addToFavorits method for his feature-->
-                  <img id="favourites" src="../../assets/favourite-2765.png"
-                    >
+                  
                 </div>
               </div>
               
