@@ -57,7 +57,7 @@ export default {
   },
   setup(props) {
     const post = ref({});
-    const user = ref ({});
+    const user = ref({});
     const container = ref(null);
     let scene, camera, renderer, objModel, controls;
 
@@ -139,24 +139,26 @@ export default {
     });
 
     axios
-      .get("http://localhost:8090/api/posts/" + props.postId)
-      .then((response) => {
-        post.value = response.data;
-        console.log(post.value);
-      })
-      .catch((error) => {
-        console.error("An error occurred:", error);
-      });
-
-    axios.get("http://localhost:8090/api/users/" + post.value.userId)
+    .get("http://localhost:8090/api/posts/" + props.postId)
     .then((response) => {
-      user.value = response.value;
-      console.log(user.value);
+      post.value = response.data;
+      console.log(post.value);
+      const id = post.value.userId;
+      console.log("the user id???" + post.value.userId);
+      
+      //sychnoous callback of posts + users.
+      axios.get("http://localhost:8090/api/users/" + id)
+        .then((userResponse) => {
+          user.value = userResponse.data;
+          console.log(user.value);
+        })
+        .catch((userError) => {
+          console.error("No user can be found >:(" + userError);
+        });
     })
     .catch((error) => {
-      console.error("no user can be found >:(" + user.value + error);
-    })
-
+      console.error("An error occurred:", error);
+    });
     const formatDate = (dateString) => {
       const options = { year: "numeric", month: "long", day: "numeric" };
       return new Date(dateString).toLocaleDateString(undefined, options);
