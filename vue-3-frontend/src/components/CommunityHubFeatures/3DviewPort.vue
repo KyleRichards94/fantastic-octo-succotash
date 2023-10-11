@@ -84,10 +84,10 @@ export default {
       const ambientLight = new THREE.AmbientLight(0x404040);
         scene.add(ambientLight);
       //Lighting
-      const ambientLight1 = new THREE.AmbientLight(0x404040);
+      const ambientLight1 = new THREE.AmbientLight(0x4f4040);
         scene.add(ambientLight1);
       //Lighting
-      const ambientLight2 = new THREE.AmbientLight(0x404040);
+      const ambientLight2 = new THREE.AmbientLight(0x804040);
         scene.add(ambientLight2);
 
         const directionalLight = new DirectionalLight(0xffffff, 1);
