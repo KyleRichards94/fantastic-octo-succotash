@@ -113,15 +113,19 @@
         },
         
         methods: {
-
+            
             addToCart(product){
                 this.successMessage = true;
                 this.lastAdded = product.productName;
                 console.log(product.productId);
 
-                this.$store.dispatch('cart/addCartItem', product);
+                this.$store.dispatch('cart/addCartItem', product); //Works!!!
 
                 console.log(this.$store.getters['cart/cartItems']);
+
+                setTimeout(() => {
+                    window.location.reload();
+                        }, 1500);
             }
         }
     };
