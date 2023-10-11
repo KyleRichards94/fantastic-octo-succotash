@@ -20,6 +20,7 @@ export default {
     totalCartPrice() {
       return this.cartItems.reduce((total, product) => total + product.price, 0);
     },
+ 
   },
   methods: {
     logout() {
@@ -68,12 +69,6 @@ export default {
             <li class="nav-item">
               <RouterLink class="nav-link" to="/CommunityHub">Community Hub</RouterLink>
             </li>
-            <li class="nav-item" v-if="this.$store.getters['user/userId'] == null">
-              <RouterLink class="nav-link" to="/LoginCard">Login</RouterLink>
-            </li>
-            <li class="nav-item" v-if="this.$store.getters['user/userId'] == null">
-              <RouterLink class="nav-link" to="/signUp">Signup</RouterLink>
-            </li>
 
             <li class="nav-item">
               <div class="dropdown">
@@ -115,7 +110,7 @@ export default {
                     <li class="list-group-item">
                       <div class="row">
                         <div class="col-md-6" >
-                          <RouterLink class="btn btn-dark" to="/signUp">Checkout / edit</RouterLink>
+                          <RouterLink class="btn btn-dark" to="/shoppingCart">Checkout</RouterLink>
                         </div>
                       </div>
                       <hr>
@@ -125,6 +120,15 @@ export default {
               </div>
             </li>
 
+
+            <li class="nav-item" v-if="this.$store.getters['user/userId'] == null">
+              <RouterLink class="nav-link" to="/LoginCard">Login</RouterLink>
+            </li>
+            <li class="nav-item" v-if="this.$store.getters['user/userId'] == null">
+              <RouterLink class="nav-link" to="/signUp">Signup</RouterLink>
+            </li>
+
+            
 
 
             <!-- Drop down Menu  -->
