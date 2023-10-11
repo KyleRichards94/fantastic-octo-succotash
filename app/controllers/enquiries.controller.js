@@ -81,17 +81,6 @@ exports.findOne = (req, res) => {
 };
 
 
-// Update the reply field and set unreplied to false by EnquiryID
-exports.update = (req, res) => {
-    const enquiryId = req.params.enquiryId;
-    const { reply } = req.body;
-
-    enquiries.update({ reply, unreplied: false }, {
-        where: { enquiryID: enquiryId }
-    })
-        .then(num => {
-            if (num == 1) {
-                res.send({ message: "Reply submitted successfully" });
 // Update an Enquiry by EnquiryID
 exports.update = (req, res) => {
     const enquiryId = req.params.enquiryId;
