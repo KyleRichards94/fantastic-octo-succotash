@@ -10,7 +10,7 @@ module.exports = app => {
   
 
     // Create a new User
-    router.post("/", users.create);
+    router.post("/add", users.create);
   
     // Retrieve all Users
     router.get("/find", users.findAllOrOne); // works @http://localhost:8090/api/Users/find
@@ -28,7 +28,7 @@ module.exports = app => {
     router.delete("/:id", users.delete);
   
     // Delete all Tutorials
-    router.delete("/", users.deleteAll);
+    router.delete("/delete", users.deleteAll);
   
     app.use('/api/Users', router);
   };

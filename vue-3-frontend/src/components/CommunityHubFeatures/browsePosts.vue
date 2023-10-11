@@ -13,15 +13,39 @@ import CommentBox from'../Comments/CommentBox.vue'
               </div>
           </div>
       </div>
+    <form>
+        <div class = "container" style = "padding-top: 2%;">
+            <div class="input-group mb-3">
+        <input id ='searchBar' type="text" class="form-control" placeholder="Search by title" aria-label="Recipient's username" aria-describedby="basic-addon2" v-model="searchQuery" >
+        <span class="input-group-text" id="basic-addon2">Search</span>
+    </div>
+    </div>
+    </form>
 
-      <div class = "container" style = "padding-top: 2%;">
-        <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Search by title" aria-label="Recipient's username" aria-describedby="basic-addon2">
-    <span class="input-group-text" id="basic-addon2">Search</span>
+  <div class="container" style="padding-top: 2%;">
+    <div class="row">
+      <!-- Loop through postData and create a card for each post -->
+      <div v-for="post in postData" :key="post.postId" class="col-md-4">
+        <div class="card" style="margin-bottom: 20px;">
+          <img class="card-img-top" :src="'http://localhost:8090' + post.imagePath" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.description }}</p>
+            <a href="#" class="btn btn-primary">Download</a>
+            <comment-box @submitComment="handleCommentSubmission"></comment-box>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  </div>
 
+  <!-- New cards system that uses the axios pipeline to get all from the database -->
+  
 
+</div>
+
+  <!-- end new stuff. -->
+ <!--
     <div class = "p-3 border bg-light">
         <div class="d-flex justify-content-between" style = "padding-top: 2%;">
             <div class="card" style="width: 18rem;">
@@ -60,17 +84,26 @@ import CommentBox from'../Comments/CommentBox.vue'
         </div> 
       </div>
     </DIV>
+    -->
   </template>
   
   <script>
-     
+        import axios from 'axios';
+        import { ref } from 'vue';
 
-      export default {
-          name: 'browsePosts',
-      
-      }
-  </script>
-  
+        export default {
+        name: 'browsePosts',
+        };
+            const postData = ref([]);
+            const searchQuery = ref('');
+
+            // Fetch all posts when the component is mounted
+            axios.get('http://localhost:8090/api/posts/findAll').then((response) => {
+            postData.value = response.data;
+            });
+    
+        
+</script>
   <style>
   
   </style>
