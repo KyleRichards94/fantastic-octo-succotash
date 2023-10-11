@@ -53,6 +53,12 @@ import 'bootstrap/dist/css/bootstrap.css';
                   <li>
                     <RouterLink class="dropdown-item" to="/BrowsePostsButStaff">Staff Login</RouterLink>
                   </li>
+                  <li>
+                    <RouterLink class="dropdown-item" to="/enquiry">Enquiry List</RouterLink>
+                  </li>
+                  <li>
+                    <RouterLink class="dropdown-item" to="/sendEnquiry">Send Enquiry</RouterLink>
+                  </li>
                 </ul>
               </div>
             </li>
