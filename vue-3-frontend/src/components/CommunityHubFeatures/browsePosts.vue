@@ -29,7 +29,7 @@
     <div class="container" style="padding-top: 2%;">
       <div class="row">
         <!-- Loop through postData and create a card for each post -->
-        <div v-for="post in postData" :key="post.postId" class="col-md-4">
+        <div v-for="post in postData" :key="post.postId" class="col-md-6">
           <div class="card" style="margin-bottom: 20px;">
 
             <img class="card-img-top" :src="'http://localhost:8090' + post.imagePath" alt="Card image cap">
@@ -46,7 +46,7 @@
                 if post.id.in(favourites) then <img src = " "../../assets/star-2768.png""> -->
                   <!--Mohammed has edited the below image tag to call the addToFavorits method for his feature-->
                   <img id="favourites" src="../../assets/favourite-2765.png"
-                    @click="addToFavorites(post.postId, post.userId)">
+                    @click="addToFavorites(post.postId, post.userId)" style = "width: 24px;">
                 </div>
               </div>
               <input v-model="comment" type="text" class="form-control" placeholder="Add a comment">
