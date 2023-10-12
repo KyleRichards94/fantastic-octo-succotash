@@ -362,3 +362,42 @@ describe('Favorite Posts API', () => {
 
   // Add more tests for other favorite posts-related routes as needed.
 });
+
+describe('Create comment API',  () => {
+  it('should create a new comment',  (done) =>{
+    const sampleComment = {
+        postId: 1, 
+        userId: 1,
+        commentText: 'This is a test comment',
+    };
+    chai
+      .request(server)
+      .post('/api/comment/create') 
+      .send({
+        sampleComment
+      })
+      .end(function (err, res) {
+        expect(res.body).to.be.an('object');
+        expect(res).to.have.status(201); 
+        done();
+      });
+  });
+});
+//Self Documenting code and all that jazz
+describe('Get comment by Post ID',  () => {
+  it('should source comments by post ID',  (done) =>{
+       const postId = 3;
+    chai
+      .request(server)
+      .get(`/api/comment/getByPost?postId=${postId}`) 
+      .end(function (err, res) {
+        if (err) {
+          done(err);
+        } else {
+        expect(res.body).to.be.an('array'); 
+        expect(res.body[0]).to.have.property('commentText');
+        done();
+        }
+      });
+  });
+});
