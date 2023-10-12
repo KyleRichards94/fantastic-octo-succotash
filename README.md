@@ -21,4 +21,6 @@ favouritePostsPage.vue - made the whole page to display the favorited posts
 all the .vue files in the productManagement folder - these files let you add, delete, edit and view the products
 test.js - I included 4 tests, 2 tests for productManagement and 2 tests for favoritePostsManagement
 
-
+Kyle - made community hub, 3D view port, add posts, browse posts posts AI. 
+Made shop front, dhop API, and shopping cart dropdown menu and checkout page. 
+testing for posts, orders, order items. 
