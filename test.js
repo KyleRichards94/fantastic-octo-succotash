@@ -89,6 +89,83 @@ describe('Posts API', () => {
 });
 //end post testing
 
+// Begin Enquiry testing
+describe('Enquiries API', () => {
+  // Test the POST /api/enquiries/create route
+  describe('POST /api/enquiries/create', () => {
+    it('should create a new enquiry', (done) => {
+      const newEnquiry = {
+        
+        subject: 'Test Enquiry',
+        message: 'This is a test enquiry.',
+      };
+
+      chai
+        .request(server)
+        .post('/api/enquiries/create')
+        .send(newEnquiry)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an('object');
+          expect(res.body.subject).to.equal(newEnquiry.subject);
+          done();
+        });
+    });
+  });
+
+  // Test the GET /api/enquiries/findAll route
+  describe('GET /api/enquiries/findAll', () => {
+    it('should get all enquiries', (done) => {
+      chai
+        .request(server)
+        .get('/api/enquiries/findAll')
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          //expect(res.body).to.be.an('array');
+          done();
+        });
+    });
+  });
+
+  // Test the GET /api/enquiries/:enquiryId route
+  describe('GET /api/enquiries/:enquiryId', () => {
+    it('should get a single enquiry by enquiryId', (done) => {
+      // Replace with an existing enquiryId in your database
+      const enquiryId = 1;
+
+      chai
+        .request(server)
+        .get(`/api/enquiries/${enquiryId}`)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          //expect(res.body).to.be.an('object');
+          expect(res.body.enquiryId).to.equal(enquiryId);
+          done();
+        });
+    });
+  });
+
+  // Test the PUT /api/enquiries/:enquiryId route
+  describe('PUT /api/enquiries/:enquiryId', () => {
+    it('should update the enquiry reply', (done) => {
+      // Replace with an existing enquiryId in your database
+      const enquiryId = 1;
+
+      const updatedEnquiry = {
+        reply: 'Updated test enquiry reply.',
+      };
+
+      chai
+        .request(server)
+        .put(`/api/enquiries/${enquiryId}`)
+        .send(updatedEnquiry)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+  });
+});
 
 
 //Begin Order api testingdescribe('Posts API', () => {

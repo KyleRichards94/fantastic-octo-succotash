@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="Mocha Tests" time="0.144" tests="15" failures="8">
-  <testsuite name="Root Suite" timestamp="2023-10-12T06:49:20" tests="0" time="0.000" failures="0">
+<testsuites name="Mocha Tests" time="0.204" tests="23" failures="15">
+  <testsuite name="Root Suite" timestamp="2023-10-12T21:52:17" tests="0" time="0.000" failures="0">
   </testsuite>
-  <testsuite name="Posts API" timestamp="2023-10-12T06:49:20" tests="0" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.000" failures="0">
+  <testsuite name="Posts API" timestamp="2023-10-12T21:52:17" tests="0" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.000" failures="0">
   </testsuite>
-  <testsuite name="POST /api/posts/create" timestamp="2023-10-12T06:49:20" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.087" failures="0">
-    <testcase name="Posts API POST /api/posts/create should create a new post" time="0.085" classname="should create a new post">
+  <testsuite name="POST /api/posts/create" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.115" failures="0">
+    <testcase name="Posts API POST /api/posts/create should create a new post" time="0.113" classname="should create a new post">
     </testcase>
   </testsuite>
-  <testsuite name="GET /api/posts/findAll" timestamp="2023-10-12T06:49:20" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.005" failures="0">
+  <testsuite name="GET /api/posts/findAll" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.005" failures="0">
     <testcase name="Posts API GET /api/posts/findAll should get all posts" time="0.005" classname="should get all posts">
     </testcase>
   </testsuite>
-  <testsuite name="GET /api/posts/:postId" timestamp="2023-10-12T06:49:20" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.008" failures="1">
-    <testcase name="Posts API GET /api/posts/:postId should get a single post by postId" time="0.005" classname="should get a single post by postId">
+  <testsuite name="GET /api/posts/:postId" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.009" failures="1">
+    <testcase name="Posts API GET /api/posts/:postId should get a single post by postId" time="0.006" classname="should get a single post by postId">
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
     at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:68:31
     at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
@@ -30,7 +30,7 @@
       ]]></failure>
     </testcase>
   </testsuite>
-  <testsuite name="Add then Delete" timestamp="2023-10-12T06:49:20" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.004" failures="1">
+  <testsuite name="Add then Delete" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.003" failures="1">
     <testcase name="Posts API Add then Delete Should delete a post with id 1" time="0.003" classname="Should delete a post with id 1">
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
     at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:81:29
@@ -48,20 +48,29 @@
       ]]></failure>
     </testcase>
   </testsuite>
-  <testsuite name="Posts API" timestamp="2023-10-12T06:49:20" tests="0" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.000" failures="0">
+  <testsuite name="Enquiries API" timestamp="2023-10-12T21:52:17" tests="0" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.000" failures="0">
   </testsuite>
-  <testsuite name="POST /api/orders/create" timestamp="2023-10-12T06:49:20" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.011" failures="0">
-    <testcase name="Posts API POST /api/orders/create create a new order" time="0.010" classname="create a new order">
-    </testcase>
-  </testsuite>
-  <testsuite name="GET /api/orders/findAll" timestamp="2023-10-12T06:49:20" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.004" failures="0">
-    <testcase name="Posts API GET /api/orders/findAll should retrieve all orders" time="0.004" classname="should retrieve all orders">
-    </testcase>
-  </testsuite>
-  <testsuite name="Get /api/orders/findOne" timestamp="2023-10-12T06:49:20" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.003" failures="1">
-    <testcase name="Posts API Get /api/orders/findOne should return 1 exact order" time="0.002" classname="should return 1 exact order">
+  <testsuite name="POST /api/enquiries/create" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.009" failures="1">
+    <testcase name="Enquiries API POST /api/enquiries/create should create a new enquiry" time="0.007" classname="should create a new enquiry">
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
-    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:132:33
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:108:31
+    at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/index.js:1070:18)
+    at IncomingMessage.emit (node:events:526:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+      + expected - actual
+
+      -404
+      +200
+      ]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="GET /api/enquiries/findAll" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.006" failures="1">
+    <testcase name="Enquiries API GET /api/enquiries/findAll should get all enquiries" time="0.005" classname="should get all enquiries">
+      <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:123:31
     at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
     at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/node_modules/superagent/lib/node/index.js:1070:18
     at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
@@ -76,10 +85,39 @@
       ]]></failure>
     </testcase>
   </testsuite>
-  <testsuite name="PUT /api/orders/:orderId" timestamp="2023-10-12T06:49:20" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.004" failures="1">
-    <testcase name="Posts API PUT /api/orders/:orderId Should update the order price" time="0.004" classname="Should update the order price">
+  <testsuite name="GET /api/enquiries/:enquiryId" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.002" failures="1">
+    <testcase name="Enquiries API GET /api/enquiries/:enquiryId should get a single enquiry by enquiryId" time="0.002" classname="should get a single enquiry by enquiryId">
+      <failure message="expected undefined to equal 1" type="AssertionError"><![CDATA[AssertionError: expected undefined to equal 1
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:142:41
+    at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/node_modules/superagent/lib/node/index.js:1070:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
+    at IncomingMessage.emit (node:events:526:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+      + expected - actual:  failed to generate Mocha diff
+]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="PUT /api/enquiries/:enquiryId" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.005" failures="0">
+    <testcase name="Enquiries API PUT /api/enquiries/:enquiryId should update the enquiry reply" time="0.004" classname="should update the enquiry reply">
+    </testcase>
+  </testsuite>
+  <testsuite name="Posts API" timestamp="2023-10-12T21:52:17" tests="0" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="POST /api/orders/create" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.005" failures="0">
+    <testcase name="Posts API POST /api/orders/create create a new order" time="0.005" classname="create a new order">
+    </testcase>
+  </testsuite>
+  <testsuite name="GET /api/orders/findAll" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.003" failures="0">
+    <testcase name="Posts API GET /api/orders/findAll should retrieve all orders" time="0.003" classname="should retrieve all orders">
+    </testcase>
+  </testsuite>
+  <testsuite name="Get /api/orders/findOne" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.002" failures="1">
+    <testcase name="Posts API Get /api/orders/findOne should return 1 exact order" time="0.001" classname="should return 1 exact order">
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
-    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:146:31
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:209:33
     at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
     at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/node_modules/superagent/lib/node/index.js:1070:18
     at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
@@ -94,24 +132,42 @@
       ]]></failure>
     </testcase>
   </testsuite>
-  <testsuite name="OrderItems API" timestamp="2023-10-12T06:49:20" tests="0" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.000" failures="0">
-  </testsuite>
-  <testsuite name="POST /api/orderItems/create" timestamp="2023-10-12T06:49:20" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.004" failures="0">
-    <testcase name="OrderItems API POST /api/orderItems/create create a new order item" time="0.003" classname="create a new order item">
+  <testsuite name="PUT /api/orders/:orderId" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.002" failures="1">
+    <testcase name="Posts API PUT /api/orders/:orderId Should update the order price" time="0.002" classname="Should update the order price">
+      <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:223:31
+    at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/node_modules/superagent/lib/node/index.js:1070:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
+    at IncomingMessage.emit (node:events:526:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+      + expected - actual
+
+      -404
+      +200
+      ]]></failure>
     </testcase>
   </testsuite>
-  <testsuite name="GET /api/orderItems/findAll" timestamp="2023-10-12T06:49:20" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.003" failures="0">
+  <testsuite name="OrderItems API" timestamp="2023-10-12T21:52:17" tests="0" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="POST /api/orderItems/create" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.004" failures="0">
+    <testcase name="OrderItems API POST /api/orderItems/create create a new order item" time="0.004" classname="create a new order item">
+    </testcase>
+  </testsuite>
+  <testsuite name="GET /api/orderItems/findAll" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.002" failures="0">
     <testcase name="OrderItems API GET /api/orderItems/findAll should retrieve all order items" time="0.002" classname="should retrieve all order items">
     </testcase>
   </testsuite>
-  <testsuite name="GET /api/orderItems/find/orderitemId" timestamp="2023-10-12T06:49:20" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.003" failures="0">
+  <testsuite name="GET /api/orderItems/find/orderitemId" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.002" failures="0">
     <testcase name="OrderItems API GET /api/orderItems/find/orderitemId should retrieve all order items with the same orderid" time="0.002" classname="should retrieve all order items with the same orderid">
     </testcase>
   </testsuite>
-  <testsuite name="GET /api/orderItems/findOne/:orderItemId" timestamp="2023-10-12T06:49:20" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.002" failures="1">
+  <testsuite name="GET /api/orderItems/findOne/:orderItemId" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.003" failures="1">
     <testcase name="OrderItems API GET /api/orderItems/findOne/:orderItemId should return one exact order item" time="0.002" classname="should return one exact order item">
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
-    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:213:31
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:290:31
     at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
     at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/node_modules/superagent/lib/node/index.js:1070:18
     at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
@@ -126,10 +182,10 @@
       ]]></failure>
     </testcase>
   </testsuite>
-  <testsuite name="PUT /api/orderItems/:orderItemId" timestamp="2023-10-12T06:49:20" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.002" failures="1">
+  <testsuite name="PUT /api/orderItems/:orderItemId" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.003" failures="1">
     <testcase name="OrderItems API PUT /api/orderItems/:orderItemId should update the order item quantity" time="0.002" classname="should update the order item quantity">
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
-    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:231:31
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:308:31
     at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
     at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/node_modules/superagent/lib/node/index.js:1070:18
     at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
@@ -144,10 +200,10 @@
       ]]></failure>
     </testcase>
   </testsuite>
-  <testsuite name="DELETE /api/orderItems/:orderItemId" timestamp="2023-10-12T06:49:20" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.003" failures="1">
+  <testsuite name="DELETE /api/orderItems/:orderItemId" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.002" failures="1">
     <testcase name="OrderItems API DELETE /api/orderItems/:orderItemId should delete an order item" time="0.001" classname="should delete an order item">
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
-    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:244:31
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:321:31
     at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
     at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/node_modules/superagent/lib/node/index.js:1070:18
     at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
@@ -162,10 +218,10 @@
       ]]></failure>
     </testcase>
   </testsuite>
-  <testsuite name="Add then Delete the order ID = 1" timestamp="2023-10-12T06:49:20" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.001" failures="1">
+  <testsuite name="Add then Delete the order ID = 1" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.001" failures="1">
     <testcase name="OrderItems API Add then Delete the order ID = 1 Should delete an order" time="0.001" classname="Should delete an order">
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
-    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:255:35
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:332:35
     at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
     at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/node_modules/superagent/lib/node/index.js:1070:18
     at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
@@ -176,6 +232,82 @@
       + expected - actual
 
       -404
+      +200
+      ]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="POST /api/posts/create" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.007" failures="1">
+    <testcase name="POST /api/posts/create should create a new post" time="0.006" classname="should create a new post">
+      <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:370:27
+    at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/node_modules/superagent/lib/node/index.js:1070:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
+    at IncomingMessage.emit (node:events:526:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+      + expected - actual
+
+      -500
+      +200
+      ]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="GET /api/products/findAll" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.002" failures="1">
+    <testcase name="GET /api/products/findAll should get all products from the database" time="0.002" classname="should get all products from the database">
+      <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:386:29
+    at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/node_modules/superagent/lib/node/index.js:1070:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
+    at IncomingMessage.emit (node:events:526:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+      + expected - actual
+
+      -500
+      +200
+      ]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Favorite Posts API" timestamp="2023-10-12T21:52:17" tests="0" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="POST /api/favoritePosts/addPost" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.009" failures="1">
+    <testcase name="Favorite Posts API POST /api/favoritePosts/addPost should add a post to favorites" time="0.008" classname="should add a post to favorites">
+      <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:413:31
+    at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/node_modules/superagent/lib/node/index.js:1070:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
+    at IncomingMessage.emit (node:events:526:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+      + expected - actual
+
+      -500
+      +200
+      ]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Favorite Posts API" timestamp="2023-10-12T21:52:17" tests="0" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="GET /api/favoritePosts/findAllFavorites" timestamp="2023-10-12T21:52:17" tests="1" file="/Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js" time="0.002" failures="1">
+    <testcase name="Favorite Posts API GET /api/favoritePosts/findAllFavorites should retrieve all favorite posts" time="0.002" classname="should retrieve all favorite posts">
+      <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/test.js:432:31
+    at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
+    at /Users/aliaghajafari/Desktop/fantastic-octo-succotash/node_modules/superagent/lib/node/index.js:1070:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
+    at IncomingMessage.emit (node:events:526:35)
+    at endReadableNT (node:internal/streams/readable:1359:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+      + expected - actual
+
+      -500
       +200
       ]]></failure>
     </testcase>
