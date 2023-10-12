@@ -25,6 +25,9 @@
             <div class="form-group ">
               <label for="replyText">Your Reply:</label>
               <textarea class="form-control mt-3" id="replyText" v-model="replyText"></textarea>
+                <div v-if="errorMessage.length > 0" class="text-danger mt-2">
+                    <p>{{this.errorMessage}}</p>
+                </div>
             </div>
             <button class="btn btn-primary mt-4" @click="submitReply">Submit Reply</button>
           </div>
@@ -43,7 +46,8 @@ export default {
     return {
       enquiryId: null,
       replyText: '',
-      selectedEnquiry: null
+      selectedEnquiry: null,
+      errorMessage: '',
     };
   },
   mounted() {
@@ -61,10 +65,22 @@ export default {
         }       
     },
     async submitReply() {
+
+        this.errorMessage = '';
+
+        // Input validation
+        if (!this.replyText.trim()) {
+            this.errorMessage = "Please type something!";
+        }
+
+        // If there are validation error, do not proceed with submission
+        if (this.errorMessage != '') {
+            return;
+        }
       try {
         const response = await axios.put(`http://localhost:8090/api/enquiries/${this.enquiryId}`, {
           reply: this.replyText,
-        //   unreplied: false
+          unreplied: false
         });
 
         if (response.status == 200) {
