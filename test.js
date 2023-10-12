@@ -259,3 +259,106 @@ describe('OrderItems API', () => {
         });
 });
 //end orders testing
+
+//begin Product Management Testing
+
+
+// Test the GET /api/products route
+
+
+//creating a product
+const fs = require('fs');
+describe('POST /api/posts/create', () => {
+  it('should create a new post', (done) => {
+    const newPost = {
+      userId: 3,
+      productName: 'Test Post',
+      description: 'This is a test post.',
+      price: 33,
+      imageLocation: ''
+    };
+    // Read the image file and .obj file as buffers
+    const imageFile = fs.readFileSync('./app/controllers/FileSystem/cube.png');
+   /*  const objFile = fs.readFileSync('./app/controllers/FileSystem/cube.obj'); */
+    // Append the files to the request
+    const req = chai.request(server).post('/api/products/addProduct');
+    req.field('userId', newPost.userId);
+    req.field('productName', newPost.productName);
+    req.field('description', newPost.description);
+    req.field('price', newPost.price);
+    req.attach('imageFile', imageFile, 'image.jpg');
+   /*  req.attach('objFile', objFile, 'test.obj'); */
+
+    req.end((err, res) => {
+      expect(res).to.have.status(200);
+      expect(res.body).to.be.an('object');
+      expect(res.body.productName).to.equal(newPost.productName);
+      done();
+    });
+  });
+});
+
+
+//getting all products - for the View Products
+describe('GET /api/products/findAll', () => {
+  it('should get all products from the database', (done) => {
+    chai
+      .request(server)
+      .get('/api/products/findAll')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('array');
+        done();
+      });
+  });
+});
+
+
+//end Product Management Testing
+
+describe('Favorite Posts API', () => {
+  // You may need to set up your database or mock it for testing.
+
+  // This is an example test for adding a post to favorites.
+  describe('POST /api/favoritePosts/addPost', () => {
+    it('should add a post to favorites', (done) => {
+      // Define the favoritePost object to add.
+      const favoritePost = {
+        userId: 3, // Replace with a valid user ID.
+        postId: 2,  // Replace with a valid post ID.
+      };
+
+      chai
+        .request(server)
+        .post('/api/favoritePosts/addPost')
+        .send(favoritePost)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an('object');
+          // Add more specific assertions here as needed.
+          done();
+        });
+    });
+  });
+
+  // Add more tests for favoritePosts route (GET, DELETE, etc.) as necessary.
+});
+
+describe('Favorite Posts API', () => {
+  // Assuming you have a route for getting all favorite posts.
+  describe('GET /api/favoritePosts/findAllFavorites', () => {
+    it('should retrieve all favorite posts', (done) => {
+      chai
+        .request(server)
+        .get('/api/favoritePosts/findAllFavorites')
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an('array');
+          // You can add more specific assertions based on your API response here.
+          done();
+        });
+    });
+  });
+
+  // Add more tests for other favorite posts-related routes as needed.
+});
