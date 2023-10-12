@@ -89,6 +89,7 @@ describe('Posts API', () => {
 });
 //end post testing
 
+
 // Begin Enquiry testing
 describe('Enquiries API', () => {
   // Test the POST /api/enquiries/create route
@@ -108,10 +109,34 @@ describe('Enquiries API', () => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.an('object');
           expect(res.body.subject).to.equal(newEnquiry.subject);
+            done();
+        
+        //missing brackets
+  
+//testing users
+describe('User Controller Tests', () => {
+  describe('POST /add', () => {
+    it('it should create a user', (done) => {
+      const user = {
+        userName: 'testUserName',
+        password: 'testPassword',
+        email: 'test@example.com',
+        address: 'testAddress'
+      };
+
+      chai.request(server)
+        .post('/api/users/add')
+        .send(user)
+        .end((err, res) => {
+          expect(res).should.have.status(200);
+          expect(res.body).should.be.a('object');
+          expect(res.body).should.have.property('UserID').eql('testUserID');
           done();
+          console.log('User created successfully!');
         });
     });
   });
+
 
   // Test the GET /api/enquiries/findAll route
   describe('GET /api/enquiries/findAll', () => {
@@ -167,6 +192,26 @@ describe('Enquiries API', () => {
   });
 });
 
+  describe('/POST login', () => {
+    it('it should login a user', (done) => {
+      const credentials = {
+        userName: 'testing',
+        password: 'bigtester'
+      };
+
+
+      chai.request(server)
+        .post('/api/users/login') 
+        .send(credentials)
+        .end((err, res) => {
+          expect(res).should.have.status(200);
+          expect(res.body).should.be.a('object');
+          expect(res.body).should.have.property('userName').eql('testUserName');
+          done();
+        });
+    });
+  });
+});
 
 //Begin Order api testingdescribe('Posts API', () => {
   describe('Posts API', () => {
@@ -438,4 +483,43 @@ describe('Favorite Posts API', () => {
   });
 
   // Add more tests for other favorite posts-related routes as needed.
+});
+
+describe('Create comment API',  () => {
+  it('should create a new comment',  (done) =>{
+    const sampleComment = {
+        postId: 1, 
+        userId: 1,
+        commentText: 'This is a test comment',
+    };
+    chai
+      .request(server)
+      .post('/api/comment/create') 
+      .send({
+        sampleComment
+      })
+      .end(function (err, res) {
+        expect(res.body).to.be.an('object');
+        expect(res).to.have.status(201); 
+        done();
+      });
+  });
+});
+//Self Documenting code and all that jazz
+describe('Get comment by Post ID',  () => {
+  it('should source comments by post ID',  (done) =>{
+       const postId = 3;
+    chai
+      .request(server)
+      .get(`/api/comment/getByPost?postId=${postId}`) 
+      .end(function (err, res) {
+        if (err) {
+          done(err);
+        } else {
+        expect(res.body).to.be.an('array'); 
+        expect(res.body[0]).to.have.property('commentText');
+        done();
+        }
+      });
+  });
 });
