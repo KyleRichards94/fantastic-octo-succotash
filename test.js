@@ -89,7 +89,49 @@ describe('Posts API', () => {
 });
 //end post testing
 
+//testing users
+describe('User Controller Tests', () => {
+  describe('POST /add', () => {
+    it('it should create a user', (done) => {
+      const user = {
+        userName: 'testUserName',
+        password: 'testPassword',
+        email: 'test@example.com',
+        address: 'testAddress'
+      };
 
+      chai.request(server)
+        .post('/api/users/add')
+        .send(user)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('UserID').eql('testUserID');
+          done();
+          console.log('User created successfully!');
+        });
+    });
+  });
+
+  describe('/POST login', () => {
+    it('it should login a user', (done) => {
+      const credentials = {
+        userName: 'testing',
+        password: 'bigtester'
+      };
+
+      chai.request(server)
+        .post('/api/users/login') 
+        .send(credentials)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('userName').eql('testUserName');
+          done();
+        });
+    });
+  });
+});
 
 //Begin Order api testingdescribe('Posts API', () => {
   describe('Posts API', () => {
