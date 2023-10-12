@@ -104,9 +104,9 @@ describe('User Controller Tests', () => {
         .post('/api/users/add')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.should.have.property('UserID').eql('testUserID');
+          expect(res).should.have.status(200);
+          expect(res.body).should.be.a('object');
+          expect(res.body).should.have.property('UserID').eql('testUserID');
           done();
           console.log('User created successfully!');
         });
@@ -124,9 +124,9 @@ describe('User Controller Tests', () => {
         .post('/api/users/login') 
         .send(credentials)
         .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.should.have.property('userName').eql('testUserName');
+          expect(res).should.have.status(200);
+          expect(res.body).should.be.a('object');
+          expect(res.body).should.have.property('userName').eql('testUserName');
           done();
         });
     });
