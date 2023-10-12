@@ -52,9 +52,10 @@
             <li class="list-group-item" v-for="(product, index) in cartItems" :key="product.id">
                 <div class="row">
                     <div class="col">
-                        <img class="card-img-sm" style="width:64px"
+                        <img class="card-img-top" :src="'http://localhost:8090' + product.imageLocation" alt="Card image cap">
+                        <!--<img class="card-img-sm" style="width:64px"
                             src="https://th.bing.com/th/id/OIP.SsGFYFL4_Xn4BXwx8H3mBwHaE8?pid=ImgDet&rs=1"
-                            alt="Card image cap">
+                            alt="Card image cap">-->
                             
                     </div>
                     <div class = "col">
