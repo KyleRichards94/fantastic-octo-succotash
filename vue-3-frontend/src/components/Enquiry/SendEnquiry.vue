@@ -1,18 +1,5 @@
 <!-- CreateEnquiry.vue -->
-<!--<template>
-  <div>
-    <h2>Send Enquiry</h2>
-    <form @submit.prevent="submitEnquiry">
-      <label for="subject">Subject:</label>
-      <input type="text" id="subject" v-model="subject" required>
-      
-      <label for="message">Message:</label>
-      <textarea id="message" v-model="message" required></textarea>
-      
-      <button type="submit">Submit Enquiry</button>
-    </form>
-  </div>
-</template>-->
+
 <template>
   <div class="container mt-5">
     <div class="row justify-content-center">
@@ -26,6 +13,7 @@
               <div class="mb-3">
                 <label for="subject" class="form-label">Subject:</label>
                 <input type="text" class="form-control" id="subject" v-model="subject" required>
+                
               </div>
               
               <div class="mb-3">
@@ -50,10 +38,13 @@ export default {
     return {
       subject: '',
       message: '',
+      
     };
   },
   methods: {
+   
     async submitEnquiry() {
+    
       try {
         const response = await axios.post('http://localhost:8090/api/enquiries', {
           subject: this.subject,
