@@ -27,3 +27,5 @@ testing for posts, orders, order items.
 
 Jack B - I implemented the ability for users to sign up (creating a new account), login, edit account detials and delete accounts. 
 I also set up data persistence using VueX Stores in order to make the login functionality carry across pages which was also used for cart functionality.
+
+Alexis T - I implemented the controller API that allows users to add comments to posts. I also implemented an API loads all the comments associated with a particular post. I also designed the browse page for the website.
