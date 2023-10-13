@@ -24,3 +24,6 @@ test.js - I included 4 tests, 2 tests for productManagement and 2 tests for favo
 Kyle - made community hub, 3D view port, add posts, browse posts posts AI. 
 Made shop front, dhop API, and shopping cart dropdown menu and checkout page. 
 testing for posts, orders, order items. 
+
+Jack B - I implemented the ability for users to sign up (creating a new account), login, edit account detials and delete accounts. 
+I also set up data persistence using VueX Stores in order to make the login functionality carry across pages which was also used for cart functionality.
