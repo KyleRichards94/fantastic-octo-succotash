@@ -164,3 +164,23 @@ exports.delete = (req, res) => {
         });
       });
   };
+// Find all post IDs (Only useful for comments really)
+
+exports.getAllPostIDs = (req, res) => {
+  
+  // Query the database to get all Post IDs
+  posts.findAll({
+    attributes: ['postId'], // Select only the 'postId' field
+  })
+    .then((data) => {
+      // Extract Post IDs from the data and create an array
+      const postIDs = data.map((post) => post.postId);
+
+      res.send(postIDs);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || 'Could not retrieve Post IDs.',
+      });
+    });
+};

@@ -25,6 +25,9 @@ module.exports = app => {
     //delete a post by Id
     router.delete("/:postId", posts.delete);
 
+    //Fetch all post Ids, no idea why it only works with /posts/getAllPosts and not just /getallPosts
+    router.get('/posts/getAllPostIds', posts.getAllPostIDs);
+
     app.use('/api/posts', router);
     // impliment your CRUD
   };
