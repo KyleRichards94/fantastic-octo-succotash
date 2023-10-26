@@ -52,10 +52,10 @@
               <input v-model="comment" type="text" class="form-control" placeholder="Add a comment">
               <button @click="handleCommentSubmission(post.postId, comment)" class="btn btn-primary">Submit</button>
               <h5>Comments</h5>
-              <button @click="getCommentsForPost(post.postId)" class="btn btn-primary">Load all comments</button>
               <div v-if="postComments[post.postId]">
                 <div v-for="comment in postComments[post.postId]" :key="comment.commentId">
                 <p>  {{ comment.commentText }}</p>
+                <p>  {{ comment.commentDate }}</p>
                 </div>
                 </div>
             </div>
@@ -71,6 +71,15 @@ import axios from 'axios';
 import { ref } from 'vue';
 
 export default {
+    async  mounted() {
+      const response = await axios.get('http://localhost:8090/api/posts/posts/getAllPostIds');
+     this.apiData = response.data;
+     for (let i = 0; i < this.apiData.length; i++) {
+      this.getCommentsForPost(this.apiData[i]);
+    }
+     
+  },
+ 
   name: 'browsePosts',
   data() {
     return {
@@ -84,6 +93,7 @@ export default {
   },
 
   methods: {
+    
     getCommentsForPost(postId) {
       axios.get(`http://localhost:8090/api/comment/getByPost?postId=${postId}`)
         .then((response) => {
@@ -96,6 +106,23 @@ export default {
           console.error(error);
         });
       },
+
+      
+      fetchCommentData() {
+  // Fetch data again from the server and update the 'postData' ref
+  axios.get('http://localhost:8090/api/posts/findAll')
+    .then((response) => {
+      postData.value = response.data;
+
+      // Get all comments for all posts
+      Object.keys(response.data).forEach((postId) => {
+        this.getCommentsForPost(postId);
+      });
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+    });
+},
     getAllComments(){
       axios.get('http://localhost:8090/api/comment/getAllComments')
   .then((response) => {
@@ -113,6 +140,14 @@ export default {
   });
 
     },
+     async fetchDataFromAPI() {
+      try {
+        const response =  await axios.get('http://localhost:8090/api/posts/posts/getAllPostIds');
+        this.apiData = response.data;
+      } catch (error) {
+        console.error('Error fetching data from the API:', error);
+      }
+    },
     handleCommentSubmission(int, commentText) {
       try {
         const postData = {
@@ -124,6 +159,8 @@ export default {
     const response = axios.post('http://localhost:8090/api/comment/create', postData);
         // Assuming your server responds with a success message
         console.log('Comment posted successfully', response.data);
+        this.getCommentsForPost(postData.postId);
+        this.getCommentsForPost(postData.postId);
 
         // Reset the comment input field
         this.comment = '';

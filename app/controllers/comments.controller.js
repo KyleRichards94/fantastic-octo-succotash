@@ -17,13 +17,13 @@ exports.createComment = async (req, res) => {
 
   exports.getCommentsByPostId = async (req, res) => {
     try {
-      console.log("Time for the comments");
+      // console.log("Time for the comments");
       console.log(req.query.postId);
       const { postId } = req.query;
 
       const commentsList = await comments.findAll({
         where: { postId: postId },
-        attributes: ['commentText'], 
+        attributes: ['commentText', 'commentDate'], 
       });
 
       return res.status(200).json(commentsList);
