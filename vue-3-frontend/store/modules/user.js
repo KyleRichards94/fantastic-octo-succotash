@@ -1,37 +1,31 @@
 const state = {
   isLoggedIn: false,
-  userId: null,
-  isStaff: false,
+  user : null
 };
 
 const mutations = {
-  setUserId(state, userId) {
-    state.userId = userId;
+  setUser(state, user) {
+    state.user = user;
   },
   setIsLoggedIn(state, value) {
     state.isLoggedIn = value;
   },
   clearUser(state) {
-    state.userId = null;
-  },
-  setIsStaff(state,value){
-    state.isStaff = value;
+    state.user = null;
   }
 };
 
 const actions = {
   
   logout({ commit }) {
-    commit('setUserId', null);
+    commit('setUser', null);
     commit('setIsLoggedIn', false);
-    commit('setIsStaff', false);
   },
 };
 
 const getters = {
   isLoggedIn: state => state.isLoggedIn,
-  userId: state => state.userId,
-  isStaff: state => state.isStaff,
+  user: state => state.user
 };
 
 export default {

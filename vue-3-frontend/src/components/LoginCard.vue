@@ -55,10 +55,10 @@ export default {
           //console.log('User logged in', response.data);
           //this.userData.userName = '';
           //this.userData.password = '';
-          console.log(response.data.userID);
-          this.$store.commit('user/setUserId', response.data.userID); // Use the correct mutation path
+          console.log(response.data.user);
+          this.$store.commit('user/setUser', response.data); // Use the correct mutation path
           this.$store.commit('user/setIsLoggedIn', true); // Use the correct mutation path
-          console.log('User ID:', this.$store.getters['user/userId']);
+          console.log('User ID:', this.$store.getters['user/user'].userID);
           console.log('Is Logged In:', this.$store.getters['user/isLoggedIn']);
           // Rest of your code
           console.log("no error");
