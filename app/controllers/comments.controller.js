@@ -26,7 +26,16 @@ exports.createComment = async (req, res) => {
         attributes: ['commentText', 'commentDate'], 
       });
 
-      return res.status(200).json(commentsList);
+       // Format the commentDate property in a user-friendly format
+    const formattedCommentsList = commentsList.map(comment => {
+      return {
+        commentText: comment.commentText,
+        commentDate: comment.commentDate.toLocaleString(), // Format the date
+      };
+    });
+
+
+      return res.status(200).json(formattedCommentsList);
     } catch (error) {
       console.error('Error fetching comments:', error);
       return res.status(500).json({ error: 'Internal server error my good friend' });
