@@ -32,7 +32,7 @@ export default {
 
 //   this.$store.dispatch('user/logout');
 //           this.$router.push('/');
-
+//
 // when this code runs it logs the user out and sends them back to the home page, however the page must be refereshed before the users view is changed to reflect the fact that they are not logged in anymore but if i write this
 
 // this.$store.dispatch('user/logout');
