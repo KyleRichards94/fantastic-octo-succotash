@@ -106,7 +106,19 @@ export default {
           console.error(error);
         });
       },
-
+      redrawCommentsForPost(postId) {
+      axios.get(`http://localhost:8090/api/comment/getByPost?postId=${postId}`)
+        .then((response) => {
+          const postComments = response.data;
+          console.log(postComments)
+          this.postComments[postId] = response.data;
+          
+        })
+        .catch((error) => {
+          // Handle any errors that may occur during the request
+          console.error(error);
+        });
+      },
       
       fetchCommentData() {
   // Fetch data again from the server and update the 'postData' ref
@@ -148,28 +160,29 @@ export default {
         console.error('Error fetching data from the API:', error);
       }
     },
-    handleCommentSubmission(int, commentText) {
-      try {
-        const postData = {
+    async handleCommentSubmission(int, commentText) {
+  try {
+    const postData = {
       postId: int,
-      userId: 3, //I will change this once user scomes online in the database 
+      userId: 3, //I will change this once user scomes online in the database
       commentText: commentText,
     };
-    console.log(postData)
-    const response = axios.post('http://localhost:8090/api/comment/create', postData);
-        // Assuming your server responds with a success message
-        console.log('Comment posted successfully', response.data);
-        this.getCommentsForPost(postData.postId);
-        this.getCommentsForPost(postData.postId);
-        this.getCommentsForPost(postData.postId);
 
-        // Reset the comment input field
-        this.comment = '';
-      } catch (error) {
-        // Handle errors (e.g., display an error message to the user)
-        console.error('Error posting comment testtest', error);
-      }
-    },
+    // Post the comment to the server.
+    const response = await axios.post('http://localhost:8090/api/comment/create', postData);
+
+    // Fetch the updated list of comments from the server.
+    setTimeout(this.getCommentsForPost(int), 2000)
+    // Assuming your server responds with a success message
+    console.log('Comment posted successfully', response.data);
+
+    // Reset the comment input field.
+    this.comment = '';
+  } catch (error) {
+    // Handle errors (e.g., display an error message to the user)
+    console.error('Error posting comment testtest', error);
+  }
+},
 
 
     addCommentToPost(commentText, postId) {
