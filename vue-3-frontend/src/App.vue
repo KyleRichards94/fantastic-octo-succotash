@@ -20,6 +20,12 @@ export default {
     totalCartPrice() {
       return this.cartItems.reduce((total, product) => total + product.price, 0);
     },
+    user(){
+      return this.$store.getters['user/user'];
+    },
+    userName(){
+      return this.user.userName;
+    }
  
   },
   methods: {
@@ -122,10 +128,10 @@ export default {
             </li>
 
 
-            <li class="nav-item" v-if="this.$store.getters['user/userId'] == null">
+            <li class="nav-item" v-if="this.$store.getters['user/user'] == null">
               <RouterLink class="nav-link" to="/LoginCard">Login</RouterLink>
             </li>
-            <li class="nav-item" v-if="this.$store.getters['user/userId'] == null">
+            <li class="nav-item" v-if="this.$store.getters['user/user'] == null">
               <RouterLink class="nav-link" to="/signUp">Signup</RouterLink>
             </li>
 
@@ -133,12 +139,12 @@ export default {
 
 
             <!-- Drop down Menu  -->
-           <div class="userLogged" v-if="this.$store.getters['user/userId'] != null">
+           <div class="userLogged" v-if="this.$store.getters['user/user'] != null">
             <li class="nav-item">
               <div class="dropdown">
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  (Username Here) <!--  most likley need to change user store to actually storing whole user for this and everything else -->
+                  data-bs-toggle="dropdown" aria-expanded="false" >
+                  {{ this.$store.getters['user/user'].userName }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton1">
                   <li >
