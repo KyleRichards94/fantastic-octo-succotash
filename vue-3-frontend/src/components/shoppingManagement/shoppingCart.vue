@@ -33,12 +33,6 @@
                                <P>Price</p>
                             </div>
                         </div>
-                        <div class="col">
-                       
-                       <div>
-                          <P>Quantity</p>
-                       </div>
-                   </div>
                    <div class="col">
                        
                        <div>
@@ -69,12 +63,6 @@
                             ${{ product.price }}
                         </div>
                     </div>
-                    <div class="col">
-                    
-                    <div>
-                        <input type ="number" value="1">
-                    </div>
-                </div>
                 <div class="col">
                     
                         <div v-if="!product.confirmRemove">
@@ -95,7 +83,9 @@
                     <br>
                     <h5 style="text-align: center;">$ {{ totalCartPrice }}</h5>
                     <br>
-                    <div class="col" style="text-align: center;"><a href="#" class="btn btn-primary"> Checkout </a></div>
+                    <div class="col" style="text-align: center;">
+                        <RouterLink to="/checkOut" class="btn btn-primary">Checkout</RouterLink>
+                    </div>
                     <br>
                 </div>
             </li>
@@ -106,8 +96,12 @@
 
 export default {
     name: 'shoppingCart',
+    data() {
+    },
     setup() {
+        let total = null;
 
+        return total;
     },
     computed: {
         cartItems() {
@@ -116,8 +110,10 @@ export default {
         totalCartPrice() {
             return this.cartItems.reduce((total, product) => total + product.price, 0);
         },
+        
     },
     methods: {
+        
         removeFromCart(index) {
             this.$store.dispatch('cart/deleteCartItem', this.cartItems[index]);
             window.location.reload();
@@ -128,6 +124,12 @@ export default {
         cancelRemove(product) {
             product.confirmRemove = false;
         },
+        calculateTotalPrice(product, quantity){
+
+            return product.price * quantity;
+        }
+
+
     },
 }
 
