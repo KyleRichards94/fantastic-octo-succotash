@@ -14,6 +14,7 @@ exports.create = (req, res) => {
         userId: req.body.userId,
         title: req.body.title,
         description: req.body.description,
+        upvotes: req.body.upvotes,
         imagePath: "",
         objFilePath: ""
     };

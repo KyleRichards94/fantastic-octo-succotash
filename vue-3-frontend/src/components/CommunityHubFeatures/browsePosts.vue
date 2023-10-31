@@ -37,6 +37,7 @@
               3D Model</router-link>
             <div class="card-body">
               <h5 class="card-title">{{ post.title }}</h5>
+              <h5 class="card-title">Upvotes {{ post.upvotes }}</h5>
               <p class="card-text">{{ post.description }}</p>
               <div class="d-flex justify-content-between">
                 <a href="#" class="btn btn-primary">Download</a>
