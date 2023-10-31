@@ -71,7 +71,7 @@
                                 <div v-else>
                                 <a href="#" @click="removeFromCart(index)" class="btn btn-primary">Confirm</a>
                                 <a href="#" @click="cancelRemove(product)" class="btn btn-secondary">Cancel</a>
-                                </div>
+                            </div>
                     </div>
                 </div>
                 <hr>
