@@ -29,7 +29,7 @@ exports.create = (req, res) => {
 
 //find all creditcard infos where userId == request body
 exports.findAll = (req, res) => {
-    const userID = req.body.userId;
+    const userID = req.params.userId;
 
     creditCardInfo.findAll({
         where: {

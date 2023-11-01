@@ -49,6 +49,8 @@ require("./app/routes/users.routes.js")(app);
 require("./app/routes/products.routes.js")(app);
 require("./app/routes/favoritePosts.routes.js")(app);
 require("./app/routes/shippingInfo.routes.js")(app);
+require("./app/routes/creditCardInfo.routes.js")(app);
+require("./app/routes/shippingInfo.routes.js")(app);
 
 // routes for enquiry
 

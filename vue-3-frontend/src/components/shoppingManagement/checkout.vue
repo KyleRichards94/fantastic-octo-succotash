@@ -20,6 +20,7 @@
             </div>
 
             <div class = "card">
+                <p></p>
                     <p> Your Purchasing Info</p>
                     <label> Card Number </label>
                     <input type="text"> 
@@ -94,7 +95,11 @@
 </template>
 
 <script>
+import axios from 'axios';
+//import { ref } from 'vue';
+
 export default {
+ 
     name: 'checkOut',
   
     computed: {
@@ -104,13 +109,45 @@ export default {
         totalCartPrice() {
             return this.cartItems.reduce((total, product) => total + product.price, 0);
         },
+        
+    },
+
+    mounted() {
+                this.getCardInfos();
+            },
+
+
 
         methods: {
+            getCardInfos() {
+                const key = this.$store.getters['hashedKeys/CardHash'];
+                console.log(key);
+                axios.get(`http://localhost:8090/api/creditCardInfo/${key}/${this.$store.getters['user/user'].userID}`).then((response) => {
+                    //const cardData = response.data;
+                    console.log(response.data + "yert");
+                    console.log("AAAAAAAAAAAAAAAAAAAA");
+                }).catch((error) => {
+                    console.error(error);
+                });
+
+
+            },
+            removeFromCart(index) {
+            this.$store.dispatch('cart/deleteCartItem', this.cartItems[index]);
+                window.location.reload();
+            },
+            confirmRemove(product) {
+                product.confirmRemove = true;
+            },
+            cancelRemove(product) {
+                product.confirmRemove = false;
+            },
+
+           
             //Create new Card entry to the database, 
             //refresh, 
             //Save the order to the database as a new order with cart items. 
-        }
-    }
+        },
 
 }
 </script>
