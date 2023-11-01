@@ -52,6 +52,8 @@
               </div>
               <input v-model="comment" type="text" class="form-control" placeholder="Add a comment">
               <button @click="handleCommentSubmission(post.postId, comment)" class="btn btn-primary">Submit</button>
+              <button @click="upvotePost(post.postId)" class="btn btn-primary">+1</button>
+              <button @click="downvotePost(post.postId)" class="btn btn-primary">-1</button>
               <h5>Comments</h5>
               <div v-if="postComments[post.postId]">
                 <div v-for="comment in postComments[post.postId]" :key="comment.commentId">
@@ -232,9 +234,16 @@ export default {
         console.error('Error fetching data:', error);
       });
     },
-    // ... other methods ...
+    upvotePost(postId){
+    axios.post(`http://localhost:8090/api/posts/posts/upvotePost?postId=${postId}`)
+
   },
-  
+  downvotePost(postId){
+    axios.post(`http://localhost:8090/api/posts/posts/downvotePost?postId=${postId}`)
+
+  }
+  },
+ 
 
 };
 
