@@ -21,12 +21,22 @@
                 <!-- i need to write API methods for Shippinginfo get store -->
                 <!-- v-if the user has some card info already stored. -->
                 <!-- v-else -->
-                <label> Full Name </label>
-                <input v-model="fullName" type="text">  
-                <label> Address</label>
-                <input v-model="address" type="text">  
-                <label> City </label>
-                <input v-model="City" type="text"> 
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input v-model="fullName" type="text" class="form-control" :class="{ 'is-invalid': !isValidFullName, 'is-valid': isValidFullName }">
+                    <div class="invalid-feedback" v-if="!isValidFullName">Please enter a valid full name.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input v-model="address" type="text" class="form-control" :class="{ 'is-invalid': !isValidAddress, 'is-valid': isValidAddress }">
+                    <div class="invalid-feedback" v-if="!isValidAddress">Please enter a valid address.</div>
+                </div>
+                <div class="form-group">
+                    <label> City </label>
+                    <input v-model="City" type="text" class="form-control" :class="{ 'is-invalid': !isValidCity, 'is-valid': isValidCity }"> 
+                    <div class="invalid-feedback" v-if="!isValidCity">Please enter a valid City.</div>
+                </div>
                 <label> state </label>
                 <input v-model="state" type="text"> 
                 <label> Post Code</label>
@@ -73,7 +83,8 @@
                     </div>
             </div>
             <div class = "card">
-                <button class="btn btn-primary" @click="purchase()"> Purchase </button>
+                <button v-if="selectedShippingAddress && selectedCard" class="btn btn-primary" @click="purchase()"> Purchase </button>
+                <button v-else class="btn btn-secondary">You must select an Address and Card to purchase</button>
             </div>
         </div>
 
@@ -169,6 +180,24 @@ export default {
         },
         totalCartPrice() {
             return this.cartItems.reduce((total, product) => total + product.price, 0);
+        },
+        isValidFullName() {
+            return this.fullName.length > 5 && this.fullName.includes(" "); 
+        },
+        isValidAddress() {
+            return this.address.length > 10; 
+        },
+        isValidCity(){
+            return this.City.length > 3;
+        },
+        isValidState(){
+            return this.state.length > 2;
+        },
+        isValidPostCode(){
+            return this.postCode.length > 3 && this.postCode.match(/^[0-9]+$/) != null; 
+        },
+        isValidCountry(){
+            return this.country == "Austrlia" || this.country == "Aus" || this.country == "australia" || this.country == "aus";
         }
         
     },
@@ -231,23 +260,25 @@ export default {
 
             },
             addShippingInfo(){
-                const key = this.$store.getters['hashedKeys/shippingInfoHashedKey'];
-                const newShippingInfo ={
-                    userId: this.$store.getters['user/user'].userID,
-                    fullName: this.fullName,
-                    address: this.address,
-                    city: this.city,
-                    state: this.state,
-                    postalCode: this.postCode,
-                    country: this.country,
-                };
-                axios.post(`http://localhost:8090/api/shippingInfo/${key}/create`, newShippingInfo).then(() => {
-                    console.log("address added");
-                    window.location.reload();
-                    // bootstrap msg show
-                }).catch((error) => {
-                    console.error(error);
-                });
+                if(this.isValidForm()){
+                    const key = this.$store.getters['hashedKeys/shippingInfoHashedKey'];
+                    const newShippingInfo ={
+                        userId: this.$store.getters['user/user'].userID,
+                        fullName: this.fullName,
+                        address: this.address,
+                        city: this.city,
+                        state: this.state,
+                        postalCode: this.postCode,
+                        country: this.country,
+                    };
+                    axios.post(`http://localhost:8090/api/shippingInfo/${key}/create`, newShippingInfo).then(() => {
+                        console.log("address added");
+                        window.location.reload();
+                        // bootstrap msg show
+                    }).catch((error) => {
+                        console.error(error);
+                    });
+                }
             },
             async purchase(){
                 const newOrder = {
@@ -287,6 +318,9 @@ export default {
             },
             cancelRemove(product) {
                 product.confirmRemove = false;
+            },
+            isValidForm() {
+                return this.isValidFullName && this.isValidAddress && this.isValidPostCode && this.isValidState && this.isVlaidCity;
             },
 
            
