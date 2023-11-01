@@ -52,6 +52,8 @@
               </div>
               <input v-model="comment" type="text" class="form-control" placeholder="Add a comment">
               <button @click="handleCommentSubmission(post.postId, comment)" class="btn btn-primary">Submit</button>
+              <div></div>
+              <div></div>
               <button @click="upvotePost(post.postId)" class="btn btn-primary">+1</button>
               <button @click="downvotePost(post.postId)" class="btn btn-primary">-1</button>
               <h5>Comments</h5>
