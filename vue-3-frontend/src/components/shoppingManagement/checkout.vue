@@ -2,11 +2,27 @@
     <!-- Card Info -->
     <div v-if="this.$store.getters['user/user'] != null" class = "row">
         <div class ="col">
-            <div class = "card"> 
+            <div v-if="shippinginfo.length != 0" class = "card">
+                <label for="shippingSelect">Select you shipping address - the items will be delivered to this address</label>
+                <select v-model="selectedShippingAddress" id="shippingSelect">
+                    <option :value="null">add a new address</option>
+                    <option v-for="address in shippinginfo" :value="address" :key="address.address">{{ address.address }}</option>
+                </select>
+                <p v-if="selectedShippingAddress">Full name: {{ selectedShippingAddress.fullName}}</p>
+                <p v-if="selectedShippingAddress">Address: {{ selectedShippingAddress.address}}</p>
+                <p v-if="selectedShippingAddress">City: {{ selectedShippingAddress.city}}</p>
+                <p v-if="selectedShippingAddress">State: {{ selectedShippingAddress.state}}</p>
+                <p v-if="selectedShippingAddress">Post code: {{ selectedShippingAddress.state}}</p>
+                <p v-if="selectedShippingAddress">Country: {{ selectedShippingAddress.country}}</p>
+                   
+            </div>
+            <div class = "card" v-if="selectedShippingAddress == null"> 
                 <P>Your Shipping Info</P>
                 <!-- i need to write API methods for Shippinginfo get store -->
                 <!-- v-if the user has some card info already stored. -->
                 <!-- v-else -->
+                <label> Full Name </label>
+                <input v-model="fullName" type="text">  
                 <label> Address</label>
                 <input v-model="address" type="text">  
                 <label> City </label>
@@ -17,11 +33,14 @@
                 <input v-model="postCode" type="text"> 
                 <label> Country </label>
                 <input v-model="country" type="text">  
+
+                <button class="btn btn-primary" @click="addShippingInfo()">Add Shipping Info</button>
             </div>
+
 
             <div class = "card">
 
-                <div v-if="cardInfo != null">
+                <div v-if="cardInfo.length != 0">
                     <label for="cardSelect">Select a Card:</label>
                         <select v-model="selectedCard" id="cardSelect">
                             <option :value="null" >add a New Card</option>
@@ -48,13 +67,13 @@
                             <label>CVC</label>
                             <input v-model="CVC" type="text" length = "3">  
                         <!-- i need to write API methods for Cardinfo get store -->
-                        <button v-if="getCardInfos() == null" @click="addCard()">Add Card</button>
-                        <button v-if="(getCardInfos() != null) && (selectedCard == null)" @click="addCard()">Add new Card</button>
+                        <button class="btn btn-primary" v-if="getCardInfos() == null" @click="addCard()">Add Card</button>
+                        <button class="btn btn-primary" v-if="(getCardInfos() != null) && (selectedCard == null)" @click="addCard()">Add new Card</button>
                      </div>
                     </div>
             </div>
             <div class = "card">
-                <button class="btn btn-primary"> Purchase </button>
+                <button class="btn btn-primary" @click="purchase()"> Purchase </button>
             </div>
         </div>
 
@@ -131,6 +150,7 @@ export default {
             shippinginfo:[],
             selectedCard: null,
             selectedShippingAddress: null,
+            fullName: '',
             address: '',
             City: '',
             state: '',
@@ -202,13 +222,61 @@ export default {
                 axios.post(`http://localhost:8090/api/creditCardInfo/${key}/create`, newCard).then((response) => {
                     console.log(response.data);
                     console.log("card added");
-
+                    window.location.reload();
                     //bootstrap message show. 
 
                 }).catch((error) => {
                     console.error(error);
                 });
 
+            },
+            addShippingInfo(){
+                const key = this.$store.getters['hashedKeys/shippingInfoHashedKey'];
+                const newShippingInfo ={
+                    userId: this.$store.getters['user/user'].userID,
+                    fullName: this.fullName,
+                    address: this.address,
+                    city: this.city,
+                    state: this.state,
+                    postalCode: this.postCode,
+                    country: this.country,
+                };
+                axios.post(`http://localhost:8090/api/shippingInfo/${key}/create`, newShippingInfo).then(() => {
+                    console.log("address added");
+                    window.location.reload();
+                    // bootstrap msg show
+                }).catch((error) => {
+                    console.error(error);
+                });
+            },
+            async purchase(){
+                const newOrder = {
+                    userId: this.$store.getters['user/user'].userID,
+                    totalAmount: this.cartItems.reduce((total, product) => total + product.price, 0),  
+                };
+                //Create a new order
+                await axios.post(`http://localhost:8090/api/orders/create`, newOrder).then((response) => {
+                    console.log("new order added");
+                    console.log(response.data);
+                    let orderId = response.data.orderId;
+                    //then add all the prder items
+                    this.$store.getters['cart/cartItems'].forEach((element) => {
+                        const orderItem = {
+                            orderId: orderId,
+                            productId: element.productId,
+                            quantity: element.quantity,
+                            price: element.price
+                        };
+                        axios.post(`http://localhost:8090/api/orderItems/create`, orderItem).then((response) => {
+                            console.log("item added");
+                            console.log(response.data);
+                        }).catch((error) => {
+                            console.error(error);
+                        })
+                    });
+                }).catch((error) => {
+                    console.error(error);
+                });
             },
             removeFromCart(index) {
             this.$store.dispatch('cart/deleteCartItem', this.cartItems[index]);
