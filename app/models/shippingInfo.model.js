@@ -36,6 +36,7 @@ module.exports = (sequelize, Sequelize) => {
         type: DataTypes.STRING(255),
     },
         }, {
+        tableName:'shippingInfo',
         timestamps: false // This prevents Sequalize and the ORM from automatically searching for "created_at" and "updated_at". 
     });
   

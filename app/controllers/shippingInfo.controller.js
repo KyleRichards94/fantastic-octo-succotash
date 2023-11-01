@@ -24,7 +24,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    const userID = req.body.userId;
+    const userID = req.params.userId;
 
     shippingInfo.findAll({
         where: {

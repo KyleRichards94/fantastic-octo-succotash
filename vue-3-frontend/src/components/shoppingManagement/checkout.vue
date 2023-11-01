@@ -8,27 +8,50 @@
                 <!-- v-if the user has some card info already stored. -->
                 <!-- v-else -->
                 <label> Address</label>
-                <input type="text"> 
+                <input v-model="address" type="text">  
                 <label> City </label>
-                <input type="text"> 
+                <input v-model="City" type="text"> 
                 <label> state </label>
-                <input type="text"> 
+                <input v-model="state" type="text"> 
                 <label> Post Code</label>
-                <input type="text"> 
+                <input v-model="postCode" type="text"> 
                 <label> Country </label>
-                <input type="text">  
+                <input v-model="country" type="text">  
             </div>
 
             <div class = "card">
-                <p></p>
-                    <p> Your Purchasing Info</p>
-                    <label> Card Number </label>
-                    <input type="text"> 
-                    <label> Expiry Date </label>
-                    <input type="Date"> 
-                    <label>CVC</label>
-                    <input type="text" length = "3">  
-                <!-- i need to write API methods for Cardinfo get store -->
+
+                <div v-if="cardInfo != null">
+                    <label for="cardSelect">Select a Card:</label>
+                        <select v-model="selectedCard" id="cardSelect">
+                            <option :value="null" >add a New Card</option>
+                            <option v-for="card in cardInfo" :value="card" :key="card.creditCardId">{{ card.cardNumber }}</option>
+                        </select>
+                    <p v-if="selectedCard">You selected card: {{ selectedCard.cardNumber }}</p>
+                    <p v-if="selectedCard">Card Holder Name: {{ selectedCard.cardHolderName }}</p>
+                    <p v-if="selectedCard">Expiry Date: {{ selectedCard.expiryDate }}</p>
+                    <p v-if="selectedCard">CVC: {{ selectedCard.CVC }}</p>
+                    <p v-if="selectedCard">Billing Address: {{ selectedCard.billingAddress }}</p>
+                </div>
+
+                <div class = "card">
+                        <div class = "container" v-if="selectedCard === null">
+                            <p> Your Purchasing Info</p>
+                            <label> Card Number </label>
+                            
+                            <p type="text" v-if="selectedCard != null"> {{ selectedCard.cardNumber }}</p>
+                            <input v-model="cardNumber" type="text"  v-else-if="selectedCard == null"> 
+                            <label> Card Holder Name</label>
+                            <input v-model="cardHolderName" type="text"> 
+                            <label> Expiry Date </label>
+                            <input v-model="expDate" type="Date"> 
+                            <label>CVC</label>
+                            <input v-model="CVC" type="text" length = "3">  
+                        <!-- i need to write API methods for Cardinfo get store -->
+                        <button v-if="getCardInfos() == null" @click="addCard()">Add Card</button>
+                        <button v-if="(getCardInfos() != null) && (selectedCard == null)" @click="addCard()">Add new Card</button>
+                     </div>
+                    </div>
             </div>
             <div class = "card">
                 <button class="btn btn-primary"> Purchase </button>
@@ -98,38 +121,93 @@
 import axios from 'axios';
 //import { ref } from 'vue';
 
+
 export default {
  
     name: 'checkOut',
-  
+    data() {
+        return {
+            cardInfo: [],
+            shippinginfo:[],
+            selectedCard: null,
+            selectedShippingAddress: null,
+            address: '',
+            City: '',
+            state: '',
+            postCode: '',
+            country: '',
+            cardNumber: '',
+            cardHolderName: '',
+            expDate: '',
+            CVC: '',
+        }
+    },
+        
     computed: {
         cartItems(){
             return this.$store.getters['cart/cartItems'];
         },
         totalCartPrice() {
             return this.cartItems.reduce((total, product) => total + product.price, 0);
-        },
+        }
         
     },
 
-    mounted() {
-                this.getCardInfos();
+        async mounted() {
+                this.cardInfo = await this.getCardInfos();
+                this.shippinginfo = await this.getShippingInfos();
             },
 
 
 
         methods: {
-            getCardInfos() {
+            selectCard(card){
+                this.selectCard = card;
+                console.log(card.cardHolderName);
+            },
+            async getCardInfos() {
                 const key = this.$store.getters['hashedKeys/CardHash'];
-                console.log(key);
-                axios.get(`http://localhost:8090/api/creditCardInfo/${key}/${this.$store.getters['user/user'].userID}`).then((response) => {
-                    //const cardData = response.data;
-                    console.log(response.data + "yert");
-                    console.log("AAAAAAAAAAAAAAAAAAAA");
+                try {
+                    const response = await axios.get(`http://localhost:8090/api/creditCardInfo/${key}/${this.$store.getters['user/user'].userID}`);
+                    const cards = response.data;
+                    console.log(cards)
+                    return cards;
+                } catch (error) {
+                    console.error(error);
+                    return null;
+                }
+            },
+            async getShippingInfos(){
+                const key = this.$store.getters['hashedKeys/shippingInfoHashedKey'];
+                try {
+                    const response = await axios.get(`http://localhost:8090/api/shippingInfo/${key}/${this.$store.getters['user/user'].userID}`);
+                    const addresses = response.data;
+                    console.log(addresses)
+                    return addresses;
+                } catch (error) {
+                    console.error(error);
+                    return null;
+                }
+            },
+            addCard(){
+                const key = this.$store.getters['hashedKeys/CardHash'];
+                const newCard = {
+                    userId: this.$store.getters['user/user'].userID,
+                    cardNumber: this.cardNumber,
+                    expiryDate: this.expDate,
+                    cardHolderName: this.cardHolderName,
+                    billingAddress: this.address + " " + this.postCode + " " + this.City + " " + this.country,
+                    CVC: this.CVC,
+                };
+                axios.post(`http://localhost:8090/api/creditCardInfo/${key}/create`, newCard).then((response) => {
+                    console.log(response.data);
+                    console.log("card added");
+
+                    //bootstrap message show. 
+
                 }).catch((error) => {
                     console.error(error);
                 });
-
 
             },
             removeFromCart(index) {

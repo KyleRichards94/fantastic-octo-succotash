@@ -7,7 +7,7 @@ module.exports = app => {
   
     var router = require("express").Router();
 
-    router.get("/findAll", shippingInfo.findAll);
+    router.get("/:userId", shippingInfo.findAll);
     router.post("/create", shippingInfo.create);
 
     //surely there should be some security measures inplace here.
