@@ -1,6 +1,6 @@
 <template>
     <!-- Card Info -->
-    <div v-if="this.$store.getters['user/user'] != null" class = "row">
+    <div v-if="this.$store.getters['user/user'] != null && this.$store.getters['cart/cartItems'].length != 0 " class = "row">
         <div class ="col">
             <div v-if="shippinginfo.length != 0" class = "card">
                 <label for="shippingSelect">Select you shipping address - the items will be delivered to this address</label>
@@ -18,9 +18,7 @@
             </div>
             <div class = "card" v-if="selectedShippingAddress == null"> 
                 <P>Your Shipping Info</P>
-                <!-- i need to write API methods for Shippinginfo get store -->
-                <!-- v-if the user has some card info already stored. -->
-                <!-- v-else -->
+
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
                     <input v-model="fullName" type="text" class="form-control" :class="{ 'is-invalid': !isValidFullName, 'is-valid': isValidFullName }">
@@ -32,17 +30,42 @@
                     <input v-model="address" type="text" class="form-control" :class="{ 'is-invalid': !isValidAddress, 'is-valid': isValidAddress }">
                     <div class="invalid-feedback" v-if="!isValidAddress">Please enter a valid address.</div>
                 </div>
+
                 <div class="form-group">
                     <label> City </label>
                     <input v-model="City" type="text" class="form-control" :class="{ 'is-invalid': !isValidCity, 'is-valid': isValidCity }"> 
                     <div class="invalid-feedback" v-if="!isValidCity">Please enter a valid City.</div>
                 </div>
-                <label> state </label>
-                <input v-model="state" type="text"> 
-                <label> Post Code</label>
-                <input v-model="postCode" type="text"> 
-                <label> Country </label>
-                <input v-model="country" type="text">  
+
+                <div class="form-group">
+                    <label> state </label>
+                    <input v-model="state" type="text" class="form-control" :class="{'is-invalid': !isValidState, 'is-valid': isValidState}"> 
+                    <div class="invalid-feedback" v-if="!isValidCity">Please enter a valid State.</div>
+                </div>
+                <div class="form-group">
+                    <label> Post Code</label>
+                    <input v-model="postCode" type="text"  class="form-control" :class="{'is-invalid': !isValidPostCode, 'is-valid': isValidPostCode}"> 
+                    <div class="invalid-feedback" v-if="!isValidCity">Please enter a valid Post Code.</div>
+                </div>
+
+                <div class="form-group">
+                    
+                    <label> Country </label>
+                    <select v-model="country" class="form-control" :class="{'is-invalid': !isValidCountry, 'is-valid': isValidCountry}">
+                        <option :value="Australia">Australia</option>
+                        <option :value="Japan">Japan</option>
+                        <option :value="Canada">Canada</option>
+                        <option :value="United_States">United States</option>
+                        <option :value="United_Kingdom">United Kingdom</option>
+                        <option :value="Germany">Germany</option>
+                        <option :value="France">France</option>
+                        <option :value="Brazil">Brazil</option>
+                        <option :value="India">India</option>
+                        <option :value="China">China</option>
+                        <option :value="South_Korea">South Korea</option>
+                        <div class="invalid-feedback" v-if="!isValidCity">Select a country</div>
+                    </select>
+                </div>
 
                 <button class="btn btn-primary" @click="addShippingInfo()">Add Shipping Info</button>
             </div>
@@ -66,16 +89,26 @@
                 <div class = "card">
                         <div class = "container" v-if="selectedCard === null">
                             <p> Your Purchasing Info</p>
-                            <label> Card Number </label>
-                            
-                            <p type="text" v-if="selectedCard != null"> {{ selectedCard.cardNumber }}</p>
-                            <input v-model="cardNumber" type="text"  v-else-if="selectedCard == null"> 
-                            <label> Card Holder Name</label>
-                            <input v-model="cardHolderName" type="text"> 
-                            <label> Expiry Date </label>
-                            <input v-model="expDate" type="Date"> 
-                            <label>CVC</label>
-                            <input v-model="CVC" type="text" length = "3">  
+                            <div class="form-group">
+                                <label> Card Number </label>
+                                <input v-model="cardNumber" type="text" class="form-control" :class="{'is-invalid': !isValidCard, 'is-valid': isValidCard}"> 
+                                
+                            </div>
+                            <div class="form-group" >
+                                <label> Card Holder Name</label>
+                                <input v-model="cardHolderName" type="text"  class="form-control" :class="{'is-invalid': !isValidCardHolderName, 'is-valid': isValidCardHolderName}">
+                                <div class="invalid-feedback" v-if="!isValidCardHolderName">Please enter a valid full name.</div>
+                            </div>
+                            <div class="form-group" >
+                                <label> Expiry Date </label>
+                                <input v-model="expDate" type="date"  class="form-control" :class="{'is-invalid': !isValidExpDate, 'is-valid': isValidExpDate}"> 
+                                <div class="invalid-feedback" v-if="!isValidExpDate">Please enter a valid expiryDate</div>
+                            </div>
+                            <div class="form-group" >
+                                <label>CVC</label>
+                                <input v-model="CVC" type="text" length = "3" class="form-control" :class="{'is-invalid': !isValidCVC, 'is-valid': isValidCVC}">  
+                                <div class="invalid-feedback" v-if="!isValidCVC">Please enter a valid 3 digit CVC, located on the back of your card.</div>
+                            </div>
                         <!-- i need to write API methods for Cardinfo get store -->
                         <button class="btn btn-primary" v-if="getCardInfos() == null" @click="addCard()">Add Card</button>
                         <button class="btn btn-primary" v-if="(getCardInfos() != null) && (selectedCard == null)" @click="addCard()">Add new Card</button>
@@ -125,7 +158,7 @@
         </div>
     </div>
     <!-- Sign in Warning -->
-    <div v-else>
+    <div v-if="this.$store.getters['user/user'] == null">
             <div class = "container" style="margin-top: 15%;">
                 <div class="card" style="background-image: url('https://e0.pxfuel.com/wallpapers/664/353/desktop-wallpaper-acrylic-light-salmon-pink-watercolor-texture-background-by-pink-background-color-iphone-pastel-pink.jpg');background-repeat: no-repeat;background-size: 100% auto;background-position: center center;">
                                     <div class="card-body">
@@ -142,6 +175,21 @@
                                         </div>
                                     </div>
                                 </div> 
+                         </div>  
+                    </div>
+                </div>
+        <div v-else-if="this.$store.getters['user/user'] != null">
+            <div class = "container" style="margin-top: 15%;">
+                <div class="card" style="background-image: url('https://e0.pxfuel.com/wallpapers/664/353/desktop-wallpaper-acrylic-light-salmon-pink-watercolor-texture-background-by-pink-background-color-iphone-pastel-pink.jpg');background-repeat: no-repeat;background-size: 100% auto;background-position: center center;">
+                                    <div class="card-body">
+                                        <h5 class="card-title" style="text-align: center;"> Looks like your cart is empty! </h5>
+                                    <p class="card-text" style="text-align: center;"> browse the shop and purchase an amazing product</p>
+                                    <div class = "conainer"> 
+                                        <div class = "row">
+                                                <RouterLink style ="margin-right: 50%" class="btn btn-primary" to="/Shop"> Here! </RouterLink>
+                                        </div>
+                                    </div>
+                                </div> 
             </div>
         </div>
         </div>
@@ -155,6 +203,7 @@ import axios from 'axios';
 export default {
  
     name: 'checkOut',
+    //All form variables
     data() {
         return {
             cardInfo: [],
@@ -169,11 +218,11 @@ export default {
             country: '',
             cardNumber: '',
             cardHolderName: '',
-            expDate: '',
+            expDate: null,
             CVC: '',
         }
     },
-        
+    //computable methods are called on load and on call
     computed: {
         cartItems(){
             return this.$store.getters['cart/cartItems'];
@@ -197,23 +246,37 @@ export default {
             return this.postCode.length > 3 && this.postCode.match(/^[0-9]+$/) != null; 
         },
         isValidCountry(){
-            return this.country == "Austrlia" || this.country == "Aus" || this.country == "australia" || this.country == "aus";
+            return this.country == null;
+        },
+        isValidCard(){
+            return this.cardNumber.length == 16 && this.cardNumber.match(/^[0-9]+$/) != null;
+        },
+        isValidCardHolderName(){
+            return   this.cardHolderName.length > 5 && this.cardHolderName.includes(" "); 
+        }, 
+        isValidExpDate(){
+            return this.expDate != null && new Date(this.expDate) > new Date(); 
+        },
+        isValidCVC(){
+            return this.CVC.length == 3 && this.CVC.match(/^[0-9]+$/) != null;
         }
+
         
     },
-
+    //When first loading the page
         async mounted() {
                 this.cardInfo = await this.getCardInfos();
                 this.shippinginfo = await this.getShippingInfos();
             },
 
 
-
+        //Page methods 
         methods: {
             selectCard(card){
                 this.selectCard = card;
                 console.log(card.cardHolderName);
             },
+            //async get card infos awaits a call to the card info api with the secret hashed key and returns all cards under local storaged user.
             async getCardInfos() {
                 const key = this.$store.getters['hashedKeys/CardHash'];
                 try {
@@ -226,6 +289,7 @@ export default {
                     return null;
                 }
             },
+
             async getShippingInfos(){
                 const key = this.$store.getters['hashedKeys/shippingInfoHashedKey'];
                 try {
@@ -238,29 +302,32 @@ export default {
                     return null;
                 }
             },
+
             addCard(){
-                const key = this.$store.getters['hashedKeys/CardHash'];
-                const newCard = {
-                    userId: this.$store.getters['user/user'].userID,
-                    cardNumber: this.cardNumber,
-                    expiryDate: this.expDate,
-                    cardHolderName: this.cardHolderName,
-                    billingAddress: this.address + " " + this.postCode + " " + this.City + " " + this.country,
-                    CVC: this.CVC,
-                };
-                axios.post(`http://localhost:8090/api/creditCardInfo/${key}/create`, newCard).then((response) => {
-                    console.log(response.data);
-                    console.log("card added");
-                    window.location.reload();
-                    //bootstrap message show. 
+                if(this.isValidCardForm()){
+                    const key = this.$store.getters['hashedKeys/CardHash'];
+                    const newCard = {
+                        userId: this.$store.getters['user/user'].userID,
+                        cardNumber: this.cardNumber,
+                        expiryDate: this.expDate,
+                        cardHolderName: this.cardHolderName,
+                        billingAddress: this.address + " " + this.postCode + " " + this.City + " " + this.country,
+                        CVC: this.CVC,
+                    };
+                    axios.post(`http://localhost:8090/api/creditCardInfo/${key}/create`, newCard).then((response) => {
+                        console.log(response.data);
+                        console.log("card added");
+                        window.location.reload();
+                        //bootstrap message show. 
 
-                }).catch((error) => {
-                    console.error(error);
-                });
-
+                    }).catch((error) => {
+                        console.error(error);
+                    });
+                }
             },
+
             addShippingInfo(){
-                if(this.isValidForm()){
+                if(this.isValidAddressForm()){
                     const key = this.$store.getters['hashedKeys/shippingInfoHashedKey'];
                     const newShippingInfo ={
                         userId: this.$store.getters['user/user'].userID,
@@ -280,6 +347,7 @@ export default {
                     });
                 }
             },
+
             async purchase(){
                 const newOrder = {
                     userId: this.$store.getters['user/user'].userID,
@@ -305,10 +373,15 @@ export default {
                             console.error(error);
                         })
                     });
+                    //empty the local cart 
+                    this.$store.dispatch('cart/clear');
+                    //Send them to a confirmation page. 
+
                 }).catch((error) => {
                     console.error(error);
                 });
             },
+
             removeFromCart(index) {
             this.$store.dispatch('cart/deleteCartItem', this.cartItems[index]);
                 window.location.reload();
@@ -319,9 +392,12 @@ export default {
             cancelRemove(product) {
                 product.confirmRemove = false;
             },
-            isValidForm() {
+            isValidAddressForm() {
                 return this.isValidFullName && this.isValidAddress && this.isValidPostCode && this.isValidState && this.isVlaidCity;
             },
+            isValidCardForm(){
+                return this.isValidCard && this.isValidCardHolderName && this.isValidCVC && this.isValidExpDate;
+            }
 
            
             //Create new Card entry to the database, 
