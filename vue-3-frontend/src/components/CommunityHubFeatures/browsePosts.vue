@@ -19,7 +19,7 @@
     <form>
       <div class="container" style="padding-top: 2%;">
         <div class="input-group mb-3">
-          <!-- <input id='searchBar' type="text" class="form-control" placeholder="Search by title" aria-label="Recipient's username" aria-describedby="basic-addon2" v-model="searchQuery"> -->
+          <input id='searchBar' type="text" class="form-control" placeholder="Search by title" aria-label="Recipient's username" aria-describedby="basic-addon2" v-model="searchQuery">
           {{ searchQuery }}
           <span class="input-group-text" id="basic-addon2">Search</span>
         </div>
@@ -111,7 +111,7 @@ export default {
     },
   filteredPosts() {
     console.log("my query", this.searchQuery)
-    const filtered = postData.value.filter(post => post.upvotes > 0);
+    const filtered = postData.value.filter(post => post.upvotes > this.searchQuery);
     
     return filtered;
   },
