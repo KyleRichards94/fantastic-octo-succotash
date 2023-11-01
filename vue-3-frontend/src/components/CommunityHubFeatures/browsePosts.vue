@@ -29,15 +29,17 @@
     <div class="container" style="padding-top: 2%;">
       <div class="row">
         <!-- Loop through postData and create a card for each post -->
-        <div v-for="post in postData" :key="post.postId" class="col-md-3">
+        <div v-for="post in filteredPosts " :key="post.postId" class="col-md-3">
           <div class="card" style="margin-bottom: 20px;">
 
-            <img class="card-img-top" :src="'http://localhost:8090' + post.imagePath" alt="Card image cap" >
+            <img class="card-img-top" :src="'http://localhost:8090' + post.imagePath" alt="Card image cap">
             <router-link :to="{ name: '3DviewPort', params: { objFilePath: post.objFilePath, postId: post.postId } }">View
               3D Model</router-link>
             <div class="card-body">
               <h5 class="card-title">{{ post.title }}</h5>
-              <h5 class="card-title">Upvotes {{ post.upvotes }}</h5>
+              <h5 class="card-title">Upvotes {{ post.votes }}</h5>
+              <!-- {{ this.$store.getters['user/user'].userID }} -->
+
               <p class="card-text">{{ post.description }}</p>
               <div class="d-flex justify-content-between">
                 <a href="#" class="btn btn-primary">Download</a>
@@ -47,7 +49,7 @@
                 if post.id.in(favourites) then <img src = " "../../assets/star-2768.png""> -->
                   <!--Mohammed has edited the below image tag to call the addToFavorits method for his feature-->
                   <img id="favourites" src="../../assets/favourite-2765.png"
-                    @click="addToFavorites(post.postId, post.userId)" style = "width: 24px;">
+                    @click="addToFavorites(post.postId, post.userId)" style="width: 24px;">
                 </div>
               </div>
               <input v-model="comment" type="text" class="form-control" placeholder="Add a comment">
@@ -59,10 +61,10 @@
               <h5>Comments</h5>
               <div v-if="postComments[post.postId]">
                 <div v-for="comment in postComments[post.postId]" :key="comment.commentId">
-                <p>  {{ comment.commentText }}</p>
-                <p>  {{ comment.commentDate }}</p>
+                  <p> {{ comment.commentText }}</p>
+                  <p> <b>Posted on:</b> {{ comment.commentDate }}</p>
                 </div>
-                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -70,26 +72,48 @@
     </div>
   </div>
 </template>
+
   
 <script>
 import axios from 'axios';
 import { ref } from 'vue';
 
 export default {
-    async  mounted() {
-      const response = await axios.get('http://localhost:8090/api/posts/posts/getAllPostIds');
-     this.apiData = response.data;
-     for (let i = 0; i < this.apiData.length; i++) {
+  async mounted() {
+    const response = await axios.get('http://localhost:8090/api/posts/posts/getAllPostIds');
+    this.apiData = response.data;
+    for (let i = 0; i < this.apiData.length; i++) {
       this.getCommentsForPost(this.apiData[i]);
     }
-     
+
   },
- 
+  computed: {
+    postIdlist() {
+      if (this.searchQuery.length > 0) {
+        const filtered = postData.value.filter(post => post.postId < 5);
+        return filtered;
+      } const filtered = postData.value.filter(post => post.postId > 5);
+
+      return filtered;
+    },
+    filteredPosts() {
+
+
+      const query = this.searchQuery.toLowerCase(); // Convert the query to lowercase for case-insensitive search
+      const filtered = postData.value.filter(post => {
+        // Include the condition to check if the search query is present in the post's title
+        return post.title && post.title.toLowerCase().includes(query);
+      });
+      return filtered;
+    }
+  },
   name: 'browsePosts',
   data() {
     return {
-     postComments: {},
-     favoritePost: { // Define favoritePost here
+      voteMap: new Map(),
+      searchQuery: '',
+      postComments: {},
+      favoritePost: { // Define favoritePost here
         userId: 0, // You can set default values if needed
         postId: 0
       },
@@ -98,7 +122,13 @@ export default {
   },
 
   methods: {
-    
+    createVoteHashMap() {
+      console.log("I ran ",)
+      const voteMap = new Map();
+      voteMap.set('key1', 'value1');
+      voteMap.set('key2', 'value2');
+      console.log(voteMap.get('key1'));
+    },
     getCommentsForPost(postId) {
       axios.get(`http://localhost:8090/api/comment/getByPost?postId=${postId}`)
         .then((response) => {
@@ -110,84 +140,84 @@ export default {
           // Handle any errors that may occur during the request
           console.error(error);
         });
-      },
-      redrawCommentsForPost(postId) {
+    },
+    redrawCommentsForPost(postId) {
       axios.get(`http://localhost:8090/api/comment/getByPost?postId=${postId}`)
         .then((response) => {
           const postComments = response.data;
           console.log(postComments)
           this.postComments[postId] = response.data;
-          
+
         })
         .catch((error) => {
           // Handle any errors that may occur during the request
           console.error(error);
         });
-      },
-      
-      fetchCommentData() {
-  // Fetch data again from the server and update the 'postData' ref
-  axios.get('http://localhost:8090/api/posts/findAll')
-    .then((response) => {
-      postData.value = response.data;
+    },
 
-      // Get all comments for all posts
-      Object.keys(response.data).forEach((postId) => {
-        this.getCommentsForPost(postId);
-      });
-    })
-    .catch((error) => {
-      console.error('Error fetching data:', error);
-    });
-},
-    getAllComments(){
+    fetchCommentData() {
+      // Fetch data again from the server and update the 'postData' ref
+      axios.get('http://localhost:8090/api/posts/findAll')
+        .then((response) => {
+          postData.value = response.data;
+
+          // Get all comments for all posts
+          Object.keys(response.data).forEach((postId) => {
+            this.getCommentsForPost(postId);
+          });
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
+    },
+    getAllComments() {
       axios.get('http://localhost:8090/api/comment/getAllComments')
-  .then((response) => {
-    const commentsList = response.data;
-    this.postComments = response.data;
+        .then((response) => {
+          const commentsList = response.data;
+          this.postComments = response.data;
 
-    // Iterate through the comments and print them
-    commentsList.forEach((comment) => {
-      console.log("That me ", comment.commentText); // This will print each comment object to the console
-    });
-  })
-  .catch((error) => {
-    // Handle any errors that may occur during the request
-    console.error(error);
-  });
+          // Iterate through the comments and print them
+          commentsList.forEach((comment) => {
+            console.log("That me ", comment.commentText); // This will print each comment object to the console
+          });
+        })
+        .catch((error) => {
+          // Handle any errors that may occur during the request
+          console.error(error);
+        });
 
     },
-     async fetchDataFromAPI() {
+    async fetchDataFromAPI() {
       try {
-        const response =  await axios.get('http://localhost:8090/api/posts/posts/getAllPostIds');
+        const response = await axios.get('http://localhost:8090/api/posts/posts/getAllPostIds');
         this.apiData = response.data;
       } catch (error) {
         console.error('Error fetching data from the API:', error);
       }
     },
     async handleCommentSubmission(int, commentText) {
-  try {
-    const postData = {
-      postId: int,
-      userId: 3, //I will change this once user scomes online in the database
-      commentText: commentText,
-    };
+      try {
+        const postData = {
+          postId: int,
+          userId: 3, //I will change this once user scomes online in the database
+          commentText: commentText,
+        };
 
-    // Post the comment to the server.
-    const response = await axios.post('http://localhost:8090/api/comment/create', postData);
+        // Post the comment to the server.
+        const response = await axios.post('http://localhost:8090/api/comment/create', postData);
 
-    // Fetch the updated list of comments from the server.
-    setTimeout(this.getCommentsForPost(int), 2000)
-    // Assuming your server responds with a success message
-    console.log('Comment posted successfully', response.data);
+        // Fetch the updated list of comments from the server.
+        setTimeout(this.getCommentsForPost(int), 2000)
+        // Assuming your server responds with a success message
+        console.log('Comment posted successfully', response.data);
 
-    // Reset the comment input field.
-    this.comment = '';
-  } catch (error) {
-    // Handle errors (e.g., display an error message to the user)
-    console.error('Error posting comment testtest', error);
-  }
-},
+        // Reset the comment input field.
+        this.comment = '';
+      } catch (error) {
+        // Handle errors (e.g., display an error message to the user)
+        console.error('Error posting comment testtest', error);
+      }
+    },
 
 
     addCommentToPost(commentText, postId) {
@@ -219,7 +249,6 @@ export default {
           console.log('message received: ' + response.data.messages);
           //reloading the data
           this.fetchData();
-          // You can add additional logic here, such as updating the UI to reflect the favorite status.
         })
         .catch((error) => {
           console.error('Error adding favorite post:', error);
@@ -227,36 +256,61 @@ export default {
     },
     // ... other methods ...
     fetchData() {
-    // Fetch data again from the server and update the 'postData' ref
-    axios.get('http://localhost:8090/api/posts/findAll')
-      .then((response) => {
-        postData.value = response.data;
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
+      // Fetch data again from the server and update the 'postData' ref
+      axios.get('http://localhost:8090/api/posts/findAll')
+        .then((response) => {
+          postData.value = response.data;
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
     },
-    upvotePost(postId){
-    axios.post(`http://localhost:8090/api/posts/posts/upvotePost?postId=${postId}`)
+    async upvotePost(postId) {
+     const userID = this.$store.getters['user/user'].userID;
+      voteMap.set(userID, postId)
+      console.log(voteMap.size)
+     try {
+        const response = await axios.post(`http://localhost:8090/api/posts/posts/upvotePost?postId=${postId}`);
+        const updatedPost = postData.value.find((post) => post.postId === postId);
+        updatedPost.votes++; // Increment the vote count
 
-  },
-  downvotePost(postId){
-    axios.post(`http://localhost:8090/api/posts/posts/downvotePost?postId=${postId}`)
+        // Success message
+        console.log('Post upvoted successfully', response.data);
+      } catch (error) {
+        // Handle errors (e.g., display an error message to the user)
+        console.error('Error upvoting post', error);
+      }
+    },
+    async downvotePost(postId) {
+      try {
+        const response = await axios.post(`http://localhost:8090/api/posts/posts/downvotePost?postId=${postId}`);
+        const updatedPost = postData.value.find((post) => post.postId === postId);
+        updatedPost.votes--; // Decrease the vote count
 
-  }
+        // Success message
+        console.log('Post downvote successfully', response.data);
+      } catch (error) {
+        // Handle errors 
+        console.error('Error downvoting post', error);
+      }
+    }
   },
- 
+
 
 };
 
 const postData = ref([]);
-const searchQuery = ref('');
+// const searchQuery = ref('');
+  const voteMap = new Map();
 
 axios.get('http://localhost:8090/api/posts/findAll').then((response) => {
-  postData.value = response.data;
+  postData.value = response.data.map((post) => {
+    return {
+      ...post,
+      votes: post.upvotes,
+    };
+  });
 });
-
-
 
 </script>
 <style>
