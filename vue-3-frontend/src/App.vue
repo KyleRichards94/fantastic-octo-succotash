@@ -93,7 +93,7 @@ export default {
                   <li>
                     <RouterLink class="dropdown-item" to="/favouritePosts">View Favourites</RouterLink>
                   </li>
-                  <li v-if="this.$store.getters['user/isStaff'] == true">
+                  <li v-if="this.userRole == 'staff'">
                     <RouterLink class="dropdown-item" to="/ManageProducts">Manage Products</RouterLink>
                   </li>
                   <li> 
