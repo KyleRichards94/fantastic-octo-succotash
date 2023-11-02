@@ -9,6 +9,9 @@ const state = {
     deleteItem(state, index) {
       state.cartItems.splice(index, 1); 
     },
+    deleteAllItems(state){
+      state.cartItems = [];//nullify
+    }
   };
   
   const actions = {

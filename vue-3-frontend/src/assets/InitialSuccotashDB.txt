@@ -18,11 +18,13 @@ CREATE TABLE `posts` (
   `description` text,
   `imagePath` varchar(255) DEFAULT NULL,
   `objFilePath` varchar(255) DEFAULT NULL,
+  `upvotes` int DEFAULT 0, 
   `postDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`postId`),
   KEY `UuserId` (`userId`),
   CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 CREATE TABLE `comments` (
   `commentId` int NOT NULL AUTO_INCREMENT,
