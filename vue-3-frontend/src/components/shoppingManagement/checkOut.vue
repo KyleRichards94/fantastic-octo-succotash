@@ -116,7 +116,7 @@
                     </div>
             </div>
             <div class = "card">
-                <button v-if="selectedShippingAddress && selectedCard" class="btn btn-primary" @click="purchase()"> Purchase </button>
+                <RouterLink v-if="selectedShippingAddress && selectedCard" class="btn btn-primary" @click="purchase()" to="/finalizeOrder" >Purchase </RouterLink>
                 <button v-else class="btn btn-secondary">You must select an Address and Card to purchase</button>
             </div>
         </div>
@@ -375,6 +375,7 @@ export default {
                     });
                     //empty the local cart 
                     this.$store.dispatch('cart/clear');
+                    window.location.reload();
                     //Send them to a confirmation page. 
 
                 }).catch((error) => {
@@ -393,7 +394,7 @@ export default {
                 product.confirmRemove = false;
             },
             isValidAddressForm() {
-                return this.isValidFullName && this.isValidAddress && this.isValidPostCode && this.isValidState && this.isVlaidCity;
+                return this.isValidFullName && this.isValidAddress && this.isValidPostCode && this.isValidState && this.isValidCity;
             },
             isValidCardForm(){
                 return this.isValidCard && this.isValidCardHolderName && this.isValidCVC && this.isValidExpDate;
