@@ -126,5 +126,9 @@ CREATE TABLE `shippingInfo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO users (userId, userName, password, email, address, isStaff)
-VALUES (3, 'YourUserName', 'YourPassword', 'user3@example.com', '123 Main St', 'customer');
+VALUES (3, 'alex1', 'alex', 'user3@example.com', '123 Main St', 'customer');
+
+INSERT INTO users (userId, userName, password, email, address, isStaff)
+VALUES (4, 'ali1', 'ali', 'user3@example.com', '123 Main St', 'staff');
+
 
