@@ -31,3 +31,5 @@ I also set up data persistence using VueX Stores in order to make the login func
 Alexis T - I implemented the controller API that allows users to add comments to posts. I also implemented an API loads all the comments associated with a particular post. I also designed the browse page for the website.
 
 Ali J - I designed and integrated the controller API, enabling users to submit inquiries, and staff members reply to an enquiry. Additionally, I developed an API to fetch all inquiries, whether replied or unreplied. Furthermore, I created and linked the API controllers to three Vue pages: Enquiry Lists, Send Enquiry, and Reply Enquiry.
+
+teest
