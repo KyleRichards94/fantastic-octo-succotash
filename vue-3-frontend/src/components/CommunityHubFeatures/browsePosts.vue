@@ -111,6 +111,7 @@ export default {
   data() {
     return {
       voteMap,
+      downvoteMap,
       searchQuery: '',
       postComments: {},
       favoritePost: { // Define favoritePost here
@@ -266,38 +267,52 @@ export default {
         });
     },
     async upvotePost(postId) {
-  const userID = this.$store.getters['user/user'].userID;
+      const userID = this.$store.getters['user/user'].userID;
 
-  if (voteMap.has(postId)) {
-    console.log('User has already upvoted this post');
-  } else {
-    try {
-      // Assuming voteMap is a global Map
-      voteMap.set(postId, userID);
+      if (voteMap.has(postId)) {
+        console.log('User has already upvoted this post');
+      } else {
+        try {
+          // Assuming voteMap is a global Map
+          voteMap.set(postId, userID);
+          if(downvoteMap.has(postId)){
+            downvoteMap.delete(postId);
+          }
+          const response = await axios.post(`http://localhost:8090/api/posts/posts/upvotePost?postId=${postId}`);
+          const updatedPost = postData.value.find((post) => post.postId === postId);
+          updatedPost.votes++; // Increment the vote count
 
-      const response = await axios.post(`http://localhost:8090/api/posts/posts/upvotePost?postId=${postId}`);
-      const updatedPost = postData.value.find((post) => post.postId === postId);
-      updatedPost.votes++; // Increment the vote count
-
-      // Success message
-      console.log('Post upvoted successfully', response.data);
-    } catch (error) {
-      // Handle errors (e.g., display an error message to the user)
-      console.error('Error upvoting post', error);
-    }
-  }
-},
+          // Success message
+          console.log('Post upvoted successfully', response.data);
+        } catch (error) {
+          // Handle errors (e.g., display an error message to the user)
+          console.error('Error upvoting post', error);
+        }
+      }
+    },
     async downvotePost(postId) {
-      try {
-        const response = await axios.post(`http://localhost:8090/api/posts/posts/downvotePost?postId=${postId}`);
-        const updatedPost = postData.value.find((post) => post.postId === postId);
-        updatedPost.votes--; // Decrease the vote count
 
-        // Success message
-        console.log('Post downvote successfully', response.data);
-      } catch (error) {
-        // Handle errors 
-        console.error('Error downvoting post', error);
+      const userID = this.$store.getters['user/user'].userID;
+
+      if (downvoteMap.has(postId)) {
+        console.log('User has already upvoted this post');
+      } else {
+        try {
+          // Assuming voteMap is a global Map
+          downvoteMap.set(postId, userID);
+          if(voteMap.has(postId)){
+            voteMap.delete(postId);
+          }
+          const response = await axios.post(`http://localhost:8090/api/posts/posts/downvotePost?postId=${postId}`);
+          const updatedPost = postData.value.find((post) => post.postId === postId);
+          updatedPost.votes--; // Increment the vote count
+
+          // Success message
+          console.log('Post upvoted successfully', response.data);
+        } catch (error) {
+          // Handle errors (e.g., display an error message to the user)
+          console.error('Error upvoting post', error);
+        }
       }
     }
   },
@@ -308,6 +323,7 @@ export default {
 const postData = ref([]);
 // const searchQuery = ref('');
 const voteMap = new Map();
+const downvoteMap = new Map();
 
 axios.get('http://localhost:8090/api/posts/findAll').then((response) => {
   postData.value = response.data.map((post) => {
