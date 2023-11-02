@@ -75,14 +75,39 @@ export default {
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <!-- Drop down Menu  -->
+           <div class="userLogged" v-if="this.$store.getters['user/user'] != null">
             <li class="nav-item">
-              <RouterLink class="nav-link" to="/Shop">Shop</RouterLink>
+              <div class="dropdown">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown" aria-expanded="false" >
+                  {{ this.$store.getters['user/user'].userName }}
+                </button>
+                <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton1">
+                  <li >
+                    <RouterLink class="dropdown-item" to="/MyAccount">Profile</RouterLink>
+                  </li>
+                  <li>
+                    <RouterLink class="dropdown-item" to="/favouritePosts">View Favourites</RouterLink>
+                  </li>
+                  <li v-if="this.$store.getters['user/isStaff'] == true">
+                    <RouterLink class="dropdown-item" to="/ManageProducts">Manage Products</RouterLink>
+                  </li>
+                  <li> 
+                    <RouterLink @click="logout" class="dropdown-item" to="/LogoutCard">Logout</RouterLink>
+                  </li>
+                  <li v-if="this.userRole == 'staff'">
+                    <RouterLink class="dropdown-item" to="/enquiry">Enquiry List</RouterLink>
+                  </li>
+                  <li v-if="this.userRole == 'customer'">
+                    <RouterLink class="dropdown-item" to="/sendEnquiry">Send Enquiry</RouterLink>
+                  </li>
+                </ul>
+              </div>
             </li>
-            <li class="nav-item">
-              <RouterLink class="nav-link" to="/CommunityHub">Community Hub</RouterLink>
-            </li>
+           </div>
 
-            <li class="nav-item">
+           <li class="nav-item">
               <div class="dropdown">
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton2"
                   data-bs-toggle="dropdown" aria-expanded="false">
@@ -133,48 +158,22 @@ export default {
               </div>
             </li>
 
+            <li class="nav-item">
+              <RouterLink class="nav-link" to="/Shop">Shop</RouterLink>
+            </li>
+            <li class="nav-item">
+              <RouterLink class="nav-link" to="/CommunityHub">Community Hub</RouterLink>
+            </li>
+
+            
+
 
             <li class="nav-item" v-if="this.$store.getters['user/user'] == null">
               <RouterLink class="nav-link" to="/LoginCard">Login</RouterLink>
             </li>
             <li class="nav-item" v-if="this.$store.getters['user/user'] == null">
               <RouterLink class="nav-link" to="/signUp">Signup</RouterLink>
-            </li>
-
-            
-
-
-            <!-- Drop down Menu  -->
-           <div class="userLogged" v-if="this.$store.getters['user/user'] != null">
-            <li class="nav-item">
-              <div class="dropdown">
-                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown" aria-expanded="false" >
-                  {{ this.$store.getters['user/user'].userName }}
-                </button>
-                <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton1">
-                  <li >
-                    <RouterLink class="dropdown-item" to="/MyAccount">Profile</RouterLink>
-                  </li>
-                  <li>
-                    <RouterLink class="dropdown-item" to="/favouritePosts">View Favourites</RouterLink>
-                  </li>
-                  <li v-if="this.$store.getters['user/isStaff'] == true">
-                    <RouterLink class="dropdown-item" to="/ManageProducts">Manage Products</RouterLink>
-                  </li>
-                  <li> 
-                    <RouterLink @click="logout" class="dropdown-item" to="/LogoutCard">Logout</RouterLink>
-                  </li>
-                  <li v-if="this.userRole == 'staff'">
-                    <RouterLink class="dropdown-item" to="/enquiry">Enquiry List</RouterLink>
-                  </li>
-                  <li v-if="this.userRole == 'customer'">
-                    <RouterLink class="dropdown-item" to="/sendEnquiry">Send Enquiry</RouterLink>
-                  </li>
-                </ul>
-              </div>
-            </li>
-           </div> 
+            </li> 
            
           </ul>
 
