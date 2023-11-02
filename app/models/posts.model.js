@@ -31,6 +31,10 @@ module.exports = (sequelize, Sequelize) => {
             type: DataTypes.STRING(255),
             defaultValue: null
         },
+        upvotes:{
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
         postDate: {
             type: DataTypes.DATE,
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')

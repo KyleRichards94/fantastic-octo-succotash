@@ -39,7 +39,9 @@
 
                 
                 <div class="col">
-                    <div class = "container" v-if="this.$store.getters['user/user'] != null" style ="background-image: url('https://e0.pxfuel.com/wallpapers/664/353/desktop-wallpaper-acrylic-light-salmon-pink-watercolor-texture-background-by-pink-background-color-iphone-pastel-pink.jpg');background-repeat: no-repeat;background-size: 100% auto;background-position: center center;">
+
+                    <div class = "container" v-if="this.$store.getters['user/user'].userID != null" style ="background-image: url('https://e0.pxfuel.com/wallpapers/664/353/desktop-wallpaper-acrylic-light-salmon-pink-watercolor-texture-background-by-pink-background-color-iphone-pastel-pink.jpg');background-repeat: no-repeat;background-size: 100% auto;background-position: center center;">
+
                         <div class="form-group">
                             <label for="productTitle">Object Title</label>
                             <input type="text" class="form-control" id="productTitle" placeholder="Enter Product Title" @change="onTitle"
@@ -142,7 +144,7 @@ export default {
         }
         if (this.isAgreed) {
         const formData = new FormData();
-        formData.append('userId', this.$store.getters['user/userId']); // stick to 3 for now untill the persistant userid data is created
+        formData.append('userId', "3"); // stick to 3 for now untill the persistant userid data is created
         formData.append('title', this.productTitle);
         formData.append('description', this.productDescription);
         formData.append('objFile', this.objFile);

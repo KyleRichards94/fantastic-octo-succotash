@@ -27,6 +27,12 @@ module.exports = app => {
 
     //Fetch all post Ids, no idea why it only works with /posts/getAllPosts and not just /getallPosts
     router.get('/posts/getAllPostIds', posts.getAllPostIDs);
+    
+    
+    //Add an upvote to a post
+    router.post('/posts/upvotePost', posts.upvotePost);
+    //Add a downvote to a post
+    router.post('/posts/downvotePost', posts.downvotePost);
 
     app.use('/api/posts', router);
     // impliment your CRUD

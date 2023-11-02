@@ -14,6 +14,7 @@ exports.create = (req, res) => {
         userId: req.body.userId,
         title: req.body.title,
         description: req.body.description,
+        upvotes: req.body.upvotes,
         imagePath: "",
         objFilePath: ""
     };
@@ -182,5 +183,50 @@ exports.getAllPostIDs = (req, res) => {
       res.status(500).send({
         message: err.message || 'Could not retrieve Post IDs.',
       });
+    });
+};
+exports.upvotePost = (req, res) => {
+  const postId = req.query.postId; // Assuming the postId is passed as a parameter in the URL
+
+  // Find the post by postId
+  posts.findByPk(postId)
+    .then((post) => {
+      if (!post) {
+        res.status(404).send({
+          message: `Post with postId ${postId} not found`,
+        });
+      } else {
+        post.upvotes = post.upvotes + 1;
+        return post.save();
+      }
+    })
+    .then(() => {
+      res.send({ message: 'Upvote added successfully' });
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err.message || 'Error updating post' });
+    });
+};
+
+exports.downvotePost = (req, res) => {
+  const postId = req.query.postId; // Assuming the postId is passed as a parameter in the URL
+
+  // Find the post by postId
+  posts.findByPk(postId)
+    .then((post) => {
+      if (!post) {
+        res.status(404).send({
+          message: `Post with postId ${postId} not found`,
+        });
+      } else {
+        post.upvotes = post.upvotes - 1;
+        return post.save();
+      }
+    })
+    .then(() => {
+      res.send({ message: 'Downvote added successfully' });
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err.message || 'Error updating post' });
     });
 };

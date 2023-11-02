@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <testsuites name="Mocha Tests" time="0.211" tests="27" failures="14">
   <testsuite name="Root Suite" timestamp="2023-11-01T22:10:26" tests="0" time="0.000" failures="0">
   </testsuite>
@@ -14,6 +15,7 @@
   </testsuite>
   <testsuite name="GET /api/posts/:postId" timestamp="2023-11-01T22:10:26" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="0.010" failures="1">
     <testcase name="Posts API GET /api/posts/:postId should get a single post by postId" time="0.006" classname="should get a single post by postId">
+
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
     at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:68:31
     at Request.callback (node_modules\superagent\lib\node\index.js:857:12)
@@ -31,6 +33,7 @@
     </testcase>
   </testsuite>
   <testsuite name="Add then Delete" timestamp="2023-11-01T22:10:26" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="0.006" failures="1">
+
     <testcase name="Posts API Add then Delete Should delete a post with id 1" time="0.005" classname="Should delete a post with id 1">
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
     at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:81:29
@@ -55,6 +58,7 @@
     </testcase>
   </testsuite>
   <testsuite name="GET /api/enquiries/findAll" timestamp="2023-11-01T22:10:26" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="0.005" failures="1">
+
     <testcase name="Enquiries API GET /api/enquiries/findAll should get all enquiries" time="0.004" classname="should get all enquiries">
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
     at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:127:31
@@ -74,6 +78,7 @@
   </testsuite>
   <testsuite name="GET /api/enquiries/:enquiryId" timestamp="2023-11-01T22:10:26" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="0.004" failures="1">
     <testcase name="Enquiries API GET /api/enquiries/:enquiryId should get a single enquiry by enquiryId" time="0.004" classname="should get a single enquiry by enquiryId">
+
       <failure message="expected undefined to equal 1" type="AssertionError"><![CDATA[AssertionError: expected undefined to equal 1
     at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:146:41
     at Request.callback (node_modules\superagent\lib\node\index.js:857:12)
@@ -89,6 +94,7 @@
   </testsuite>
   <testsuite name="PUT /api/enquiries/:enquiryId" timestamp="2023-11-01T22:10:26" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="0.006" failures="1">
     <testcase name="Enquiries API PUT /api/enquiries/:enquiryId should update the enquiry reply" time="0.005" classname="should update the enquiry reply">
+
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
     at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:167:31
     at Request.callback (node_modules\superagent\lib\node\index.js:857:12)
@@ -112,6 +118,7 @@
     </testcase>
   </testsuite>
   <testsuite name="/POST login" timestamp="2023-11-01T22:10:26" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="0.006" failures="1">
+
     <testcase name="User Controller Tests /POST login it should login a user" time="0.005" classname="it should login a user">
       <failure message="Invalid Chai property: should" type="Error"><![CDATA[Error: Invalid Chai property: should
     at Object.proxyGetter [as get] (node_modules\chai\lib\chai\utils\proxify.js:78:17)
@@ -135,6 +142,7 @@
     </testcase>
   </testsuite>
   <testsuite name="Get /api/orders/findOne" timestamp="2023-11-01T22:10:26" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="0.004" failures="1">
+
     <testcase name="Posts API Get /api/orders/findOne should return 1 exact order" time="0.003" classname="should return 1 exact order">
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
     at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:258:33
@@ -154,6 +162,7 @@
   </testsuite>
   <testsuite name="PUT /api/orders/:orderId" timestamp="2023-11-01T22:10:26" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="0.004" failures="1">
     <testcase name="Posts API PUT /api/orders/:orderId Should update the order price" time="0.004" classname="Should update the order price">
+
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
     at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:272:31
     at Request.callback (node_modules\superagent\lib\node\index.js:857:12)
@@ -174,6 +183,7 @@
   </testsuite>
   <testsuite name="POST /api/orderItems/create" timestamp="2023-11-01T22:10:26" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="0.005" failures="1">
     <testcase name="OrderItems API POST /api/orderItems/create create a new order item" time="0.005" classname="create a new order item">
+
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 500
     at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:298:31
     at Request.callback (node_modules\superagent\lib\node\index.js:857:12)
@@ -199,6 +209,7 @@
     </testcase>
   </testsuite>
   <testsuite name="GET /api/orderItems/findOne/:orderItemId" timestamp="2023-11-01T22:10:26" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="0.003" failures="1">
+
     <testcase name="OrderItems API GET /api/orderItems/findOne/:orderItemId should return one exact order item" time="0.003" classname="should return one exact order item">
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
     at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:339:31
@@ -217,6 +228,7 @@
     </testcase>
   </testsuite>
   <testsuite name="PUT /api/orderItems/:orderItemId" timestamp="2023-11-01T22:10:26" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="0.005" failures="1">
+
     <testcase name="OrderItems API PUT /api/orderItems/:orderItemId should update the order item quantity" time="0.004" classname="should update the order item quantity">
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
     at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:357:31
@@ -235,6 +247,7 @@
     </testcase>
   </testsuite>
   <testsuite name="DELETE /api/orderItems/:orderItemId" timestamp="2023-11-01T22:10:26" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="0.004" failures="1">
+
     <testcase name="OrderItems API DELETE /api/orderItems/:orderItemId should delete an order item" time="0.003" classname="should delete an order item">
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
     at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:370:31
@@ -254,6 +267,7 @@
   </testsuite>
   <testsuite name="Add then Delete the order ID = 1" timestamp="2023-11-01T22:10:26" tests="1" file="C:\Users\User\Desktop\fantastic-octo-succotash\test.js" time="0.004" failures="1">
     <testcase name="OrderItems API Add then Delete the order ID = 1 Should delete an order" time="0.003" classname="Should delete an order">
+
       <failure message="expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected { Object (_events, _eventsCount, ...) } to have status code 200 but got 404
     at C:\Users\User\Desktop\fantastic-octo-succotash\test.js:381:35
     at Request.callback (node_modules\superagent\lib\node\index.js:857:12)
@@ -303,6 +317,7 @@
     at IncomingMessage.<anonymous> (node_modules\superagent\lib\node\parsers\json.js:21:7)
     at IncomingMessage.emit (node:events:526:35)
     at endReadableNT (node:internal/streams/readable:1359:12)
+
     at process.processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
     </testcase>
   </testsuite>
