@@ -27,7 +27,11 @@ module.exports = (sequelize, Sequelize) => {
         address:{
             type: String,
             defaultValue: null
-        }  //, etc , etc. untill the entire backend is linked.
+        },
+        isStaff:{
+            type:String
+        }
+          //, etc , etc. untill the entire backend is linked.
     }, {
         tableName: 'users',
         timestamps: false // This prevents Sequalize and the ORM from automatically searching for "created_at" and "updated_at". 

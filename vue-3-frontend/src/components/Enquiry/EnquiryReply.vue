@@ -87,6 +87,8 @@ export default {
           // Optionally, you can perform additional actions based on the response
           // For example, show a success message
           console.log('Reply submitted successfully');
+          alert("Enquiry has been replied");
+          this.$router.push(`/enquiry`);
         } else {
           console.error('Error submitting reply:', response.data.message);
         }

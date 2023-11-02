@@ -55,7 +55,7 @@ export default {
           //console.log('User logged in', response.data);
           //this.userData.userName = '';
           //this.userData.password = '';
-          console.log(response.data.user);
+          
           this.$store.commit('user/setUser', response.data); // Use the correct mutation path
           this.$store.commit('user/setIsLoggedIn', true); // Use the correct mutation path
           console.log('User ID:', this.$store.getters['user/user'].userID);
@@ -66,6 +66,7 @@ export default {
           window.onload = () => {
             this.$router.push('/'); // navigate to home page after reload so it looks cleaner THIS DOESNT WORK YET
           }
+          
         })
         .catch(error => {
           // Handle error

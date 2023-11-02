@@ -20,7 +20,6 @@
                 <label for="message" class="form-label">Message:</label>
                 <textarea class="form-control" id="message" v-model="message" required></textarea>
               </div>
-              
               <button type="submit" class="btn btn-primary">Submit Enquiry</button>
             </form>
           </div>
@@ -41,12 +40,20 @@ export default {
       
     };
   },
+  computed:{
+    user(){
+      return this.$store.getters['user/user'];
+    },
+    userID(){
+      return this.user.userID;
+    }
+  },
   methods: {
    
     async submitEnquiry() {
-    
       try {
         const response = await axios.post('http://localhost:8090/api/enquiries', {
+          userID: this.userID,
           subject: this.subject,
           message: this.message,
         });
@@ -54,7 +61,12 @@ export default {
         if (response.status == 200) {
           // Optionally, you can perform additional actions based on the response
           // For example, show a success message or navigate to another page
-          console.log('Enquiry created successfully');
+          this.subject = '';
+          this.message = '';
+          alert("Enquiry created successfully");
+          this.$router.push(`/enquiry`);
+
+          //console.log('Enquiry created successfully');
           console.log(response.data);
         } else {
           console.error('Error creating enquiry:', response);

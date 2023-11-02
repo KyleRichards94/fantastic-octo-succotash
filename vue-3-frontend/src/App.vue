@@ -25,14 +25,20 @@ export default {
     },
     userName(){
       return this.user.userName;
+    },
+    //isStaff
+    userRole(){
+      return this.user.isStaff;
     }
  
   },
   methods: {
     logout() {
-      
+      console.log(this.userRole);
       this.$store.dispatch('user/logout'); 
-      window.location.reload();
+      // window.location.reload();
+      //this.$router.push(`/`);
+
     },
   },
 
@@ -159,10 +165,10 @@ export default {
                   <li> 
                     <RouterLink @click="logout" class="dropdown-item" to="/LogoutCard">Logout</RouterLink>
                   </li>
-                  <li>
+                  <li v-if="this.userRole == 'staff'">
                     <RouterLink class="dropdown-item" to="/enquiry">Enquiry List</RouterLink>
                   </li>
-                  <li>
+                  <li v-if="this.userRole == 'customer'">
                     <RouterLink class="dropdown-item" to="/sendEnquiry">Send Enquiry</RouterLink>
                   </li>
                 </ul>

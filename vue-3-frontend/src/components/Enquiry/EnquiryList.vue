@@ -1,8 +1,10 @@
 
 <!-- EnquiryList.vue -->
 <template>
-  <div class="w-50 m-auto p-3">
+  <div class="w-50 m-auto p-3 v-if= $store.getters['user/user'] != null">
     <h1 class="">Enquiry lists</h1>
+    
+
     <div class="list-group m-4">
         <div class="list-group-item list-group-item-action " aria-current="true" v-for="enquiry in enquiries" :key="enquiry.enquiryID" @click="openReplyPage(enquiry.enquiryID)">
             <div class="d-flex w-100 justify-content-between">
@@ -28,9 +30,18 @@ export default {
       enquiries: [],
     };
   },
+
   mounted() {
     this.fetchEnquiries();
   },
+  // computed:{
+  //   user(){
+  //     return this.$store.getters['user/user'];
+  //   },
+  //   userID(){
+  //     return this.user.userID;
+  //   }
+  // },
   methods: {
     async fetchEnquiries() {
       try {

@@ -17,10 +17,10 @@ module.exports = (sequelize, Sequelize) => {
           userID: {
             type: DataTypes.INTEGER,
             // defaultValue: null,
-            // references: {
-            //   model: 'users', // Replace with your actual users table name
-            //   key: 'UserID',
-            // },
+            references: {
+              model: 'users', // Replace with your actual users table name
+              key: 'userID',
+            },
           },
           subject: {
             type: DataTypes.STRING(255),
