@@ -1,14 +1,3 @@
-<!-- EnquiryReply.vue -->
-<!-- <template>
-//   <div>
-//     <h2>Reply to Enquiry</h2>
-//     <p>Enquiry ID: {{ enquiryId }}</p>
-//     <p>Enquiry Title: {{ selectedEnquiry ? selectedEnquiry.subject : '' }}</p>
-//     <p>Enquiry Message: {{ selectedEnquiry ? selectedEnquiry.message : '' }}</p>
-//     <textarea v-model="replyText"></textarea>
-//     <button @click="submitReply">Submit Reply</button>
-//   </div>
-// </template>-->
 
 <template>
   <div class="container mt-5">
@@ -29,7 +18,9 @@
                     <p>{{this.errorMessage}}</p>
                 </div>
             </div>
+            <button class="btn btn-warning mt-4 back-btn" @click="goBack">Go back</button>
             <button class="btn btn-primary mt-4" @click="submitReply">Submit Reply</button>
+            
           </div>
         </div>
       </div>
@@ -55,6 +46,9 @@ export default {
     this.showEnquiry(this.enquiryId);
   },
   methods: {
+    goBack(){
+      this.$router.push('/enquiry');
+    },
     async showEnquiry(id) {
         try {
             const response = await axios.get(`http://localhost:8090/api/enquiries/${id}`);
@@ -99,3 +93,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.back-btn{
+  margin-right: 20px;
+}
+</style>
