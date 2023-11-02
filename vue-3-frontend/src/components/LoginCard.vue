@@ -22,7 +22,7 @@
       <br>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="text" class="form-control" id="password" placeholder="Enter Password"
+        <input type="password" class="form-control" id="password" placeholder="Enter Password"
           v-model="userData.password" required>
       </div>
       <br>
@@ -69,10 +69,8 @@ export default {
           // Rest of your code
           console.log("no error");
              
-      
-          window.onload = () => {
-            this.$router.push('/'); // navigate to home page after reload so it looks cleaner THIS DOESNT WORK YET
-          }
+          this.$router.push('/'); // navigate to home page after reload so it looks cleaner THIS DOESNT WORK YET
+          
           window.location.reload(); 
           // console.log(response.data.userID);
           

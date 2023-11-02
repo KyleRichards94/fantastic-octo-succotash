@@ -36,9 +36,12 @@ export default {
     logout() {
       console.log(this.userRole);
       this.$store.dispatch('user/logout'); 
-      window.location.reload();
-      //this.$router.push(`/`);
+      this.$router.push(`/LogoutCard`);
 
+    },
+    homelink() {
+      this.$router.push(`/Home`);
+      window.location.reload();
     },
   },
 
@@ -62,7 +65,7 @@ export default {
   <div class="wrapper" style="background-color: moccasin;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <RouterLink class="navbar-brand" to="/Home">Home</RouterLink>
+        <RouterLink  @click="homelink" class="navbar-brand" to="/Home">Home</RouterLink>
 
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
