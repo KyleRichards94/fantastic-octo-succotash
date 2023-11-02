@@ -64,7 +64,7 @@ export default {
           this.subject = '';
           this.message = '';
           alert("Enquiry created successfully");
-          this.$router.push(`/enquiry`);
+          this.$router.push(`/`);
 
           //console.log('Enquiry created successfully');
           console.log(response.data);

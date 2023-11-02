@@ -57,15 +57,24 @@ export default {
           //this.userData.password = '';
           
           this.$store.commit('user/setUser', response.data); // Use the correct mutation path
+          //commented this for a while
           this.$store.commit('user/setIsLoggedIn', true); // Use the correct mutation path
+
+          // Dispatch an action to update the user data and isLoggedIn state
+            //this.$store.dispatch('user/login', response.data);
+
+
           console.log('User ID:', this.$store.getters['user/user'].userID);
           console.log('Is Logged In:', this.$store.getters['user/isLoggedIn']);
           // Rest of your code
           console.log("no error");
-          window.location.reload();          
+             
+      
           window.onload = () => {
             this.$router.push('/'); // navigate to home page after reload so it looks cleaner THIS DOESNT WORK YET
           }
+          window.location.reload(); 
+          // console.log(response.data.userID);
           
         })
         .catch(error => {

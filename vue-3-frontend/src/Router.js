@@ -1,4 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
+import store from '../store'
 
 const routes =  [
   {
@@ -11,19 +12,49 @@ const routes =  [
     path: "/enquiry",
     alias: "/enquiry",
     name: "enquiryPage",
-    component: () => import("./components/Enquiry/EnquiryList")
+    component: () => import("./components/Enquiry/EnquiryList"),
+    beforeEnter: (to, from, next) => {
+      //console.log(store.state.isLoggedIn);
+      //this page is only for staff members;
+      var user = store.getters['user/user'];
+      if (store.getters['user/isLoggedIn'] && user.isStaff == 'staff') {
+        next(); // Allow access to the /enquiry route
+      } else {
+        next('/LoginCard'); // Redirect not logged-in users to the login page
+      }
+    },
   },
   {
     path: "/reply/:enquiryId",
     alias: "/enquiryReply",
     name: "enquiryReply",
-    component: () => import("./components/Enquiry/EnquiryReply")
+    component: () => import("./components/Enquiry/EnquiryReply"),
+    beforeEnter: (to, from, next) => {
+      //console.log(store.state.isLoggedIn);
+      //this page is only for staff members;
+      var user = store.getters['user/user'];
+      if (store.getters['user/isLoggedIn'] && user.isStaff == 'staff') {
+        next(); // Allow access to the /enquiry route
+      } else {
+        next('/LoginCard'); // Redirect not logged-in users to the login page
+      }
+    },
   },
   {
     path: "/sendEnquiry",
     alias: "/sendEnquiry",
     name: "sendEnquiry",
-    component: () => import("./components/Enquiry/SendEnquiry")
+    component: () => import("./components/Enquiry/SendEnquiry"),
+    beforeEnter: (to, from, next) => {
+      //console.log(store.state.isLoggedIn);
+      //this page is only for customers;
+      var user = store.getters['user/user'];
+      if (store.getters['user/isLoggedIn'] && user.isStaff == 'customer') {
+        next(); // Allow access to the /enquiry route
+      } else {
+        next('/LoginCard'); // Redirect not logged-in users to the login page
+      }
+    },
   },
   {
     path: "/Shop",

@@ -1,6 +1,8 @@
 const state = {
   isLoggedIn: false,
-  user : null
+  user : null,
+  
+
 };
 
 const mutations = {
@@ -13,6 +15,7 @@ const mutations = {
   clearUser(state) {
     state.user = null;
   }
+ 
 };
 
 const actions = {
@@ -21,6 +24,9 @@ const actions = {
     commit('setUser', null);
     commit('setIsLoggedIn', false);
   },
+  login({commit}){
+    commit("setIsLoggedIn", true);
+  }
 };
 
 const getters = {
