@@ -36,7 +36,7 @@ export default {
     logout() {
       console.log(this.userRole);
       this.$store.dispatch('user/logout'); 
-      // window.location.reload();
+      window.location.reload();
       //this.$router.push(`/`);
 
     },

@@ -26,8 +26,15 @@
       </div>
     </form>
 
-    <div class="container" style="padding-top: 2%;">
+    <div class="container" style="padding-top: 2%;">   
+      <p class="lead" style="color: White; text-align: center;text-shadow:1px 1px rgb(0, 0, 0) ;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+        Sort Post by Upvotes</p>
+      <div class="container d-flex justify-content-center mb-3">
+        
+        <button @click="sortPostsByUpvotesDescending" class="btn btn-primary"> Lowest to Highest </button>
+        <button @click="sortPostsByUpvotesAscending" class="btn btn-primary">Highest to Lowest</button> </div>
       <div class="row">
+        
         <!-- Loop through postData and create a card for each post -->
         <div v-for="post in filteredPosts " :key="post.postId" class="col-md-3">
           <div class="card" style="margin-bottom: 20px;">
@@ -130,6 +137,13 @@ export default {
     //   voteMap.set('key2', 'value2');
     //   console.log(voteMap.get('key1'));
     // },
+    sortPostsByUpvotesDescending() {
+    postData.value.sort((a, b) => a.votes - b.votes);
+    },
+    sortPostsByUpvotesAscending() {
+    postData.value.sort((a, b) => b.votes - a.votes);
+    },
+    
     getCommentsForPost(postId) {
       axios.get(`http://localhost:8090/api/comment/getByPost?postId=${postId}`)
         .then((response) => {
