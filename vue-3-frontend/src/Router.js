@@ -38,10 +38,10 @@ const routes =  [
     component: () => import("./components/shoppingManagement/shoppingCart")
   },
   {
-    path: "/checkout",
-    alias: "/checkout",
-    name: "checkout",
-    component: () => import("./components/shoppingManagement/checkout")
+    path: "/checkOut",
+    alias: "/checkOut",
+    name: "checkOut",
+    component: () => import("./components/shoppingManagement/checkOut")
   },
   {
     path: "/CommunityHub",
