@@ -202,7 +202,7 @@ import axios from 'axios';
 
 export default {
  
-    name: 'checkout',
+    name: 'checkOut',
     //All form variables
     data() {
         return {
