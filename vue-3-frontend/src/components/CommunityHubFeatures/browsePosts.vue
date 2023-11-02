@@ -229,7 +229,7 @@ export default {
         // Reset the comment input field.
         this.comment = '';
       } catch (error) {
-        // Handle errors (e.g., display an error message to the user)
+        // Handle errors 
         console.error('Error posting comment testtest', error);
       }
     },
@@ -287,7 +287,7 @@ export default {
         console.log('User has already upvoted this post');
       } else {
         try {
-          // Assuming voteMap is a global Map
+          // I love hashmaps
           voteMap.set(postId, userID);
           if(downvoteMap.has(postId)){
             downvoteMap.delete(postId);
@@ -299,7 +299,7 @@ export default {
           // Success message
           console.log('Post upvoted successfully', response.data);
         } catch (error) {
-          // Handle errors (e.g., display an error message to the user)
+          // Handle errors
           console.error('Error upvoting post', error);
         }
       }
@@ -319,12 +319,12 @@ export default {
           }
           const response = await axios.post(`http://localhost:8090/api/posts/posts/downvotePost?postId=${postId}`);
           const updatedPost = postData.value.find((post) => post.postId === postId);
-          updatedPost.votes--; // Increment the vote count
+          updatedPost.votes--; // Decrease the vote count
 
           // Success message
           console.log('Post upvoted successfully', response.data);
         } catch (error) {
-          // Handle errors (e.g., display an error message to the user)
+          // Handle errors 
           console.error('Error upvoting post', error);
         }
       }

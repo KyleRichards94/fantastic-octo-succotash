@@ -41,7 +41,6 @@ export default {
     },
     homelink() {
       this.$router.push(`/Home`);
-      window.location.reload();
     },
   },
 
