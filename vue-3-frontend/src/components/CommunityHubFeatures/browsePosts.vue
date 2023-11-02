@@ -1,5 +1,5 @@
 <script setup>
-// import CommentBox from '../Comments/CommentBox.vue'
+// import voteMap from './my-map.js';
 </script>
 <template>
   <div class="container" style="padding-top: 2%;">
@@ -110,7 +110,7 @@ export default {
   name: 'browsePosts',
   data() {
     return {
-      voteMap: new Map(),
+      voteMap,
       searchQuery: '',
       postComments: {},
       favoritePost: { // Define favoritePost here
@@ -122,13 +122,13 @@ export default {
   },
 
   methods: {
-    createVoteHashMap() {
-      console.log("I ran ",)
-      const voteMap = new Map();
-      voteMap.set('key1', 'value1');
-      voteMap.set('key2', 'value2');
-      console.log(voteMap.get('key1'));
-    },
+    // createVoteHashMap() {
+    //   console.log("I ran ",)
+    //   const voteMap = new Map();
+    //   voteMap.set('key1', 'value1');
+    //   voteMap.set('key2', 'value2');
+    //   console.log(voteMap.get('key1'));
+    // },
     getCommentsForPost(postId) {
       axios.get(`http://localhost:8090/api/comment/getByPost?postId=${postId}`)
         .then((response) => {
@@ -266,21 +266,27 @@ export default {
         });
     },
     async upvotePost(postId) {
-     const userID = this.$store.getters['user/user'].userID;
-      voteMap.set(userID, postId)
-      console.log(voteMap.size)
-     try {
-        const response = await axios.post(`http://localhost:8090/api/posts/posts/upvotePost?postId=${postId}`);
-        const updatedPost = postData.value.find((post) => post.postId === postId);
-        updatedPost.votes++; // Increment the vote count
+  const userID = this.$store.getters['user/user'].userID;
 
-        // Success message
-        console.log('Post upvoted successfully', response.data);
-      } catch (error) {
-        // Handle errors (e.g., display an error message to the user)
-        console.error('Error upvoting post', error);
-      }
-    },
+  if (voteMap.has(postId)) {
+    console.log('User has already upvoted this post');
+  } else {
+    try {
+      // Assuming voteMap is a global Map
+      voteMap.set(postId, userID);
+
+      const response = await axios.post(`http://localhost:8090/api/posts/posts/upvotePost?postId=${postId}`);
+      const updatedPost = postData.value.find((post) => post.postId === postId);
+      updatedPost.votes++; // Increment the vote count
+
+      // Success message
+      console.log('Post upvoted successfully', response.data);
+    } catch (error) {
+      // Handle errors (e.g., display an error message to the user)
+      console.error('Error upvoting post', error);
+    }
+  }
+},
     async downvotePost(postId) {
       try {
         const response = await axios.post(`http://localhost:8090/api/posts/posts/downvotePost?postId=${postId}`);
@@ -301,7 +307,7 @@ export default {
 
 const postData = ref([]);
 // const searchQuery = ref('');
-  const voteMap = new Map();
+const voteMap = new Map();
 
 axios.get('http://localhost:8090/api/posts/findAll').then((response) => {
   postData.value = response.data.map((post) => {
