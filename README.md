@@ -32,4 +32,4 @@ Alexis T - I implemented the controller API that allows users to add comments to
 
 Ali J - I designed and integrated the controller API, enabling users to submit inquiries, and staff members reply to an enquiry. Additionally, I developed an API to fetch all inquiries, whether replied or unreplied. Furthermore, I created and linked the API controllers to three Vue pages: Enquiry Lists, Send Enquiry, and Reply Enquiry.
 
-teest
+testing pipleine
